@@ -1,0 +1,52 @@
+.lang-switcher {
+  margin: 0 auto 2rem;
+  max-width: 640px;
+}
+
+.lang-switcher__label {
+  margin-bottom: 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--taupe-light);
+}
+
+.lang-switcher__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.lang-switcher__chip {
+  padding: 0.45rem 0.9rem;
+  border-radius: 100px;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: rgba(112, 93, 86, 0.12);
+  border: 1px solid rgba(112, 93, 86, 0.25);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.lang-switcher__chip:hover {
+  color: var(--teal-light);
+  border-color: rgba(37, 120, 116, 0.4);
+  background: rgba(37, 120, 116, 0.08);
+}
+
+.lang-switcher__chip--active {
+  color: var(--white);
+  background: var(--teal);
+  border-color: var(--teal);
+  box-shadow: 0 0 16px var(--teal-glow);
+}
+
+.lang-switcher__chip--active:hover {
+  background: var(--teal-light);
+  border-color: var(--teal-light);
+  color: var(--white);
+}
