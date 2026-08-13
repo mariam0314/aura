@@ -1,15 +1,28 @@
-export type LangCode = 'en' | 'hi' | 'mr' | 'gu' | 'ta' | 'te' | 'bn' | 'kn' | 'ml'
+export type LangCode =
+  | 'en'
+  | 'hi'
+  | 'mr'
+  | 'gu'
+  | 'ta'
+  | 'te'
+  | 'bn'
+  | 'kn'
+  | 'ml'
+  | 'pa'
+  | 'ur'
 
-export const languageOptions: { code: LangCode; native: string }[] = [
-  { code: 'en', native: 'English' },
-  { code: 'hi', native: 'हिन्दी' },
-  { code: 'mr', native: 'मराठी' },
-  { code: 'gu', native: 'ગુજરાતી' },
-  { code: 'ta', native: 'தமிழ்' },
-  { code: 'te', native: 'తెలుగు' },
-  { code: 'bn', native: 'বাংলা' },
-  { code: 'kn', native: 'ಕನ್ನಡ' },
-  { code: 'ml', native: 'മലയാളം' },
+export const languageOptions: { code: LangCode; name: string; native: string; flag: string; locale: string }[] = [
+  { code: 'en', name: 'English', native: 'English', flag: '🇬🇧', locale: 'en-US' },
+  { code: 'hi', name: 'Hindi', native: 'हिन्दी', flag: '🇮🇳', locale: 'hi-IN' },
+  { code: 'mr', name: 'Marathi', native: 'मराठी', flag: '🇮🇳', locale: 'mr-IN' },
+  { code: 'gu', name: 'Gujarati', native: 'ગુજરાતી', flag: '🇮🇳', locale: 'gu-IN' },
+  { code: 'ta', name: 'Tamil', native: 'தமிழ்', flag: '🇮🇳', locale: 'ta-IN' },
+  { code: 'te', name: 'Telugu', native: 'తెలుగు', flag: '🇮🇳', locale: 'te-IN' },
+  { code: 'bn', name: 'Bengali', native: 'বাংলা', flag: '🇮🇳', locale: 'bn-IN' },
+  { code: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ', flag: '🇮🇳', locale: 'kn-IN' },
+  { code: 'ml', name: 'Malayalam', native: 'മലയാളം', flag: '🇮🇳', locale: 'ml-IN' },
+  { code: 'pa', name: 'Punjabi', native: 'ਪੰਜਾਬੀ', flag: '🇮🇳', locale: 'pa-IN' },
+  { code: 'ur', name: 'Urdu', native: 'اردو', flag: '🇵🇰', locale: 'ur-PK' },
 ]
 
 export interface FeatureTranslation {
@@ -20,26 +33,74 @@ export interface FeatureTranslation {
 }
 
 export interface Translations {
-  nav: { about: string; features: string; audience: string; getStarted: string }
+  nav: {
+    about: string
+    features: string
+    technology: string
+    research: string
+    roadmap: string
+    adaptive: string
+    mentor: string
+    dashboard: string
+    gallery: string
+    testimonials: string
+    faq: string
+    support: string
+    docs: string
+    settings: string
+    profile: string
+    contact: string
+    login: string
+    signup: string
+  }
   hero: {
     eyebrow: string
     title: string
+    titleLine1: string
+    titleLine2: string
     subtitle: string
     startFree: string
     exploreFeatures: string
-    languagesLabel: string
     statLanguages: string
     statTutor: string
     statCost: string
+    languagesLabel: string
+    aiStatus: string
   }
   about: {
     tag: string
     title: string
     subtitle: string
+    platformVisionTitle: string
+    platformVisionDesc: string
+    problemTitle: string
+    solutionTitle: string
     problem: string
     solution: string
     problems: string[]
     solutions: string[]
+    architectureTitle: string
+    architectureSubtitle: string
+    timelineTitle: string
+    phases: { phase: string; title: string; desc: string }[]
+    futureScopeTitle: string
+    futurePoints: string[]
+  }
+  audience: {
+    tag: string
+    title: string
+    subtitle: string
+    segments: { segment: string; approach: string; badge: string }[]
+  }
+  cta: {
+    title: string
+    subtitle: string
+    button: string
+  }
+  featurePage: {
+    back: string
+    highlights: string
+    tryIt: string
   }
   features: {
     tag: string
@@ -48,29 +109,638 @@ export interface Translations {
     explore: string
     items: Record<string, FeatureTranslation>
   }
-  audience: {
-    tag: string
+  mentor: {
     title: string
     subtitle: string
-    segments: { segment: string; approach: string }[]
+    listening: string
+    thinking: string
+    speaking: string
+    ready: string
+    selectPedagogy: string
+    askPlaceholder: string
+    send: string
+    personaActive: string
+    welcomeMessage: string
+    sampleQuestion: string
+    modes: { id: string; name: string; desc: string }[]
   }
-  cta: {
+  dashboard: {
     title: string
     subtitle: string
-    button: string
+    xpLabel: string
+    streakLabel: string
+    badgeLabel: string
+    masteryLabel: string
+    weakTopicsTitle: string
+    recentActivityTitle: string
+    topics: { name: string; mastery: string; status: string }[]
   }
   footer: {
     copy: string
-    authors: string
+    platform: string
+    rights: string
   }
-  featurePage: {
+  common: {
     back: string
-    highlights: string
-    tryIt: string
+    enterAura: string
+    selectLanguage: string
+    continueBtn: string
+    learnMore: string
+    submitTicket: string
+    sendMessage: string
+    saveSettings: string
+    loginBtn: string
+    signupBtn: string
+    close: string
+    active: string
   }
 }
 
-const featureKeys = [
+const en: Translations = {
+  nav: {
+    about: 'About Platform',
+    features: 'Features',
+    technology: 'Architecture',
+    research: 'Cognitive Science',
+    roadmap: 'Roadmap',
+    adaptive: 'Adaptive Engine',
+    mentor: 'AI Mentor',
+    dashboard: 'Dashboard',
+    gallery: 'Desktops Showcase',
+    testimonials: 'Testimonials',
+    faq: 'FAQ',
+    support: 'Support',
+    docs: 'Documentation',
+    settings: 'Settings',
+    profile: 'Profile',
+    contact: 'Contact Us',
+    login: 'Log In',
+    signup: 'Get Started',
+  },
+  hero: {
+    eyebrow: 'Universal AI Learning Companion & Adaptive Education',
+    title: 'Learn Smarter with Character AI Mentor',
+    titleLine1: 'Learn Smarter with',
+    titleLine2: 'Character AI Mentor',
+    subtitle:
+      'An enterprise AI adaptive education platform that shifts learning from static content to an interactive, persona-driven mentor — tailored to your exact cognitive style, language, and goals.',
+    startFree: 'Start Learning Free',
+    exploreFeatures: 'Explore Platform',
+    statLanguages: 'Supported Languages',
+    statTutor: 'Adaptive AI Persona',
+    statCost: 'Operational Entry Cost',
+    languagesLabel: '11 Regional Languages Supported',
+    aiStatus: 'AI Mentor Active • Voice Engine Online',
+  },
+  about: {
+    tag: 'Commercial AI SaaS Platform',
+    title: 'AURA — Universal AI Learning Companion',
+    subtitle:
+      'Production-ready AI adaptive education system engineered to democratize personalized learning using continuous cognitive tracking, multi-file document intelligence, and real-time voice tutoring.',
+    platformVisionTitle: 'Product Vision & Commercial Architecture',
+    platformVisionDesc:
+      'Traditional e-learning platforms deliver static, one-size-fits-all content resulting in high drop-off rates. AURA introduces an adaptive character framework that modifies its pedagogy dynamically — explaining complex subjects with custom analogies, visual breakdowns, or mathematical rigor.',
+    problemTitle: 'Core Friction in Education',
+    solutionTitle: 'The AURA Solution Engine',
+    problem: 'Core Friction in Education',
+    solution: 'The AURA Solution Engine',
+    problems: [
+      'Passive video tutorials lead to rapid student drop-off rates',
+      'Generic LLM chatbots suffer context amnesia across learning sessions',
+      'Language barriers isolate non-English native speakers globally',
+      'Static courseware fails to adapt to learner cognitive maturity',
+    ],
+    solutions: [
+      'Persistent persona framework with historical cognitive memory tracking',
+      'Dynamic pedagogy modes (Story, Visual, Deep Proof, Exam, Practical)',
+      'Native voice tutoring & localized speech synthesis in 11 languages',
+      'Document-aware ingestion pipeline with automated quiz generation',
+    ],
+    architectureTitle: 'Enterprise System Architecture',
+    architectureSubtitle:
+      'Multi-layer decoupled cloud architecture connecting Next.js clients to Express APIs, MongoDB Atlas, Cloudinary CDN, and Gemini/Groq LLMs.',
+    timelineTitle: 'Commercial Product Milestones',
+    phases: [
+      { phase: 'Phase 1', title: 'UI System & SaaS Foundation', desc: 'Enterprise React/Next.js foundation with JWT authentication & multi-tenant profile state.' },
+      { phase: 'Phase 2', title: 'Cognitive AI Core Integration', desc: 'Unified Gemini & Groq LLM inferencing engine with persistent persona memory.' },
+      { phase: 'Phase 3', title: 'Document Intelligence & Voice', desc: 'PDF/PPTX/DOCX parser pipeline, Cloudinary CDN, and Web Speech API hooks.' },
+      { phase: 'Phase 4', title: 'Gamification & Analytics', desc: 'Automated quiz generator, XP progress engine, streak shields, and real-time dashboard.' },
+      { phase: 'Phase 5', title: 'Global SaaS Cloud Deployment', desc: 'End-to-end performance tuning, 60 FPS optimizations, and cloud scaling.' },
+    ],
+    futureScopeTitle: 'Enterprise Expansion & AI Roadmap',
+    futurePoints: [
+      'Bidirectional Voice Dialogue: Continuous speech recognition across regional dialects.',
+      'Advanced Multimodal OCR: Microservice pipeline parsing handwritten equations & diagrams.',
+      'Virtual 3D/AR Laboratories: Three.js interactive physics and chemistry simulation labs.',
+    ],
+  },
+  audience: {
+    tag: 'Learner Segment Matrix',
+    title: 'Target Audience & Learning Segment Matrix',
+    subtitle: 'Tailored pedagogical strategies for every learning stage and cognitive level.',
+    segments: [
+      {
+        segment: 'Primary / Middle School',
+        approach: 'Story-driven, highly visual explanations, basic math/science, and intense gamification.',
+        badge: 'Interactive & Visual',
+      },
+      {
+        segment: 'High School & College',
+        approach: 'Deep learning, exam preparation, programming practices (Python/DBMS), and document analysis.',
+        badge: 'Deep Learning & Exams',
+      },
+      {
+        segment: 'Working Professionals',
+        approach: 'Interview preparation, career roadmaps, AI fundamentals, and compact bite-sized modules.',
+        badge: 'Career & Upskilling',
+      },
+      {
+        segment: 'Lifelong Learners',
+        approach: 'Flexible topic exploration, conversational audio tutoring, and cross-disciplinary concepts.',
+        badge: 'Conversational Audio',
+      },
+    ],
+  },
+  cta: {
+    title: 'Ready to Transform Your Learning Journey?',
+    subtitle: 'Experience personalized AI mentoring with dynamic voice tutoring and adaptive cognitive memory.',
+    button: 'Launch AI Workspace Free',
+  },
+  featurePage: {
+    back: 'Back to Platform Features',
+    highlights: 'Key Capabilities & Technical Highlights',
+    tryIt: 'Try This Module in AI Mentor',
+  },
+  features: {
+    tag: 'Platform Capabilities',
+    title: 'Engineered for Maximum Retention',
+    subtitle: 'Explore the suite of interactive tools powering the AURA learning operating system.',
+    explore: 'Explore Module',
+    items: {
+      'ai-tutor': {
+        title: 'AI Character Tutor',
+        desc: 'Interactive persona with dynamic expressions, 11-language voice, and real-time speech synthesis.',
+        detail: 'Meet your personal AI mentor that adapts its teaching style, remembers historical mistakes, and speaks in your preferred language.',
+        points: ['Dynamic character expressions', '11-language voice synthesis', 'Persistent memory engine', 'Adaptive pedagogy mode shifting'],
+      },
+      'document-explainer': {
+        title: 'Document Explainer & Summarizer',
+        desc: 'Parse PDF, PPTX, and DOCX files for instant summaries and granular concept breakdown.',
+        detail: 'Transform static textbooks and slide decks into interactive summaries and automated flashcard decks.',
+        points: ['PDF, PPTX & DOCX support', 'Automatic flashcard generation', 'Granular concept extraction', 'Contextual document Q&A'],
+      },
+      'quiz-generator': {
+        title: 'Smart Quiz Generator',
+        desc: 'Automated evaluation mechanics generating targeted questions for weak cognitive areas.',
+        detail: 'Assess knowledge in real-time with AI-crafted quizzes and mock viva questions based on your performance history.',
+        points: ['Dynamic question generation', 'Weak area targeting', 'Mock viva voice mode', 'Instant explanation breakdown'],
+      },
+      'virtual-desktops': {
+        title: 'Virtual Desktops & Whiteboards',
+        desc: 'Dedicated workspaces supporting code sandboxes, drawing canvas, and diagram tools.',
+        detail: 'Interactive canvas environments for coding practice, architectural drawing, and visual math explanations.',
+        points: ['Live code execution sandbox', 'Vector drawing canvas', 'Diagram visualization', 'Multi-tab workspace state'],
+      },
+      gamification: {
+        title: 'Gamification Engine',
+        desc: 'XP points, daily streaks, rank badges, and interactive roadmap progression.',
+        detail: 'Stay motivated with daily achievement trackers, streak shields, global leaderboards, and skill tree unlocks.',
+        points: ['XP & level progression', 'Streak counter & shields', 'Milestone badges', 'Skill tree maps'],
+      },
+      'progress-dashboard': {
+        title: 'Unified Progress Dashboard',
+        desc: 'Centralized analytics tracking cognitive levels, identified weak topics, and study roadmaps.',
+        detail: 'Comprehensive view of your learning velocity, master topics, and recommended next steps.',
+        points: ['Real-time XP analytics', 'Weak topic heatmaps', 'Personalized roadmaps', 'Cognitive history retention'],
+      },
+    },
+  },
+  mentor: {
+    title: 'Interactive AI Character Mentor',
+    subtitle: 'Experience dynamic character responses, real-time voice synthesis, and custom pedagogy modes.',
+    listening: 'Listening to your voice input...',
+    thinking: 'Analyzing context & synthesizing response...',
+    speaking: 'Speaking response in your selected language...',
+    ready: 'Ready for your question',
+    selectPedagogy: 'Pedagogy Mode',
+    askPlaceholder: 'Ask AURA anything (e.g. Explain Quantum Physics using a story)...',
+    send: 'Ask Mentor',
+    personaActive: 'Persona Active • 100% Adaptive Memory Engine',
+    welcomeMessage: 'Hello! I am AURA, your personal adaptive AI mentor. How can I help you master a concept today?',
+    sampleQuestion: 'Explain Quantum Superposition in simple terms',
+    modes: [
+      { id: 'story', name: 'Storytelling Mode 📖', desc: 'Metaphors, visual narratives, and engaging analogies.' },
+      { id: 'visual', name: 'Visual Diagram Mode 🎨', desc: 'Concept maps, code structures, and visual breakdowns.' },
+      { id: 'deep', name: 'Deep Learning Mode 🧠', desc: 'First-principles reasoning and mathematical depth.' },
+      { id: 'exam', name: 'Exam Prep Mode 📝', desc: 'Concise key points, formula highlights, and practice questions.' },
+      { id: 'practical', name: 'Practical Hands-on 🛠️', desc: 'Real-world code, projects, and step-by-step implementation.' },
+    ],
+  },
+  dashboard: {
+    title: 'Unified Progress Dashboard',
+    subtitle: 'Track your cognitive progress, XP gains, active streaks, and weak topic focus areas.',
+    xpLabel: 'Total XP Earned',
+    streakLabel: 'Active Streak',
+    badgeLabel: 'Rank Badge',
+    masteryLabel: 'Mastery Index',
+    weakTopicsTitle: 'Identified Focus Areas & Heatmap',
+    recentActivityTitle: 'Recent Learning Sessions',
+    topics: [
+      { name: 'Data Structures & Algorithms', mastery: '68%', status: 'Needs Review' },
+      { name: 'Quantum Mechanics Basics', mastery: '45%', status: 'Focus Area' },
+      { name: 'Organic Reaction Mechanisms', mastery: '82%', status: 'Proficient' },
+      { name: 'Linear Algebra & Matrices', mastery: '94%', status: 'Mastered' },
+    ],
+  },
+  footer: {
+    copy: 'AURA — Universal AI Learning Companion & Adaptive Education Platform.',
+    platform: 'Enterprise Commercial AI Platform • Web & Mobile',
+    rights: 'All rights reserved. Commercial Startup Product Architecture.',
+  },
+  common: {
+    back: 'Back to Home',
+    enterAura: 'Enter AURA',
+    selectLanguage: 'Choose Platform Language',
+    continueBtn: 'Continue to Application',
+    learnMore: 'Learn More',
+    submitTicket: 'Submit Support Ticket',
+    sendMessage: 'Send Message',
+    saveSettings: 'Save Preferences',
+    loginBtn: 'Enter Workspace',
+    signupBtn: 'Create Profile & Launch',
+    close: 'Close',
+    active: 'Active',
+  },
+}
+
+const hi: Translations = {
+  ...en,
+  nav: {
+    ...en.nav,
+    about: 'प्लेटफॉर्म के बारे में',
+    features: 'विशेषताएं',
+    technology: 'आर्किटेक्चर',
+    research: 'कॉग्निटिव साइंस',
+    roadmap: 'रोडमैप',
+    adaptive: 'एडैप्टिव इंजन',
+    mentor: 'एआई मेंटर',
+    dashboard: 'डैशबोर्ड',
+    gallery: 'डेस्कटॉप गैलरी',
+    testimonials: 'समीक्षाएं',
+    faq: 'प्रश्न-उत्तर',
+    support: 'सहायता',
+    docs: 'दस्तावेज़',
+    settings: 'सेटिंग्स',
+    profile: 'प्रोफाइल',
+    contact: 'संपर्क करें',
+    login: 'लॉग इन',
+    signup: 'शुरू करें',
+  },
+  hero: {
+    ...en.hero,
+    eyebrow: 'सार्वभौमिक एआई शिक्षण साथी और अनुकूलनीय शिक्षा',
+    title: 'एआई कैरेक्टर मेंटर के साथ स्मार्ट तरीके से सीखें',
+    titleLine1: 'स्मार्ट तरीके से सीखें',
+    titleLine2: 'एआई कैरेक्टर मेंटर के साथ',
+    subtitle:
+      'एक व्यावसायिक अनुकूलनशील एआई शिक्षा प्लेटफॉर्म जो आपकी सीखने की शैली, भाषा और लक्ष्यों के अनुसार व्यक्तिगत मेंटर प्रदान करता है।',
+    startFree: 'मुफ्त में शुरू करें',
+    exploreFeatures: 'विशेषताएं देखें',
+    statLanguages: 'समर्थित भाषाएं',
+    statTutor: 'अनुकूलनीय एआई मेंटर',
+    statCost: 'प्रारंभिक लागत',
+    languagesLabel: '11 क्षेत्रीय भाषाओं का समर्थन',
+    aiStatus: 'एआई मेंटर सक्रिय • वॉयस इंजन ऑनलाइन',
+  },
+  about: {
+    ...en.about,
+    tag: 'व्यावसायिक एआई प्लेटफॉर्म',
+    title: 'AURA — सार्वभौमिक एआई शिक्षण साथी',
+    subtitle: 'निरंतर शिक्षण ट्रैकिंग, बहु-दस्तावेज़ बुद्धिमत्ता और वास्तविक समय वॉयस ट्यूटरिंग के साथ तैयार किया गया व्यावसायिक एआई शिक्षा प्लेटफॉर्म।',
+    platformVisionTitle: 'उत्पाद दृष्टिकोण और आर्किटेक्चर',
+    platformVisionDesc: 'पारंपरिक ई-लर्निंग प्लेटफॉर्म सभी के लिए एक जैसी सामग्री देते हैं। ऑरा (AURA) एक अनुकूलनशील कैरेक्टर फ्रेमवर्क पेश करता है जो किसी भी अवधारणा को आपकी भाषा और शैली में समझाता है।',
+    problemTitle: 'शिक्षा में मुख्य चुनौतियाँ',
+    solutionTitle: 'AURA का समाधान इंजन',
+    problem: 'शिक्षा में मुख्य चुनौतियाँ',
+    solution: 'AURA का समाधान इंजन',
+  },
+  mentor: {
+    ...en.mentor,
+    title: 'इंटरैक्टिव एआई कैरेक्टर मेंटर',
+    subtitle: 'वास्तविक समय में वॉयस सिंथेसिस और कस्टम शिक्षण मोड का अनुभव करें।',
+    listening: 'आपकी आवाज सुनी जा रही है...',
+    thinking: 'संदर्भ का विश्लेषण और उत्तर तैयार किया जा रहा है...',
+    speaking: 'आपकी चुनी हुई भाषा में उत्तर दिया जा रहा है...',
+    ready: 'आपके प्रश्न के लिए तैयार',
+    selectPedagogy: 'शिक्षण मोड चुनें',
+    askPlaceholder: 'ऑरा से कुछ भी पूछें (उदा. कहानी के माध्यम से क्वांटम भौतिकी समझाएं)...',
+    send: 'पूछें',
+    personaActive: 'मेंटर सक्रिय • 100% अनुकूलनीय मेमोरी',
+    welcomeMessage: 'नमस्ते! मैं AURA हूँ, आपका व्यक्तिगत एआई मेंटर। आज आप क्या सीखना चाहते हैं?',
+    sampleQuestion: 'सरल शब्दों में क्वांटम सुपरपोज़िशन समझाएं',
+  },
+}
+
+const mr: Translations = {
+  ...hi,
+  nav: {
+    ...hi.nav,
+    about: 'मंचाबद्दल',
+    features: 'वैशिष्ट्ये',
+    technology: 'आर्किटेक्चर',
+    research: 'संशोधन',
+    roadmap: 'रोडमॅप',
+    adaptive: 'ॲडॉप्टिव्ह इंजिन',
+    mentor: 'एआय मेंटर',
+    dashboard: 'डॅशबोर्ड',
+    support: 'मदत',
+    settings: 'सेटिंग्ज',
+    profile: 'प्रोफाइल',
+    contact: 'संपर्क करा',
+  },
+  hero: {
+    ...hi.hero,
+    eyebrow: 'सर्वसमावेशक एआय शिक्षण साथी',
+    title: 'एआय कॅरेक्टर मेंटरसह स्मार्टपणे शिका',
+    titleLine1: 'स्मार्टपणे शिका',
+    titleLine2: 'एआय कॅरेक्टर मेंटरसह',
+    subtitle: 'एक व्यावसायिक ॲडॉप्टिव्ह शिक्षण मंच जो तुमच्या गरजेनुसार वैयक्तिक मार्गदर्शन देतो.',
+    startFree: 'मोफत शिकणे सुरू करा',
+    exploreFeatures: 'वैशिष्ट्ये पहा',
+    languagesLabel: '११ प्रादेशिक भाषा समर्थित',
+  },
+}
+
+const gu: Translations = {
+  ...hi,
+  nav: {
+    ...hi.nav,
+    about: 'પ્લેટફોર્મ વિશે',
+    features: 'વિશેષતાઓ',
+    technology: 'આર્કિટેક્ચર',
+    dashboard: 'ડેશબોર્ડ',
+    mentor: 'AI મેન્ટર',
+    support: 'સહાય',
+    settings: 'સેટિંગ્સ',
+    profile: 'પ્રોફાઇલ',
+  },
+  hero: {
+    ...hi.hero,
+    eyebrow: 'સાર્વત્રિક AI શિક્ષણ સાથી',
+    title: 'AI કેરેક્ટર મેન્ટર સાથે સ્માર્ટ રીતે શીખો',
+    titleLine1: 'સ્માર્ટ રીતે શીખો',
+    titleLine2: 'AI કેરેક્ટર મેન્ટર સાથે',
+    subtitle: 'એક પ્રોફેશનલ અનુકૂળ શિક્ષણ મંચ જે વ્યક્તિગત માર્ગદર્શન આપે છે.',
+    startFree: 'મફત શરૂ કરો',
+    exploreFeatures: 'વિશેષતાઓ જુઓ',
+    languagesLabel: '૧૧ પ્રાદેશિક ભાષાઓ સમર્થિત',
+  },
+}
+
+const ta: Translations = {
+  ...en,
+  nav: {
+    ...en.nav,
+    about: 'பற்றி',
+    features: 'அம்சங்கள்',
+    technology: 'கட்டமைப்பு',
+    research: 'ஆராய்ச்சி',
+    roadmap: 'வரைபடம்',
+    adaptive: 'கற்றல் என்ஜின்',
+    mentor: 'AI ஆசிரியர்',
+    dashboard: 'டாஷ்போர்டு',
+    gallery: 'காட்சியகம்',
+    testimonials: 'மதிப்புரைகள்',
+    faq: 'கேள்விகள்',
+    support: 'உதவி',
+    docs: 'ஆவணங்கள்',
+    settings: 'அமைப்புகள்',
+    profile: 'சுயவிவரம்',
+    contact: 'தொடர்பு கொள்ள',
+    login: 'உள்நுழைக',
+    signup: 'தொடங்கவும்',
+  },
+  hero: {
+    ...en.hero,
+    eyebrow: 'அனைவருக்குமான AI கற்றல் துணைவன்',
+    title: 'AI ஆசிரியருடன் புத்திசாலித்தனமாக கற்கவும்',
+    titleLine1: 'புத்திசாலித்தனமாக',
+    titleLine2: 'AI ஆசிரியருடன் கற்கவும்',
+    subtitle: 'உங்களுக்கு ஏற்றவாறு கற்பிக்கும் நவீன AI கற்றல் தளம்.',
+    startFree: 'இலவசமாக தொடங்கவும்',
+    exploreFeatures: 'அம்சங்களை பார்க்க',
+    statLanguages: 'ஆதரிக்கப்படும் மொழிகள்',
+    statTutor: 'AI ஆசிரியர்',
+    statCost: 'செயல்பாட்டு செலவு',
+    languagesLabel: '11 பிராந்திய மொழிகள் ஆதரிக்கப்படுகின்றன',
+    aiStatus: 'AI ஆசிரியர் தயார் • குரல் ஆன்லைன்',
+  },
+}
+
+const te: Translations = {
+  ...ta,
+  nav: {
+    ...ta.nav,
+    about: 'గురించి',
+    features: 'ఫీచర్లు',
+    technology: 'ఆర్కిటెక్చర్',
+    dashboard: 'డాష్‌బోర్డ్',
+    mentor: 'AI మెంటార్',
+    support: 'మద్దతు',
+    settings: 'సెట్టింగ్‌లు',
+    profile: 'ప్రొఫైల్',
+    contact: 'సంప్రదించండి',
+  },
+  hero: {
+    ...ta.hero,
+    eyebrow: 'సార్వత్రిక AI అభ్యాస సహాయకుడు',
+    title: 'AI క్యారెక్టర్ మెంటార్‌తో తెలివిగా నేర్చుకోండి',
+    titleLine1: 'తెలివిగా నేర్చుకోండి',
+    titleLine2: 'AI క్యారెక్టర్ మెంటార్‌తో',
+    subtitle: 'మీకు అనుగుణంగా బోధించే AI అభ్యాస ప్లాట్‌ఫారమ్.',
+    startFree: 'ఉచితంగా ప్రారంభించండి',
+    exploreFeatures: 'ఫీచర్లు చూడండి',
+    languagesLabel: '11 ప్రాంతీయ భాషల మద్దతు',
+  },
+}
+
+const bn: Translations = {
+  ...en,
+  nav: {
+    ...en.nav,
+    about: 'সম্পর্কে',
+    features: 'বৈশিষ্ট্য',
+    technology: 'আর্কিটেকচার',
+    research: 'গবেষণা',
+    roadmap: 'রোডম্যাপ',
+    adaptive: 'এডাপ্টিভ ইঞ্জিন',
+    mentor: 'AI টিউটর',
+    dashboard: 'ড্যাশবোর্ড',
+    gallery: 'গ্যালারি',
+    testimonials: 'মতামত',
+    faq: 'প্রশ্নোত্তর',
+    support: 'সহায়তা',
+    docs: 'নথি',
+    settings: 'সেটিংস',
+    profile: 'প্রোফাইল',
+    contact: 'যোগাযোগ',
+    login: 'লগ ইন',
+    signup: 'শুরু করুন',
+  },
+  hero: {
+    ...en.hero,
+    eyebrow: 'সার্বজনীন AI শিক্ষা সঙ্গী',
+    title: 'AI ক্যারেক্টার টিউটরের সাথে স্মার্টভাবে শিখুন',
+    titleLine1: 'স্মার্টভাবে শিখুন',
+    titleLine2: 'AI ক্যারেক্টার টিউটরের সাথে',
+    subtitle: 'একটি অভিযোজিত শিক্ষা প্ল্যাটফর্ম যা ব্যক্তিগত শিক্ষক প্রদান করে।',
+    startFree: 'বিনামূল্যে শুরু করুন',
+    exploreFeatures: 'বৈশিষ্ট্য দেখুন',
+    statLanguages: 'সমর্থিত ভাষা',
+    statTutor: 'AI টিউটর',
+    statCost: 'ব্যয়',
+    languagesLabel: '১১টি আঞ্চলিক ভাষার সমর্থন',
+    aiStatus: 'AI টিউটর সক্রিয় • ভয়েস অনলাইন',
+  },
+}
+
+const kn: Translations = {
+  ...en,
+  nav: {
+    ...en.nav,
+    about: 'ಕುರಿತು',
+    features: 'ವೈಶಿಷ್ಟ್ಯಗಳು',
+    technology: 'ಆರ್ಕಿಟೆಕ್ಚರ್',
+    research: 'ಸಂಶೋಧನೆ',
+    roadmap: 'ರೋಡ್‌ಮ್ಯಾಪ್',
+    adaptive: 'ಅಡಾಪ್ಟಿವ್ ಇಂಜಿನ್',
+    mentor: 'AI ಮಾರ್ಗದರ್ಶಿ',
+    dashboard: 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+    support: 'ಸಹಾಯ',
+    settings: 'ಸೆಟ್ಟಿಂಗ್‌ಗಳು',
+    profile: 'ಪ್ರೊಫೈಲ್',
+    contact: 'ಸಂಪರ್ಕಿಸಿ',
+    login: 'ಲಾಗಿನ್',
+    signup: 'ಪ್ರಾರಂಭಿಸಿ',
+  },
+  hero: {
+    ...en.hero,
+    eyebrow: 'ಸಾರ್ವತ್ರಿಕ AI ಕಲಿಕಾ ಸಂಗಾತಿ',
+    title: 'AI ಕ್ಯಾರಕ್ಟರ್ ಮಾರ್ಗದರ್ಶಿಯೊಂದಿಗೆ ಸ್ಮಾರ್ಟ್ ಆಗಿ ಕಲಿಯಿರಿ',
+    titleLine1: 'ಸ್ಮಾರ್ಟ್ ಆಗಿ ಕಲಿಯಿರಿ',
+    titleLine2: 'AI ಕ್ಯಾರಕ್ಟರ್ ಮಾರ್ಗದರ್ಶಿಯೊಂದಿಗೆ',
+    subtitle: 'ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಕಲಿಕಾ ಶೈಲಿಗೆ ತಕ್ಕಂತೆ ಕಲಿಸುವ ಸುಧಾರಿತ AI ವೇದಿಕೆ.',
+    startFree: 'ಉಚಿತವಾಗಿ ಪ್ರಾರಂಭಿಸಿ',
+    exploreFeatures: 'ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ವೀಕ್ಷಿಸಿ',
+    languagesLabel: '೧೧ ಪ್ರಾದೇಶಿಕ ಭಾಷೆಗಳ ಬೆಂಬಲ',
+  },
+}
+
+const ml: Translations = {
+  ...en,
+  nav: {
+    ...en.nav,
+    about: 'കുറിച്ച്',
+    features: 'സവിശേഷതകൾ',
+    technology: 'ആർക്കിടെക്ചർ',
+    research: 'ഗവേഷണം',
+    roadmap: 'റോഡ്‌മാപ്പ്',
+    adaptive: 'അഡാപ്റ്റീവ് എഞ്ചിൻ',
+    mentor: 'AI ട്യൂട്ടർ',
+    dashboard: 'ഡാഷ്‌ബോർഡ്',
+    support: 'സഹായം',
+    settings: 'സെറ്റിംഗ്സ്',
+    profile: 'പ്രൊഫൈൽ',
+    contact: 'ബന്ധപ്പെടുക',
+    login: 'ലോഗിൻ',
+    signup: 'തുടങ്ങൂ',
+  },
+  hero: {
+    ...en.hero,
+    eyebrow: 'സാർവത്രിക AI പഠന സഹായി',
+    title: 'AI ക്യാരക്ടർ ട്യൂട്ടറുമൊത്ത് സ്മാർട്ടായി പഠിക്കൂ',
+    titleLine1: 'സ്മാർട്ടായി പഠിക്കൂ',
+    titleLine2: 'AI ക്യാരക്ടർ ട്യൂട്ടറുമൊത്ത്',
+    subtitle: 'നിങ്ങളുടെ വ്യക്തിഗത പഠനരീതിക്ക് അനുയോജ്യമായ AI പ്ലാറ്റ്‌ഫോം.',
+    startFree: 'സൗജന്യമായി തുടങ്ങൂ',
+    exploreFeatures: 'സവിശേഷതകൾ കാണുക',
+    languagesLabel: '11 പ്രാദേശിക ഭാഷകളുടെ പിന്തുണ',
+  },
+}
+
+const pa: Translations = {
+  ...hi,
+  nav: {
+    ...hi.nav,
+    about: 'ਬਾਰੇ',
+    features: 'ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ',
+    technology: 'ਆਰਕੀਟੈਕਚਰ',
+    dashboard: 'ਡੈਸ਼ਬੋਰਡ',
+    mentor: 'AI ਮੈਂਟਰ',
+    support: 'ਮਦਦ',
+    settings: 'ਸੈਟਿੰਗਾਂ',
+    profile: 'ਪ੍ਰੋਫਾਈਲ',
+  },
+  hero: {
+    ...hi.hero,
+    eyebrow: 'ਸਾਰਵਜਨਿਕ AI ਸਿੱਖਿਆ ਸਾਥੀ',
+    title: 'AI ਕੈਰੇਕਟਰ ਮੈਂਟਰ ਨਾਲ ਸਮਾਰਟ ਤਰੀਕੇ ਨਾਲ ਸਿੱਖੋ',
+    titleLine1: 'ਸਮਾਰਟ ਤਰੀਕੇ ਨਾਲ ਸਿੱਖੋ',
+    titleLine2: 'AI ਕੈਰੇਕਟਰ ਮੈਂਟਰ ਨਾਲ',
+    subtitle: 'ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਅਤੇ ਲੋੜਾਂ ਅਨੁਸਾਰ ਸਿਖਾਉਣ ਵਾਲਾ ਐਡਵਾਂਸਡ AI ਪਲੇਟਫਾਰਮ।',
+    startFree: 'ਮੁਫ਼ਤ ਸ਼ੁਰੂ ਕਰੋ',
+    exploreFeatures: 'ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਵੇਖੋ',
+    languagesLabel: '11 ਖੇਤਰੀ ਭਾਸ਼ਾਵਾਂ ਦਾ ਸਮਰਥਨ',
+  },
+}
+
+const ur: Translations = {
+  ...hi,
+  nav: {
+    ...hi.nav,
+    about: 'متعلق',
+    features: 'خصوصیات',
+    technology: 'آرکیٹیکچر',
+    research: 'تحقیق',
+    roadmap: 'روڈ میپ',
+    adaptive: 'ایڈاپٹیو انجن',
+    mentor: 'AI مینٹور',
+    dashboard: 'ڈیش بورڈ',
+    support: 'مدد',
+    settings: 'سیٹنگز',
+    profile: 'پروفائل',
+    contact: 'رابطہ کریں',
+    login: 'لاگ ان',
+    signup: 'شروع کریں',
+  },
+  hero: {
+    ...hi.hero,
+    eyebrow: 'عالمگیر AI تعلیمی ساتھی',
+    title: 'AI کیریکٹر مینٹور کے ساتھ ہوشیاری سے سیکھیں',
+    titleLine1: 'ہوشیاری سے سیکھیں',
+    titleLine2: 'AI کیریکٹر مینٹور کے ساتھ',
+    subtitle: 'ایک پیشہ ورانہ AI تعلیمی پلیٹ فارم جو آپ کے انداز اور زبان کے مطابق رہنمائی کرتا ہے۔',
+    startFree: 'مفت شروع کریں',
+    exploreFeatures: 'خصوصیات دیکھیں',
+    languagesLabel: '11 علاقائی زبانوں کی سپورٹ',
+  },
+}
+
+export const translations: Record<LangCode, Translations> = {
+  en,
+  hi,
+  mr,
+  gu,
+  ta,
+  te,
+  bn,
+  kn,
+  ml,
+  pa,
+  ur,
+}
+
+export const featureKeys = [
   'ai-tutor',
   'document-explainer',
   'quiz-generator',
@@ -80,577 +750,7 @@ const featureKeys = [
 ] as const
 
 export type FeatureSlug = (typeof featureKeys)[number]
-
 export const featureSlugs = featureKeys
-
-export const translations: Record<LangCode, Translations> = {
-  en: {
-    nav: { about: 'About', features: 'Features', audience: 'Audience', getStarted: 'Get Started' },
-    hero: {
-      eyebrow: 'Universal AI Learning Companion',
-      title: 'Learn Smarter with',
-      subtitle:
-        'An AI-powered adaptive education platform that shifts learning from generic chatbots to an interactive, character-driven personal mentor — tailored to your style, language, and level.',
-      startFree: 'Start Learning Free',
-      exploreFeatures: 'Explore Features',
-      languagesLabel: 'Choose your language',
-      statLanguages: 'Languages',
-      statTutor: 'Adaptive Tutor',
-      statCost: 'Entry Cost',
-    },
-    about: {
-      tag: 'About AURA',
-      title: 'Your Personal AI Mentor',
-      subtitle:
-        'Traditional e-learning delivers static, one-size-fits-all content. AURA integrates advanced LLMs to provide personalized instruction tailored to individual learning styles, histories, language needs, and academic levels.',
-      problem: 'The Problem',
-      solution: 'Our Solution',
-      problems: [
-        'Passive, text-heavy content leads to low engagement',
-        'Generic AI forgets your history and weak areas',
-        'Language barriers isolate non-English speakers',
-        'Static explanations fail to adapt to learner maturity',
-      ],
-      solutions: [
-        'Character-driven AI with persistent memory',
-        'Dynamic pedagogy — Story, Visual, Exam, or Practical modes',
-        'Multilingual voice tutoring in 9+ languages',
-        'Document-aware learning from your own materials',
-      ],
-    },
-    features: {
-      tag: 'Core Features',
-      title: 'Everything You Need to Learn',
-      subtitle:
-        'A complete learning operating system designed to enhance retention, maintain engagement, and democratize personalized education.',
-      explore: 'Explore',
-      items: {
-        'ai-tutor': {
-          title: 'AI Character Tutor',
-          desc: 'Interactive persona with dynamic expressions, multilingual voice, and text-to-speech.',
-          detail: 'Meet your personal AI mentor that adapts its teaching style, remembers your progress, and speaks in your preferred language with natural voice synthesis.',
-          points: ['Dynamic character expressions', 'Multilingual text-to-speech', 'Persistent learning memory', 'Adaptive teaching modes'],
-        },
-        'document-explainer': {
-          title: 'Document Explainer',
-          desc: 'Upload PDF, PPTX, or DOCX files for summaries and contextual explanations.',
-          detail: 'Transform your textbooks and notes into interactive lessons. AURA parses your documents and explains concepts at your level.',
-          points: ['PDF, PPTX & DOCX support', 'Auto summaries & flashcards', 'Concept extraction', 'Context-aware Q&A'],
-        },
-        'quiz-generator': {
-          title: 'Smart Quiz Generator',
-          desc: 'Automated quizzes and flashcards targeting your weak areas.',
-          detail: 'AI-generated assessments from your uploaded materials that focus on topics you struggle with most.',
-          points: ['Dynamic question generation', 'Weak-area targeting', 'Instant feedback', 'Mock viva mode'],
-        },
-        'virtual-desktops': {
-          title: 'Virtual Desktops',
-          desc: 'Workspaces with code sandboxes, drawing canvas, and visualization.',
-          detail: 'Dedicated learning environments for coding practice, visual diagrams, and interactive whiteboard sessions.',
-          points: ['Code sandbox integration', 'Drawing canvas', 'Visualization modules', 'Multi-tab workspaces'],
-        },
-        'gamification': {
-          title: 'Gamification Engine',
-          desc: 'Earn XP, maintain streaks, unlock badges, and climb leaderboards.',
-          detail: 'Stay motivated with a full gamification system that rewards consistent learning and celebrates milestones.',
-          points: ['XP & level system', 'Daily streak tracking', 'Achievement badges', 'Global leaderboards'],
-        },
-        'progress-dashboard': {
-          title: 'Progress Dashboard',
-          desc: 'Track levels, streaks, weak topics, and active roadmaps in one place.',
-          detail: 'A centralized hub showing your entire learning journey, identified gaps, and personalized study paths.',
-          points: ['Learning level tracking', 'Weak topic analysis', 'Active roadmaps', 'Streak & XP overview'],
-        },
-      },
-    },
-    audience: {
-      tag: "Who It's For",
-      title: 'Built for Every Learner',
-      subtitle: 'AURA scales its complexity seamlessly across different user demographics.',
-      segments: [
-        { segment: 'Primary & Middle School', approach: 'Story-driven, visual explanations with intense gamification.' },
-        { segment: 'High School & College', approach: 'Deep learning, exam prep, programming, and document analysis.' },
-        { segment: 'Working Professionals', approach: 'Interview prep, career roadmaps, and compact AI modules.' },
-        { segment: 'Lifelong Learners', approach: 'Flexible topic exploration and conversational audio tutoring.' },
-      ],
-    },
-    cta: {
-      title: 'Ready to Transform Your Learning?',
-      subtitle: 'Join AURA and experience AI-driven personalized education — from Grade 3 science to engineering and beyond.',
-      button: 'Launch AURA',
-    },
-    footer: {
-      copy: 'AI-Driven Personalized Learning · Reena Mehta College · 2026–2027',
-      authors: 'Mariam Mohammed Shakeel & Aksabano Khan',
-    },
-    featurePage: { back: 'Back to Features', highlights: 'Key Highlights', tryIt: 'Try This Feature' },
-  },
-
-  hi: {
-    nav: { about: 'परिचय', features: 'विशेषताएँ', audience: 'दर्शक', getStarted: 'शुरू करें' },
-    hero: {
-      eyebrow: 'सार्वभौमिक AI शिक्षण साथी',
-      title: 'के साथ smarter सीखें',
-      subtitle:
-        'एक AI-संचालित अनुकूली शिक्षा मंच जो सामान्य चैटबॉट से इंटरैक्टिव, चरित्र-संचालित व्यक्तिगत मेंटर में सीखने को बदलता है — आपकी शैली, भाषा और स्तर के अनुसार।',
-      startFree: 'मुफ़्त में सीखना शुरू करें',
-      exploreFeatures: 'विशेषताएँ देखें',
-      languagesLabel: 'अपनी भाषा चुनें',
-      statLanguages: 'भाषाएँ',
-      statTutor: 'अनुकूली ट्यूटर',
-      statCost: 'प्रवेश लागत',
-    },
-    about: {
-      tag: 'AURA के बारे में',
-      title: 'आपका व्यक्तिगत AI मेंटर',
-      subtitle:
-        'पारंपरिक ई-लर्निंग स्थिर, एक-सा-सबके-लिए सामग्री देती है। AURA उन्नत LLM का उपयोग करके व्यक्तिगत शिक्षण प्रदान करता है।',
-      problem: 'समस्या',
-      solution: 'हमारा समाधान',
-      problems: [
-        'निष्क्रिय, टेक्स्ट-भारी सामग्री से कम engagement',
-        'सामान्य AI आपका इतिहास और कमज़ोर क्षेत्र भूल जाता है',
-        'भाषा की बाधाएँ गैर-अंग्रेज़ी बोलने वालों को अलग करती हैं',
-        'स्थिर व्याख्याएँ शिक्षार्थी की परिपक्वता के अनुसार नहीं बदलती',
-      ],
-      solutions: [
-        'स्थायी मेमोरी वाला चरित्र-संचालित AI',
-        'गतिशील शिक्षाशास्त्र — कहानी, दृश्य, परीक्षा, या व्यावहारिक',
-        '9+ भाषाओं में बहुभाषी आवाज़ ट्यूटरिंग',
-        'आपकी सामग्री से दस्तावेज़-जागरूक सीखना',
-      ],
-    },
-    features: {
-      tag: 'मुख्य विशेषताएँ',
-      title: 'सीखने के लिए सब कुछ',
-      subtitle: 'प्रतिधारण बढ़ाने और engagement बनाए रखने के लिए एक संपूर्ण शिक्षण OS।',
-      explore: 'देखें',
-      items: {
-        'ai-tutor': {
-          title: 'AI चरित्र ट्यूटर',
-          desc: 'गतिशील अभिव्यक्तियों, बहुभाषी आवाज़ और TTS वाला इंटरैक्टिव persona।',
-          detail: 'अपने व्यक्तिगत AI मेंटर से मिलें जो आपकी प्रगति याद रखता है और आपकी भाषा में बोलता है।',
-          points: ['गतिशील चरित्र अभिव्यक्ति', 'बहुभाषी TTS', 'स्थायी सीखने की मेमोरी', 'अनुकूली शिक्षण मोड'],
-        },
-        'document-explainer': {
-          title: 'दस्तावेज़ व्याख्याकार',
-          desc: 'PDF, PPTX, DOCX अपलोड करें — सारांश और व्याख्या पाएं।',
-          detail: 'अपनी किताबों और नोट्स को इंटरैक्टिव पाठ में बदलें।',
-          points: ['PDF, PPTX & DOCX', 'स्वतः सारांश', 'अवधारणा निष्कर्षण', 'संदर्भ-जागरूक Q&A'],
-        },
-        'quiz-generator': {
-          title: 'स्मार्ट क्विज़ जनरेटर',
-          desc: 'आपके कमज़ोर क्षेत्रों को लक्षित करने वाले क्विज़ और flashcards।',
-          detail: 'आपकी सामग्री से AI-जनित मूल्यांकन।',
-          points: ['गतिशील प्रश्न', 'कमज़ोर क्षेत्र लक्ष्य', 'तुरंत feedback', 'मॉक viva'],
-        },
-        'virtual-desktops': {
-          title: 'वर्चुअल डेस्कटॉप',
-          desc: 'कोड sandbox, ड्रॉइंग कैनवास और visualization।',
-          detail: 'कोडिंग, आरेख और whiteboard के लिए समर्पित वातावरण।',
-          points: ['कोड sandbox', 'ड्रॉइング कैनवास', 'Visualization', 'मल्टी-टैब workspace'],
-        },
-        'gamification': {
-          title: 'गेमिफिकेशन इंजन',
-          desc: 'XP कमाएं, streaks बनाए रखें, badges अनलॉक करें।',
-          detail: 'लगातार सीखने को पुरस्कृत करने वाली पूर्ण gamification प्रणाली।',
-          points: ['XP & level', 'Daily streak', 'Badges', 'Leaderboards'],
-        },
-        'progress-dashboard': {
-          title: 'प्रगति डैशबोर्ड',
-          desc: 'स्तर, streaks, कमज़ोर विषय और roadmaps एक जगह।',
-          detail: 'आपकी पूरी सीखने की यात्रा दिखाने वाला केंद्रीय hub।',
-          points: ['Level tracking', 'कमज़ोर विषय विश्लेषण', 'Roadmaps', 'XP overview'],
-        },
-      },
-    },
-    audience: {
-      tag: 'किसके लिए',
-      title: 'हर शिक्षार्थी के लिए',
-      subtitle: 'AURA विभिन्न उपयोगकर्ताओं के लिए अपनी जटिलता seamlessly बढ़ाता है।',
-      segments: [
-        { segment: 'प्राथमिक & मध्य विद्यालय', approach: 'कहानी-आधारित, दृश्य व्याख्याएँ और gamification।' },
-        { segment: 'हाई स्कूल & कॉलेज', approach: 'गहन सीख, परीक्षा तैयारी, प्रोग्रामिंग।' },
-        { segment: 'कामकाजी पेशेवर', approach: 'इंटरव्यू prep, career roadmaps।' },
-        { segment: 'आजीवन शिक्षार्थी', approach: 'लचीला topic exploration और audio tutoring।' },
-      ],
-    },
-    cta: {
-      title: 'अपनी सीख बदलने के लिए तैयार?',
-      subtitle: 'AURA से जुड़ें — कक्षा 3 विज्ञान से engineering तक।',
-      button: 'AURA लॉन्च करें',
-    },
-    footer: {
-      copy: 'AI-संचालित व्यक्तिगत शिक्षण · Reena Mehta College · 2026–2027',
-      authors: 'Mariam Mohammed Shakeel & Aksabano Khan',
-    },
-    featurePage: { back: 'विशेषताओं पर वापस', highlights: 'मुख्य बिंदु', tryIt: 'यह विशेषता आज़माएँ' },
-  },
-
-  mr: {
-    nav: { about: 'माहिती', features: 'वैशिष्ट्ये', audience: 'प्रेक्षक', getStarted: 'सुरू करा' },
-    hero: {
-      eyebrow: 'सार्वत्रिक AI शिक्षण साथी',
-      title: 'सोबत smarter शिका',
-      subtitle: 'AI-चालित अनुकूल शिक्षण व्यासपीठ जे सामान्य chatbot पासून interactive, character-चालित mentor कडे शिक्षण बदलते.',
-      startFree: 'विनामूल्य शिका सुरू करा',
-      exploreFeatures: 'वैशिष्ट्ये पहा',
-      languagesLabel: 'तुमची भाषा निवडा',
-      statLanguages: 'भाषा',
-      statTutor: 'अनुकूल शिक्षक',
-      statCost: 'प्रवेश खर्च',
-    },
-    about: {
-      tag: 'AURA बद्दल',
-      title: 'तुमचा वैयक्तिक AI mentor',
-      subtitle: 'पारंपरिक e-learning स्थिर सामग्री देते. AURA प्रगत LLM वापरून वैयक्तिक शिक्षण देते.',
-      problem: 'समस्या',
-      solution: 'आमचे उपाय',
-      problems: ['निष्क्रिय सामग्री', 'AI इतिहास विसरते', 'भाषा अडथळे', 'स्थिर स्पष्टीकरण'],
-      solutions: ['character-चालित AI', 'गतिशील pedagogy', '9+ भाषा', 'document-aware शिक्षण'],
-    },
-    features: {
-      tag: 'मुख्य वैशिष्ट्ये',
-      title: 'शिकण्यासाठी सर्व काही',
-      subtitle: 'retention वाढवणारी संपूर्ण शिक्षण OS.',
-      explore: 'पहा',
-      items: {
-        'ai-tutor': { title: 'AI Character Tutor', desc: 'Interactive persona with voice.', detail: 'Your personal AI mentor.', points: ['Expressions', 'Multilingual TTS', 'Memory', 'Adaptive modes'] },
-        'document-explainer': { title: 'Document Explainer', desc: 'Upload PDF, PPTX, DOCX.', detail: 'Transform notes into lessons.', points: ['File support', 'Summaries', 'Concepts', 'Q&A'] },
-        'quiz-generator': { title: 'Smart Quiz', desc: 'Auto quizzes for weak areas.', detail: 'AI assessments from your materials.', points: ['Dynamic questions', 'Weak areas', 'Feedback', 'Mock viva'] },
-        'virtual-desktops': { title: 'Virtual Desktops', desc: 'Code sandbox & canvas.', detail: 'Dedicated learning workspaces.', points: ['Code sandbox', 'Canvas', 'Visuals', 'Multi-tab'] },
-        'gamification': { title: 'Gamification', desc: 'XP, streaks, badges.', detail: 'Stay motivated with rewards.', points: ['XP', 'Streaks', 'Badges', 'Leaderboards'] },
-        'progress-dashboard': { title: 'Progress Dashboard', desc: 'Track your journey.', detail: 'Central learning hub.', points: ['Levels', 'Weak topics', 'Roadmaps', 'XP'] },
-      },
-    },
-    audience: {
-      tag: 'कोणासाठी',
-      title: 'प्रत्येक शिकणाऱ्यासाठी',
-      subtitle: 'AURA सर्व demographics साठी scale होते.',
-      segments: [
-        { segment: 'प्राथमिक & मधymik', approach: 'Story-driven, visual.' },
-        { segment: 'हाय स्कूल & कॉलेज', approach: 'Exam prep, programming.' },
-        { segment: 'Professionals', approach: 'Interview prep, roadmaps.' },
-        { segment: 'Lifelong learners', approach: 'Flexible exploration.' },
-      ],
-    },
-    cta: { title: 'शिकणे बदलण्यास तयार?', subtitle: 'AURA सोबत AI शिक्षण अनुभवा.', button: 'AURA सुरू करा' },
-    footer: { copy: 'AI शिक्षण · Reena Mehta College · 2026–2027', authors: 'Mariam Mohammed Shakeel & Aksabano Khan' },
-    featurePage: { back: 'वैशिष्ट्यांकडे', highlights: 'मुख्य मुद्दे', tryIt: 'हे वैशिष्ट्य वापरा' },
-  },
-
-  gu: {
-    nav: { about: 'વિશે', features: 'વિશેષતાઓ', audience: 'પ્રેક્ષક', getStarted: 'શરૂ કરો' },
-    hero: {
-      eyebrow: 'સાર્વત્રિક AI શિક્ષણ સાથી',
-      title: 'સાથે smarter શીખો',
-      subtitle: 'AI-સંચાલિત અનુકૂલ શિક્ષણ પ્લેટફોર્મ — તમારી શૈલી, ભાષા અને સ્તર અનુસાર.',
-      startFree: 'મફત શીખવાનું શરૂ કરો',
-      exploreFeatures: 'વિશેષતાઓ જુઓ',
-      languagesLabel: 'તમારી ભાષા પસંદ કરો',
-      statLanguages: 'ભાષાઓ',
-      statTutor: 'અનુકૂલ ટ્યુટર',
-      statCost: 'પ્રવેશ ખર્ચ',
-    },
-    about: {
-      tag: 'AURA વિશે',
-      title: 'તમારો વ્યક્તિગત AI mentor',
-      subtitle: 'AURA LLM દ્વારા વ્યક્તિગત શિક્ષણ પ્રદાન કરે છે.',
-      problem: 'સમસ્યા',
-      solution: 'અમારો ઉકેલ',
-      problems: ['નિષ્ક્રિય સામગ્રી', 'AI ઇતિહાસ ભૂલે', 'ભાષા અવરોધ', 'સ્થિર સ્પષ્ટીકરણ'],
-      solutions: ['character AI', 'ગતિશીલ pedagogy', '9+ ભાષા', 'document learning'],
-    },
-    features: {
-      tag: 'મુખ્ય વિશેષતાઓ',
-      title: 'શીખવા માટે બધું',
-      subtitle: 'સંપૂર્ણ શિક્ષણ OS.',
-      explore: 'જુઓ',
-      items: {
-        'ai-tutor': { title: 'AI Character Tutor', desc: 'Interactive voice tutor.', detail: 'Your AI mentor.', points: ['Expressions', 'TTS', 'Memory', 'Modes'] },
-        'document-explainer': { title: 'Document Explainer', desc: 'PDF, PPTX, DOCX.', detail: 'Notes to lessons.', points: ['Files', 'Summaries', 'Concepts', 'Q&A'] },
-        'quiz-generator': { title: 'Smart Quiz', desc: 'Auto quizzes.', detail: 'AI assessments.', points: ['Questions', 'Weak areas', 'Feedback', 'Viva'] },
-        'virtual-desktops': { title: 'Virtual Desktops', desc: 'Sandbox & canvas.', detail: 'Learning workspaces.', points: ['Code', 'Canvas', 'Visuals', 'Tabs'] },
-        'gamification': { title: 'Gamification', desc: 'XP & badges.', detail: 'Reward system.', points: ['XP', 'Streaks', 'Badges', 'Boards'] },
-        'progress-dashboard': { title: 'Dashboard', desc: 'Track progress.', detail: 'Learning hub.', points: ['Levels', 'Topics', 'Roadmaps', 'XP'] },
-      },
-    },
-    audience: {
-      tag: 'કોના માટે',
-      title: 'દરેક શિક્ષાર્થી માટે',
-      subtitle: 'AURA બધા માટે scale થાય.',
-      segments: [
-        { segment: 'પ્રાથમિક', approach: 'Story-driven visual.' },
-        { segment: 'હાઈ સ્કૂલ', approach: 'Exam prep.' },
-        { segment: 'Professionals', approach: 'Interview prep.' },
-        { segment: 'Lifelong', approach: 'Flexible learning.' },
-      ],
-    },
-    cta: { title: 'શીખવાનું બદલવા તૈયાર?', subtitle: 'AURA જોડાઓ.', button: 'AURA લોન્ચ' },
-    footer: { copy: 'AI શિક્ષણ · Reena Mehta College · 2026–2027', authors: 'Mariam Mohammed Shakeel & Aksabano Khan' },
-    featurePage: { back: 'પાછા', highlights: 'મુખ્ય બિંદુઓ', tryIt: 'આ વિશેષતા વાપરો' },
-  },
-
-  ta: {
-    nav: { about: 'பற்றி', features: 'அம்சங்கள்', audience: 'பார்வையாளர்', getStarted: 'தொடங்கு' },
-    hero: {
-      eyebrow: 'உலகளாவிய AI கற்றல் துணை',
-      title: 'உடன் smarter கற்றுக்கொள்ளுங்கள்',
-      subtitle: 'AI-இயங்கும் தனிப்பயன் கல்வி தளம் — உங்கள் மொழி, பாணி மற்றும் நிலைக்கு ஏற்ப.',
-      startFree: 'இலவசமாக கற்க தொடங்குங்கள்',
-      exploreFeatures: 'அம்சங்களைப் பார்க்க',
-      languagesLabel: 'உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்',
-      statLanguages: 'மொழிகள்',
-      statTutor: 'தனிப்பயன் ஆசிரியர்',
-      statCost: 'நுழைவு செலவு',
-    },
-    about: {
-      tag: 'AURA பற்றி',
-      title: 'உங்கள் தனிப்பட்ட AI mentor',
-      subtitle: 'AURA LLM மூலம் தனிப்பயன் கற்பிப்பை வழங்குகிறது.',
-      problem: 'பிரச்சனை',
-      solution: 'எங்கள் தீர்வு',
-      problems: ['செயலற்ற உள்ளடக்கம்', 'AI வரலாறு மறக்கிறது', 'மொழி தடை', 'நிலையான விளக்கம்'],
-      solutions: ['character AI', 'மாறும் pedagogy', '9+ மொழிகள்', 'document கற்றல்'],
-    },
-    features: {
-      tag: 'முக்கிய அம்சங்கள்',
-      title: 'கற்க தேவையான அனைத்தும்',
-      subtitle: 'முழுமையான கற்றல் OS.',
-      explore: 'பார்',
-      items: {
-        'ai-tutor': { title: 'AI Character Tutor', desc: 'Interactive voice tutor.', detail: 'Your AI mentor.', points: ['Expressions', 'TTS', 'Memory', 'Modes'] },
-        'document-explainer': { title: 'Document Explainer', desc: 'PDF, PPTX, DOCX.', detail: 'Notes to lessons.', points: ['Files', 'Summaries', 'Concepts', 'Q&A'] },
-        'quiz-generator': { title: 'Smart Quiz', desc: 'Auto quizzes.', detail: 'AI assessments.', points: ['Questions', 'Weak areas', 'Feedback', 'Viva'] },
-        'virtual-desktops': { title: 'Virtual Desktops', desc: 'Sandbox & canvas.', detail: 'Workspaces.', points: ['Code', 'Canvas', 'Visuals', 'Tabs'] },
-        'gamification': { title: 'Gamification', desc: 'XP & badges.', detail: 'Rewards.', points: ['XP', 'Streaks', 'Badges', 'Boards'] },
-        'progress-dashboard': { title: 'Dashboard', desc: 'Track progress.', detail: 'Learning hub.', points: ['Levels', 'Topics', 'Roadmaps', 'XP'] },
-      },
-    },
-    audience: {
-      tag: 'யாருக்காக',
-      title: 'எல்லா கற்பவர்களுக்கும்',
-      subtitle: 'AURA அனைத்து demographics-க்கும்.',
-      segments: [
-        { segment: 'பள்ளி', approach: 'Story-driven.' },
-        { segment: 'கல்லூரி', approach: 'Exam prep.' },
-        { segment: 'Professionals', approach: 'Interview.' },
-        { segment: 'Lifelong', approach: 'Flexible.' },
-      ],
-    },
-    cta: { title: 'கற்றலை மாற்ற தயாரா?', subtitle: 'AURA-வில் சேருங்கள்.', button: 'AURA தொடங்கு' },
-    footer: { copy: 'AI கற்றல் · Reena Mehta College · 2026–2027', authors: 'Mariam Mohammed Shakeel & Aksabano Khan' },
-    featurePage: { back: 'திரும்ப', highlights: 'முக்கிய புள்ளிகள்', tryIt: 'இந்த அம்சம்' },
-  },
-
-  te: {
-    nav: { about: 'గురించి', features: 'ఫీచర్లు', audience: 'ప్రేక్షకులు', getStarted: 'ప్రారంభించు' },
-    hero: {
-      eyebrow: 'సార్వత్రిక AI అభ్యాస సహచరుడు',
-      title: 'తో smarter నేర్చుకోండి',
-      subtitle: 'AI-ఆధారిత అనుకూల విద్యా వేదిక — మీ భాష, శైలి మరియు స్థాయికి అనుగుణంగా.',
-      startFree: 'ఉచితంగా నేర్చుకోండి',
-      exploreFeatures: 'ఫీచర్లు చూడండి',
-      languagesLabel: 'మీ భాష ఎంచుకోండి',
-      statLanguages: 'భాషలు',
-      statTutor: 'అనుకూల ట్యూటర్',
-      statCost: 'ప్రవేశ ఖర్చు',
-    },
-    about: {
-      tag: 'AURA గురించి',
-      title: 'మీ వ్యక్తిగత AI mentor',
-      subtitle: 'AURA LLM ద్వారా వ్యక్తిగత బోధన.',
-      problem: 'సమస్య',
-      solution: 'మా పరిష్కారం',
-      problems: ['నిష్క్రియ కంటెంట్', 'AI చరిత్ర మరచిపోతుంది', 'భాష అడ్డంకి', 'స్థిర వివరణ'],
-      solutions: ['character AI', 'dynamic pedagogy', '9+ భాషలు', 'document learning'],
-    },
-    features: {
-      tag: 'ప్రధాన ఫీచర్లు',
-      title: 'నేర్చుకోవడానికి అన్నీ',
-      subtitle: 'పూర్తి learning OS.',
-      explore: 'చూడండి',
-      items: {
-        'ai-tutor': { title: 'AI Character Tutor', desc: 'Interactive voice tutor.', detail: 'Your AI mentor.', points: ['Expressions', 'TTS', 'Memory', 'Modes'] },
-        'document-explainer': { title: 'Document Explainer', desc: 'PDF, PPTX, DOCX.', detail: 'Notes to lessons.', points: ['Files', 'Summaries', 'Concepts', 'Q&A'] },
-        'quiz-generator': { title: 'Smart Quiz', desc: 'Auto quizzes.', detail: 'AI assessments.', points: ['Questions', 'Weak areas', 'Feedback', 'Viva'] },
-        'virtual-desktops': { title: 'Virtual Desktops', desc: 'Sandbox & canvas.', detail: 'Workspaces.', points: ['Code', 'Canvas', 'Visuals', 'Tabs'] },
-        'gamification': { title: 'Gamification', desc: 'XP & badges.', detail: 'Rewards.', points: ['XP', 'Streaks', 'Badges', 'Boards'] },
-        'progress-dashboard': { title: 'Dashboard', desc: 'Track progress.', detail: 'Learning hub.', points: ['Levels', 'Topics', 'Roadmaps', 'XP'] },
-      },
-    },
-    audience: {
-      tag: 'ఎవరికి',
-      title: 'ప్రతి learner కోసం',
-      subtitle: 'AURA అన్ని demographics కోసం.',
-      segments: [
-        { segment: 'పాఠశాల', approach: 'Story-driven.' },
-        { segment: 'కళాశాల', approach: 'Exam prep.' },
-        { segment: 'Professionals', approach: 'Interview.' },
-        { segment: 'Lifelong', approach: 'Flexible.' },
-      ],
-    },
-    cta: { title: 'నేర్చుకోవడం మార్చడానికి సిద్ధంగా?', subtitle: 'AURA చేరండి.', button: 'AURA ప్రారంభించు' },
-    footer: { copy: 'AI అభ్యాస · Reena Mehta College · 2026–2027', authors: 'Mariam Mohammed Shakeel & Aksabano Khan' },
-    featurePage: { back: 'తిరిగి', highlights: 'ముఖ్య అంశాలు', tryIt: 'ఈ ఫీచర్' },
-  },
-
-  bn: {
-    nav: { about: 'সম্পর্কে', features: 'বৈশিষ্ট্য', audience: 'দর্শক', getStarted: 'শুরু করুন' },
-    hero: {
-      eyebrow: 'স universal AI শিক্ষা সঙ্গী',
-      title: 'এর সাথে smarter শিখুন',
-      subtitle: 'AI-চালিত ব্যক্তিগতকৃত শিক্ষা প্ল্যাটফর্ম — আপনার ভাষা, শৈলী ও স্তর অনুযায়ী।',
-      startFree: 'বিনামূল্যে শিখুন',
-      exploreFeatures: 'বৈশিষ্ট্য দেখুন',
-      languagesLabel: 'আপনার ভাষা বেছে নিন',
-      statLanguages: 'ভাষা',
-      statTutor: 'অ্যাডাপ্টিভ টিউটর',
-      statCost: 'প্রবেশ খরচ',
-    },
-    about: {
-      tag: 'AURA সম্পর্কে',
-      title: 'আপনার ব্যক্তিগত AI mentor',
-      subtitle: 'AURA LLM দিয়ে ব্যক্তিগত শিক্ষা দেয়।',
-      problem: 'সমস্যা',
-      solution: 'আমাদের সমাধান',
-      problems: ['নিষ্ক্রিয় কন্টেন্ট', 'AI ইতিহাস ভুলে', 'ভাষা বাধা', 'স্থির ব্যাখ্যা'],
-      solutions: ['character AI', 'dynamic pedagogy', '9+ ভাষা', 'document learning'],
-    },
-    features: {
-      tag: 'মূল বৈশিষ্ট্য',
-      title: 'শেখার জন্য সবকিছু',
-      subtitle: 'সম্পূর্ণ learning OS.',
-      explore: 'দেখুন',
-      items: {
-        'ai-tutor': { title: 'AI Character Tutor', desc: 'Interactive voice tutor.', detail: 'Your AI mentor.', points: ['Expressions', 'TTS', 'Memory', 'Modes'] },
-        'document-explainer': { title: 'Document Explainer', desc: 'PDF, PPTX, DOCX.', detail: 'Notes to lessons.', points: ['Files', 'Summaries', 'Concepts', 'Q&A'] },
-        'quiz-generator': { title: 'Smart Quiz', desc: 'Auto quizzes.', detail: 'AI assessments.', points: ['Questions', 'Weak areas', 'Feedback', 'Viva'] },
-        'virtual-desktops': { title: 'Virtual Desktops', desc: 'Sandbox & canvas.', detail: 'Workspaces.', points: ['Code', 'Canvas', 'Visuals', 'Tabs'] },
-        'gamification': { title: 'Gamification', desc: 'XP & badges.', detail: 'Rewards.', points: ['XP', 'Streaks', 'Badges', 'Boards'] },
-        'progress-dashboard': { title: 'Dashboard', desc: 'Track progress.', detail: 'Learning hub.', points: ['Levels', 'Topics', 'Roadmaps', 'XP'] },
-      },
-    },
-    audience: {
-      tag: 'কার জন্য',
-      title: 'প্রতিটি learner এর জন্য',
-      subtitle: 'AURA সব demographics এর জন্য।',
-      segments: [
-        { segment: 'স্কুল', approach: 'Story-driven.' },
-        { segment: 'কলেজ', approach: 'Exam prep.' },
-        { segment: 'Professionals', approach: 'Interview.' },
-        { segment: 'Lifelong', approach: 'Flexible.' },
-      ],
-    },
-    cta: { title: 'শেখা বদলাতে প্রস্তুত?', subtitle: 'AURA যোগ দিন।', button: 'AURA চালু করুন' },
-    footer: { copy: 'AI শিক্ষা · Reena Mehta College · 2026–2027', authors: 'Mariam Mohammed Shakeel & Aksabano Khan' },
-    featurePage: { back: 'ফিরে', highlights: 'মূল বিষয়', tryIt: 'এই বৈশিষ্ট্য' },
-  },
-
-  kn: {
-    nav: { about: 'ಬಗ್ಗೆ', features: 'ವೈಶಿಷ್ಟ್ಯಗಳು', audience: 'ಪ್ರೇಕ್ಷಕ', getStarted: 'ಪ್ರಾರಂಭಿಸಿ' },
-    hero: {
-      eyebrow: 'ಸಾರ್ವತ್ರಿಕ AI ಕಲಿಕೆ ಸಂಗಾತಿ',
-      title: 'ಜೊತೆ smarter ಕಲಿಯಿರಿ',
-      subtitle: 'AI-ಚಾಲಿತ ಅನುಕೂಲ ಶಿಕ್ಷಣ ವೇದಿಕೆ — ನಿಮ್ಮ ಭಾಷೆ, ಶೈಲಿ ಮತ್ತು ಮಟ್ಟಕ್ಕೆ ಅನುಗುಣವಾಗಿ.',
-      startFree: 'ಉಚಿತವಾಗಿ ಕಲಿಯ ಆರಂಭಿಸಿ',
-      exploreFeatures: 'ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ನೋಡಿ',
-      languagesLabel: 'ನಿಮ್ಮ ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ',
-      statLanguages: 'ಭಾಷೆಗಳು',
-      statTutor: 'ಅನುಕೂಲ ಟ್ಯೂಟರ್',
-      statCost: 'ಪ್ರವೇಶ ವೆಚ್ಚ',
-    },
-    about: {
-      tag: 'AURA ಬಗ್ಗೆ',
-      title: 'ನಿಮ್ಮ ವೈಯಕ್ತಿಕ AI mentor',
-      subtitle: 'AURA LLM ಮೂಲಕ ವೈಯಕ್ತಿಕ ಬೋಧನೆ.',
-      problem: 'ಸಮಸ್ಯೆ',
-      solution: 'ನಮ್ಮ ಪರಿಹಾರ',
-      problems: ['ನಿಷ್ಕ್ರಿಯ ವಿಷಯ', 'AI ಇತಿಹಾಸ ಮರೆಯುತ್ತದೆ', 'ಭಾಷಾ ಅಡೆತಡೆ', 'ಸ್ಥಿರ ವಿವರಣೆ'],
-      solutions: ['character AI', 'dynamic pedagogy', '9+ ಭಾಷೆಗಳು', 'document learning'],
-    },
-    features: {
-      tag: 'ಮುಖ್ಯ ವೈಶಿಷ್ಟ್ಯಗಳು',
-      title: 'ಕಲಿಯಲು ಎಲ್ಲವೂ',
-      subtitle: 'ಸಂಪೂರ್ಣ learning OS.',
-      explore: 'ನೋಡಿ',
-      items: {
-        'ai-tutor': { title: 'AI Character Tutor', desc: 'Interactive voice tutor.', detail: 'Your AI mentor.', points: ['Expressions', 'TTS', 'Memory', 'Modes'] },
-        'document-explainer': { title: 'Document Explainer', desc: 'PDF, PPTX, DOCX.', detail: 'Notes to lessons.', points: ['Files', 'Summaries', 'Concepts', 'Q&A'] },
-        'quiz-generator': { title: 'Smart Quiz', desc: 'Auto quizzes.', detail: 'AI assessments.', points: ['Questions', 'Weak areas', 'Feedback', 'Viva'] },
-        'virtual-desktops': { title: 'Virtual Desktops', desc: 'Sandbox & canvas.', detail: 'Workspaces.', points: ['Code', 'Canvas', 'Visuals', 'Tabs'] },
-        'gamification': { title: 'Gamification', desc: 'XP & badges.', detail: 'Rewards.', points: ['XP', 'Streaks', 'Badges', 'Boards'] },
-        'progress-dashboard': { title: 'Dashboard', desc: 'Track progress.', detail: 'Learning hub.', points: ['Levels', 'Topics', 'Roadmaps', 'XP'] },
-      },
-    },
-    audience: {
-      tag: 'ಯಾರಿಗಾಗಿ',
-      title: 'ಪ್ರತಿ learner ಗೆ',
-      subtitle: 'AURA ಎಲ್ಲ demographics ಗೆ.',
-      segments: [
-        { segment: 'ಶಾಲೆ', approach: 'Story-driven.' },
-        { segment: 'ಕಾಲೇಜು', approach: 'Exam prep.' },
-        { segment: 'Professionals', approach: 'Interview.' },
-        { segment: 'Lifelong', approach: 'Flexible.' },
-      ],
-    },
-    cta: { title: 'ಕಲಿಕೆ ಬದಲಾಯಿಸಲು ಸಿದ್ಧ?', subtitle: 'AURA ಸೇರಿ.', button: 'AURA ಪ್ರಾರಂಭಿಸಿ' },
-    footer: { copy: 'AI ಕಲಿಕೆ · Reena Mehta College · 2026–2027', authors: 'Mariam Mohammed Shakeel & Aksabano Khan' },
-    featurePage: { back: 'ಹಿಂದೆ', highlights: 'ಮುಖ್ಯ ಅಂಶಗಳು', tryIt: 'ಈ ವೈಶಿಷ್ಟ್ಯ' },
-  },
-
-  ml: {
-    nav: { about: 'കുറിച്ച്', features: 'ഫീച്ചറുകൾ', audience: 'പ്രേക്ഷകർ', getStarted: 'തുടങ്ങു' },
-    hero: {
-      eyebrow: 'സാർവത്രിക AI പഠന Companion',
-      title: 'ഉപയോഗിച്ച് smarter പഠിക്കു',
-      subtitle: 'AI-നയിച്ച അനുയോജ്യമായ വിദ്യാഭ്യാസ പ്ലാറ്റ്ഫോം — നിങ്ങളുടെ ഭാഷ, ശൈലി, നില.',
-      startFree: 'സൗജന്യമായി പഠിക്കു',
-      exploreFeatures: 'ഫീച്ചറുകൾ കാണു',
-      languagesLabel: 'നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കു',
-      statLanguages: 'ഭാഷകൾ',
-      statTutor: 'അനുയോജ്യ ട്യൂട്ടർ',
-      statCost: 'പ്രവേശന ചെലവ്',
-    },
-    about: {
-      tag: 'AURA കുറിച്ച്',
-      title: 'നിങ്ങളുടെ വ്യക്തിഗത AI mentor',
-      subtitle: 'AURA LLM വഴി വ്യക്തിഗത പഠനം.',
-      problem: 'പ്രശ്നം',
-      solution: 'ഞങ്ങളുടെ പരിഹാരം',
-      problems: ['നിഷ്ക്രിയ ഉള്ളടക്കം', 'AI ചരിത്രം മറക്കുന്നു', 'ഭാഷാ തടസ്സം', 'സ്ഥിര വിവരണം'],
-      solutions: ['character AI', 'dynamic pedagogy', '9+ ഭാഷകൾ', 'document learning'],
-    },
-    features: {
-      tag: 'പ്രധാന ഫീച്ചറുകൾ',
-      title: 'പഠിക്കാൻ എല്ലാം',
-      subtitle: 'പൂർണ്ണ learning OS.',
-      explore: 'കാണു',
-      items: {
-        'ai-tutor': { title: 'AI Character Tutor', desc: 'Interactive voice tutor.', detail: 'Your AI mentor.', points: ['Expressions', 'TTS', 'Memory', 'Modes'] },
-        'document-explainer': { title: 'Document Explainer', desc: 'PDF, PPTX, DOCX.', detail: 'Notes to lessons.', points: ['Files', 'Summaries', 'Concepts', 'Q&A'] },
-        'quiz-generator': { title: 'Smart Quiz', desc: 'Auto quizzes.', detail: 'AI assessments.', points: ['Questions', 'Weak areas', 'Feedback', 'Viva'] },
-        'virtual-desktops': { title: 'Virtual Desktops', desc: 'Sandbox & canvas.', detail: 'Workspaces.', points: ['Code', 'Canvas', 'Visuals', 'Tabs'] },
-        'gamification': { title: 'Gamification', desc: 'XP & badges.', detail: 'Rewards.', points: ['XP', 'Streaks', 'Badges', 'Boards'] },
-        'progress-dashboard': { title: 'Dashboard', desc: 'Track progress.', detail: 'Learning hub.', points: ['Levels', 'Topics', 'Roadmaps', 'XP'] },
-      },
-    },
-    audience: {
-      tag: 'ആർക്ക്',
-      title: 'എല്ലാ learner-ക്കും',
-      subtitle: 'AURA എല്ലാ demographics-നും.',
-      segments: [
-        { segment: 'സ്കൂൾ', approach: 'Story-driven.' },
-        { segment: 'കോളേജ്', approach: 'Exam prep.' },
-        { segment: 'Professionals', approach: 'Interview.' },
-        { segment: 'Lifelong', approach: 'Flexible.' },
-      ],
-    },
-    cta: { title: 'പഠനം മാറ്റാൻ തയ്യാറ?', subtitle: 'AURA-യിൽ ചേരൂ.', button: 'AURA ആരംഭിക്കു' },
-    footer: { copy: 'AI പഠനം · Reena Mehta College · 2026–2027', authors: 'Mariam Mohammed Shakeel & Aksabano Khan' },
-    featurePage: { back: 'തിരികെ', highlights: 'പ്രധാന പോയിന്റുകൾ', tryIt: 'ഈ ഫീച്ചർ' },
-  },
-}
 
 export const featureIcons: Record<FeatureSlug, string> = {
   'ai-tutor': '🤖',

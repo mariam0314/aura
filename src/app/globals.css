@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+/* ─── AURA Design Tokens ─── */
+@theme {
+  --color-accent: #257874;
+  --color-accent-soft: #4FA6A0;
+  --color-bg: #FFFFFF;
+  --color-surface-dark: #00171F;
+  --color-neutral: #705D56;
+  --color-ice: #F6F8F9;
+  --color-border: #D9E4E6;
+  --color-text-primary: #00171F;
+  --color-text-secondary: #6E7A80;
+  --color-success: #35C88A;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --radius-card: 1.5rem;
+  --radius-button: 1rem;
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+:root {
+  --aura-bg: #FFFFFF;
+  --aura-surface: #F6F8F9;
+  --aura-text: #00171F;
+  --aura-text-muted: #6E7A80;
+  --aura-border: #D9E4E6;
+  --aura-card-bg: #FFFFFF;
+}
+
+.dark,
+[data-theme="dark"] {
+  --aura-bg: #00171F;
+  --aura-surface: #002028;
+  --aura-text: #F6F8F9;
+  --aura-text-muted: #9AB0B8;
+  --aura-border: rgba(79, 166, 160, 0.2);
+  --aura-card-bg: #002830;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --aura-bg: #00171F;
+    --aura-surface: #002028;
+    --aura-text: #F6F8F9;
+    --aura-text-muted: #9AB0B8;
+    --aura-border: rgba(79, 166, 160, 0.2);
+    --aura-card-bg: #002830;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--aura-bg);
+  color: var(--aura-text);
+  overflow-x: hidden;
+}
+
+/* Focus styles for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #257874;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom scrollbar for language list */
+.aura-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.aura-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.aura-scroll::-webkit-scrollbar-thumb {
+  background: #D9E4E6;
+  border-radius: 999px;
+}
+
+/* Gradient sweep utility */
+@keyframes gradient-sweep {
+  0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
+}
+
+.gradient-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(79, 166, 160, 0.15) 50%,
+    transparent 60%
+  );
+  animation: gradient-sweep 3s ease-in-out infinite;
+  pointer-events: none;
+}
