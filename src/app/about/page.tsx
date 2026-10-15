@@ -27,8 +27,8 @@ export default function AboutPage() {
     },
     {
       segment: 'Working Professionals',
-      approach: 'Interview preparation, career roadmaps, AI fundamentals, and compact bite-sized modules.',
-      badge: 'Career & Upskilling',
+      approach: 'Skill gap analysis, 4-week career upskilling roadmaps, tool masteries (Docker, AWS, Node.js), and production architecture.',
+      badge: 'Upskilling & Reskilling',
     },
     {
       segment: 'Lifelong Learners',

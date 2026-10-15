@@ -10,11 +10,11 @@ import './App.css'
 
 function App() {
   const [showSplash, setShowSplash] = useState(true)
-  const [mainVisible, setMainVisible] = useState(false)
+  const [mainVisible , setMainVisible] = useState(false)
 
   const handleSplashComplete = () => {
     setShowSplash(false)
-    setMainVisible(true)
+    setMainVisible(true) 
   }
 
   return (

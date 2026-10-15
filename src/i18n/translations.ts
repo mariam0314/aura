@@ -133,7 +133,44 @@ export interface Translations {
     masteryLabel: string
     weakTopicsTitle: string
     recentActivityTitle: string
+    studentTab: string
+    teacherTab: string
+    professionalTab: string
+    companyTab: string
+    viewProfile: string
+    learningRoadmap: string
+    earlyWarningAlert: string
     topics: { name: string; mastery: string; status: string }[]
+  }
+  quiz: {
+    title: string
+    subtitle: string
+    question: string
+    correct: string
+    incorrect: string
+    explanation: string
+    nextQuestion: string
+    viewResults: string
+    restartQuiz: string
+    score: string
+    accuracy: string
+    strongAreas: string
+    areasToImprove: string
+  }
+  settings: {
+    title: string
+    subtitle: string
+    languageLabel: string
+    toneLabel: string
+    normalEnglish: string
+    normalDesc: string
+    genzEnglish: string
+    genzDesc: string
+    aiProviderLabel: string
+    voiceSpeedLabel: string
+    saveBtn: string
+    resetProfileBtn: string
+    savedSuccess: string
   }
   footer: {
     copy: string
@@ -156,6 +193,7 @@ export interface Translations {
   }
 }
 
+// ─── 1. ENGLISH ───
 const en: Translations = {
   nav: {
     about: 'About Platform',
@@ -178,60 +216,60 @@ const en: Translations = {
     signup: 'Get Started',
   },
   hero: {
-    eyebrow: 'Universal AI Learning Companion & Adaptive Education',
-    title: 'Learn Smarter with Character AI Mentor',
-    titleLine1: 'Learn Smarter with',
-    titleLine2: 'Character AI Mentor',
+    eyebrow: 'AI-POWERED ADAPTIVE LEARNING & SKILL GAP PLATFORM',
+    title: 'Aura Doesn’t Just Answer. It Manages Your Entire Learning Journey.',
+    titleLine1: 'Aura Doesn’t Just Answer.',
+    titleLine2: 'It Manages Your Learning Journey.',
     subtitle:
-      'An enterprise AI adaptive education platform that shifts learning from static content to an interactive, persona-driven mentor — tailored to your exact cognitive style, language, and goals.',
-    startFree: 'Start Learning Free',
-    exploreFeatures: 'Explore Platform',
-    statLanguages: 'Supported Languages',
-    statTutor: 'Adaptive AI Persona',
-    statCost: 'Operational Entry Cost',
+      'Aura understands what you know, discovers what you are missing, adapts how it teaches you, measures whether you improved, and decides what you should learn next.',
+    startFree: 'Launch 3D AI Mentor',
+    exploreFeatures: 'Explore Learning Profile',
+    statLanguages: 'Supported Regional Languages',
+    statTutor: 'Adaptive Memory Retention',
+    statCost: 'Closed-Loop Cognitive Cycle',
     languagesLabel: '11 Regional Languages Supported',
     aiStatus: 'AI Mentor Active • Voice Engine Online',
   },
   about: {
-    tag: 'Commercial AI SaaS Platform',
-    title: 'AURA — Universal AI Learning Companion',
+    tag: 'AI-Powered Adaptive Learning Platform',
+    title: 'AURA — Adaptive Learning & Skill-Gap Analysis',
     subtitle:
-      'Production-ready AI adaptive education system engineered to democratize personalized learning using continuous cognitive tracking, multi-file document intelligence, and real-time voice tutoring.',
-    platformVisionTitle: 'Product Vision & Commercial Architecture',
+      'A software platform that understands what a student or professional knows, identifies what they do not know, creates a personalized learning path, continuously assesses progress, and adapts the learning experience accordingly.',
+    platformVisionTitle: 'Product Vision & Core Adaptive Cycle',
     platformVisionDesc:
-      'Traditional e-learning platforms deliver static, one-size-fits-all content resulting in high drop-off rates. AURA introduces an adaptive character framework that modifies its pedagogy dynamically — explaining complex subjects with custom analogies, visual breakdowns, or mathematical rigor.',
-    problemTitle: 'Core Friction in Education',
-    solutionTitle: 'The AURA Solution Engine',
-    problem: 'Core Friction in Education',
-    solution: 'The AURA Solution Engine',
+      'ChatGPT gives an answer. Aura manages the learning journey. People have access to information, but do not always know where their knowledge gaps are, how to improve, or whether they are actually improving. Aura solves this through a closed-loop ASSESS → ANALYZE → PERSONALIZE → TEACH → TEST → MEASURE → ADAPT engine.',
+    problemTitle: 'Core Problem in Learning Today',
+    solutionTitle: 'The AURA Adaptive Solution Engine',
+    problem: 'Core Problem in Learning Today',
+    solution: 'The AURA Adaptive Solution Engine',
     problems: [
-      'Passive video tutorials lead to rapid student drop-off rates',
-      'Generic LLM chatbots suffer context amnesia across learning sessions',
-      'Language barriers isolate non-English native speakers globally',
-      'Static courseware fails to adapt to learner cognitive maturity',
+      'Access to information does not equal knowing what you need to learn',
+      'Generic AI chatbots suffer from context amnesia and passive question-answering',
+      'Teachers cannot continuously monitor every student’s individual understanding',
+      'Course completion in enterprises does not reflect actual conceptual retention',
     ],
     solutions: [
-      'Persistent persona framework with historical cognitive memory tracking',
-      'Dynamic pedagogy modes (Story, Visual, Deep Proof, Exam, Practical)',
-      'Native voice tutoring & localized speech synthesis in 11 languages',
-      'Document-aware ingestion pipeline with automated quiz generation',
+      'Mathematical knowledge-gap detection classifying topics from Strong to Critical Gap',
+      'Dynamic pedagogy modes (Story, Visual, Deep Proof, Exam, Practical) with Gen-Z study companion tone',
+      'Multi-role intelligence: Student profiles, Teacher class analytics, Professional skill roadmaps, and Company training metrics',
+      'Continuous early-warning detection for at-risk declining students before exams',
     ],
     architectureTitle: 'Enterprise System Architecture',
     architectureSubtitle:
-      'Multi-layer decoupled cloud architecture connecting Next.js clients to Express APIs, MongoDB Atlas, Cloudinary CDN, and Gemini/Groq LLMs.',
+      'Decoupled multi-provider architecture connecting Next.js clients to Express APIs, MongoDB Atlas, Cloudinary CDN, and AI Inferencing Engines.',
     timelineTitle: 'Commercial Product Milestones',
     phases: [
-      { phase: 'Phase 1', title: 'UI System & SaaS Foundation', desc: 'Enterprise React/Next.js foundation with JWT authentication & multi-tenant profile state.' },
-      { phase: 'Phase 2', title: 'Cognitive AI Core Integration', desc: 'Unified Gemini & Groq LLM inferencing engine with persistent persona memory.' },
-      { phase: 'Phase 3', title: 'Document Intelligence & Voice', desc: 'PDF/PPTX/DOCX parser pipeline, Cloudinary CDN, and Web Speech API hooks.' },
-      { phase: 'Phase 4', title: 'Gamification & Analytics', desc: 'Automated quiz generator, XP progress engine, streak shields, and real-time dashboard.' },
-      { phase: 'Phase 5', title: 'Global SaaS Cloud Deployment', desc: 'End-to-end performance tuning, 60 FPS optimizations, and cloud scaling.' },
+      { phase: 'Phase 1', title: 'Adaptive Learning Core', desc: 'Knowledge gap engine, mathematical score classification, and persistent profile state.' },
+      { phase: 'Phase 2', title: '3D AI Character Mentor & Voice', desc: 'Three.js VRM avatar with real-time emotion triggers, Gen-Z study companion tone, and Web Speech TTS.' },
+      { phase: 'Phase 3', title: 'Multi-Role Analytics Dashboards', desc: 'Dedicated views for Students, College faculty, Working Professionals, and Companies.' },
+      { phase: 'Phase 4', title: 'Interactive Assessment Engine', desc: 'Diagnostic testing, adaptive difficulty scaling, and early warning decline alerts.' },
+      { phase: 'Phase 5', title: 'Multilingual Regional Deployment', desc: 'End-to-end localization and natural tone adaptation across 11 Indian and global languages.' },
     ],
     futureScopeTitle: 'Enterprise Expansion & AI Roadmap',
     futurePoints: [
-      'Bidirectional Voice Dialogue: Continuous speech recognition across regional dialects.',
-      'Advanced Multimodal OCR: Microservice pipeline parsing handwritten equations & diagrams.',
-      'Virtual 3D/AR Laboratories: Three.js interactive physics and chemistry simulation labs.',
+      'Continuous Speech Viva: Real-time conversational oral examination and grading.',
+      'Institutional LMS Integration: Deep LTI interoperability with Canvas, Moodle, and Blackboard.',
+      'Automated Prerequisite Graph Generation: Real-time knowledge dependency trees across university curriculums.',
     ],
   },
   audience: {
@@ -251,8 +289,8 @@ const en: Translations = {
       },
       {
         segment: 'Working Professionals',
-        approach: 'Interview preparation, career roadmaps, AI fundamentals, and compact bite-sized modules.',
-        badge: 'Career & Upskilling',
+        approach: 'Skill gap analysis, 4-week career upskilling roadmaps, tool masteries (Docker, AWS, Node.js), and production architecture.',
+        badge: 'Upskilling & Reskilling',
       },
       {
         segment: 'Lifelong Learners',
@@ -290,7 +328,7 @@ const en: Translations = {
         points: ['PDF, PPTX & DOCX support', 'Automatic flashcard generation', 'Granular concept extraction', 'Contextual document Q&A'],
       },
       'quiz-generator': {
-        title: 'Smart Quiz Generator',
+        title: 'Knowledge-Gap Detection Engine',
         desc: 'Automated evaluation mechanics generating targeted questions for weak cognitive areas.',
         detail: 'Assess knowledge in real-time with AI-crafted quizzes and mock viva questions based on your performance history.',
         points: ['Dynamic question generation', 'Weak area targeting', 'Mock viva voice mode', 'Instant explanation breakdown'],
@@ -323,11 +361,11 @@ const en: Translations = {
     speaking: 'Speaking response in your selected language...',
     ready: 'Ready for your question',
     selectPedagogy: 'Pedagogy Mode',
-    askPlaceholder: 'Ask AURA anything (e.g. Explain Quantum Physics using a story)...',
+    askPlaceholder: 'Ask AURA anything (e.g. Explain SQL joins using a story)...',
     send: 'Ask Mentor',
     personaActive: 'Persona Active • 100% Adaptive Memory Engine',
     welcomeMessage: 'Hello! I am AURA, your personal adaptive AI mentor. How can I help you master a concept today?',
-    sampleQuestion: 'Explain Quantum Superposition in simple terms',
+    sampleQuestion: 'Explain SQL LEFT JOIN with visual analogies',
     modes: [
       { id: 'story', name: 'Storytelling Mode 📖', desc: 'Metaphors, visual narratives, and engaging analogies.' },
       { id: 'visual', name: 'Visual Diagram Mode 🎨', desc: 'Concept maps, code structures, and visual breakdowns.' },
@@ -345,17 +383,54 @@ const en: Translations = {
     masteryLabel: 'Mastery Index',
     weakTopicsTitle: 'Identified Focus Areas & Heatmap',
     recentActivityTitle: 'Recent Learning Sessions',
+    studentTab: 'Student Profile',
+    teacherTab: 'College / Faculty Analytics',
+    professionalTab: 'Working Professional Upskilling',
+    companyTab: 'Enterprise Training',
+    viewProfile: 'View Learning Profile',
+    learningRoadmap: 'Your AURA Learning Roadmap',
+    earlyWarningAlert: 'Performance Decline Alert',
     topics: [
-      { name: 'Data Structures & Algorithms', mastery: '68%', status: 'Needs Review' },
-      { name: 'Quantum Mechanics Basics', mastery: '45%', status: 'Focus Area' },
-      { name: 'Organic Reaction Mechanisms', mastery: '82%', status: 'Proficient' },
-      { name: 'Linear Algebra & Matrices', mastery: '94%', status: 'Mastered' },
+      { name: 'Python Programming', mastery: '82%', status: 'Strong' },
+      { name: 'SQL & Database Queries', mastery: '64%', status: 'Intermediate' },
+      { name: 'DBMS Normalization', mastery: '51%', status: 'Needs Improvement' },
+      { name: 'Computer Networks', mastery: '46%', status: 'Critical Gap' },
     ],
   },
+  quiz: {
+    title: 'Diagnostic Knowledge-Gap Assessment',
+    subtitle: 'Targeted drill to evaluate sub-topic understanding and adapt difficulty.',
+    question: 'Question',
+    correct: 'Correct Response',
+    incorrect: 'Misconception Detected',
+    explanation: 'Conceptual Explanation',
+    nextQuestion: 'Next Question',
+    viewResults: 'View Assessment Results',
+    restartQuiz: 'Restart Assessment',
+    score: 'Assessment Score',
+    accuracy: 'Accuracy Rate',
+    strongAreas: 'Strong Concept Areas',
+    areasToImprove: 'Identified Knowledge Gaps',
+  },
+  settings: {
+    title: 'Settings & Preferences',
+    subtitle: 'Configure conversational tone, role perspective, AI inferencing providers, and localization.',
+    languageLabel: 'Platform Language (11 Languages)',
+    toneLabel: 'AURA Conversational Personality & Tone',
+    normalEnglish: 'Normal English (Clear & Professional)',
+    normalDesc: 'Clear, natural, professional, and easy to understand.',
+    genzEnglish: 'Gen-Z English (Casual & Playful)',
+    genzDesc: 'Casual, friendly, modern, smart, and slightly playful.',
+    aiProviderLabel: 'AI Inferencing Engine & Cost Management',
+    voiceSpeedLabel: 'Voice Speech Synthesis Speed',
+    saveBtn: 'Save Settings',
+    resetProfileBtn: 'Reset Learning Profile',
+    savedSuccess: 'Preferences saved successfully!',
+  },
   footer: {
-    copy: 'AURA — Universal AI Learning Companion & Adaptive Education Platform.',
-    platform: 'Enterprise Commercial AI Platform • Web & Mobile',
-    rights: 'All rights reserved. Commercial Startup Product Architecture.',
+    copy: 'AURA — AI-Powered Adaptive Learning & Skill-Gap Analysis Platform.',
+    platform: 'Enterprise AI Platform • Web & Mobile',
+    rights: 'All rights reserved.',
   },
   common: {
     back: 'Back to Home',
@@ -373,6 +448,7 @@ const en: Translations = {
   },
 }
 
+// ─── 2. HINDI (हिन्दी) ───
 const hi: Translations = {
   ...en,
   nav: {
@@ -385,9 +461,6 @@ const hi: Translations = {
     adaptive: 'एडैप्टिव इंजन',
     mentor: 'एआई मेंटर',
     dashboard: 'डैशबोर्ड',
-    gallery: 'डेस्कटॉप गैलरी',
-    testimonials: 'समीक्षाएं',
-    faq: 'प्रश्न-उत्तर',
     support: 'सहायता',
     docs: 'दस्तावेज़',
     settings: 'सेटिंग्स',
@@ -398,49 +471,91 @@ const hi: Translations = {
   },
   hero: {
     ...en.hero,
-    eyebrow: 'सार्वभौमिक एआई शिक्षण साथी और अनुकूलनीय शिक्षा',
-    title: 'एआई कैरेक्टर मेंटर के साथ स्मार्ट तरीके से सीखें',
-    titleLine1: 'स्मार्ट तरीके से सीखें',
-    titleLine2: 'एआई कैरेक्टर मेंटर के साथ',
-    subtitle:
-      'एक व्यावसायिक अनुकूलनशील एआई शिक्षा प्लेटफॉर्म जो आपकी सीखने की शैली, भाषा और लक्ष्यों के अनुसार व्यक्तिगत मेंटर प्रदान करता है।',
-    startFree: 'मुफ्त में शुरू करें',
-    exploreFeatures: 'विशेषताएं देखें',
-    statLanguages: 'समर्थित भाषाएं',
-    statTutor: 'अनुकूलनीय एआई मेंटर',
-    statCost: 'प्रारंभिक लागत',
+    eyebrow: 'एआई-संचालित अनुकूलनीय शिक्षण और कौशल-अंतर विश्लेषण',
+    title: 'ऑरा केवल उत्तर नहीं देता। यह आपकी पूरी सीखने की यात्रा का प्रबंधन करता है।',
+    titleLine1: 'ऑरा केवल उत्तर नहीं देता।',
+    titleLine2: 'यह सीखने की यात्रा का प्रबंधन करता है।',
+    subtitle: 'ऑरा समझता है कि आप क्या जानते हैं, क्या सीखना बाकी है, सिखाने का तरीका बदलता है और सुधार मापता है।',
+    startFree: '3D एआई मेंटर शुरू करें',
+    exploreFeatures: 'लर्निंग प्रोफाइल देखें',
+    statLanguages: '11 समर्थित क्षेत्रीय भाषाएं',
+    statTutor: 'अनुकूलनीय मेमोरी रिटेंशन',
+    statCost: 'क्लोज्ड-लूप कॉग्निटिव चक्र',
     languagesLabel: '11 क्षेत्रीय भाषाओं का समर्थन',
     aiStatus: 'एआई मेंटर सक्रिय • वॉयस इंजन ऑनलाइन',
   },
   about: {
     ...en.about,
-    tag: 'व्यावसायिक एआई प्लेटफॉर्म',
-    title: 'AURA — सार्वभौमिक एआई शिक्षण साथी',
-    subtitle: 'निरंतर शिक्षण ट्रैकिंग, बहु-दस्तावेज़ बुद्धिमत्ता और वास्तविक समय वॉयस ट्यूटरिंग के साथ तैयार किया गया व्यावसायिक एआई शिक्षा प्लेटफॉर्म।',
-    platformVisionTitle: 'उत्पाद दृष्टिकोण और आर्किटेक्चर',
-    platformVisionDesc: 'पारंपरिक ई-लर्निंग प्लेटफॉर्म सभी के लिए एक जैसी सामग्री देते हैं। ऑरा (AURA) एक अनुकूलनशील कैरेक्टर फ्रेमवर्क पेश करता है जो किसी भी अवधारणा को आपकी भाषा और शैली में समझाता है।',
+    tag: 'एआई-संचालित एडैप्टिव लर्निंग प्लेटफॉर्म',
+    title: 'AURA — अनुकूलनीय शिक्षण और कौशल-अंतर विश्लेषण',
+    subtitle: 'एक ऐसा सॉफ्टवेयर प्लेटफॉर्म जो छात्र या पेशेवर के ज्ञान को समझकर व्यक्तिगत शिक्षण पथ बनाता है।',
+    platformVisionTitle: 'उत्पाद दृष्टिकोण और मुख्य चक्र',
+    platformVisionDesc: 'ChatGPT केवल एक उत्तर देता है। Aura पूरी सीखने की यात्रा का प्रबंधन करता है।',
     problemTitle: 'शिक्षा में मुख्य चुनौतियाँ',
     solutionTitle: 'AURA का समाधान इंजन',
-    problem: 'शिक्षा में मुख्य चुनौतियाँ',
-    solution: 'AURA का समाधान इंजन',
   },
   mentor: {
     ...en.mentor,
-    title: 'इंटरैक्टिव एआई कैरेक्टर मेंटर',
-    subtitle: 'वास्तविक समय में वॉयस सिंथेसिस और कस्टम शिक्षण मोड का अनुभव करें।',
+    title: 'इंटरैक्टिव 3D एआई कैरेक्टर मेंटर',
+    subtitle: 'वास्तविक समय में वॉयस सिंथेसिस, अभिव्यक्ति और कस्टम शिक्षण मोड का अनुभव करें।',
     listening: 'आपकी आवाज सुनी जा रही है...',
-    thinking: 'संदर्भ का विश्लेषण और उत्तर तैयार किया जा रहा है...',
-    speaking: 'आपकी चुनी हुई भाषा में उत्तर दिया जा रहा है...',
+    thinking: 'विश्लेषण और उत्तर तैयार किया जा रहा है...',
+    speaking: 'उत्तर दिया जा रहा है...',
     ready: 'आपके प्रश्न के लिए तैयार',
     selectPedagogy: 'शिक्षण मोड चुनें',
-    askPlaceholder: 'ऑरा से कुछ भी पूछें (उदा. कहानी के माध्यम से क्वांटम भौतिकी समझाएं)...',
+    askPlaceholder: 'ऑरा से कुछ भी पूछें (उदा. SQL JOINs को कहानी से समझाएं)...',
     send: 'पूछें',
-    personaActive: 'मेंटर सक्रिय • 100% अनुकूलनीय मेमोरी',
-    welcomeMessage: 'नमस्ते! मैं AURA हूँ, आपका व्यक्तिगत एआई मेंटर। आज आप क्या सीखना चाहते हैं?',
-    sampleQuestion: 'सरल शब्दों में क्वांटम सुपरपोज़िशन समझाएं',
+    welcomeMessage: 'नमस्ते! मैं AURA हूँ, आपका व्यक्तिगत 3D एआई मेंटर। आज आप क्या सीखना चाहते हैं?',
+  },
+  dashboard: {
+    ...en.dashboard,
+    title: 'एकीकृत प्रगति डैशबोर्ड',
+    subtitle: 'अपनी प्रगति, एक्सपी, स्ट्रीक और कमजोर विषयों के हीटमैप को ट्रैक करें।',
+    studentTab: 'छात्र प्रोफाइल',
+    teacherTab: 'कॉलेज / शिक्षक एनालिटिक्स',
+    professionalTab: 'वर्किंग प्रोफेशनल अपस्किलिंग',
+    companyTab: 'कंपनी ट्रेनिंग',
+    viewProfile: 'लर्निंग प्रोफाइल देखें',
+    learningRoadmap: 'आपका AURA लर्निंग रोडमैप',
+    earlyWarningAlert: 'प्रदर्शन गिरावट चेतावनी',
+  },
+  quiz: {
+    ...en.quiz,
+    title: 'नैदानिक ज्ञान-अंतर मूल्यांकन',
+    subtitle: 'उप-विषय की समझ का परीक्षण और कठिनाई का अनुकूलन।',
+    question: 'प्रश्न',
+    correct: 'सही उत्तर',
+    incorrect: 'गलत उत्तर / सुधार आवश्यक',
+    explanation: 'विस्तृत व्याख्या',
+    nextQuestion: 'अगला प्रश्न',
+    viewResults: 'परिणाम देखें',
+    restartQuiz: 'पुनः प्रारंभ करें',
+    score: 'मूल्यांकन अंक',
+    strongAreas: 'मजबूत विषय',
+    areasToImprove: 'कमजोर क्षेत्र (Knowledge Gaps)',
+  },
+  settings: {
+    ...en.settings,
+    title: 'सेटिंग्स और प्राथमिकताएं',
+    subtitle: 'भाषा, बातचीत का लहजा, भूमिका और एआई प्रदाता कॉन्फ़िगर करें।',
+    languageLabel: 'प्लेटफॉर्म भाषा (11 भाषाएं)',
+    toneLabel: 'बातचीत की शैली और व्यक्तित्व',
+    normalEnglish: 'सामान्य अंग्रेज़ी (स्पष्ट और पेशेवर)',
+    genzEnglish: 'Gen-Z अंग्रेज़ी (दोस्ताना और आधुनिक)',
+    saveBtn: 'सेटिंग्स सुरक्षित करें',
+    resetProfileBtn: 'प्रोफाइल रीसेट करें',
+    savedSuccess: 'प्राथमिकताएं सफलतापूर्वक सुरक्षित की गईं!',
+  },
+  common: {
+    ...en.common,
+    enterAura: 'ऑरा में प्रवेश करें',
+    selectLanguage: 'भाषा चुनें',
+    saveSettings: 'सेटिंग्स सुरक्षित करें',
+    back: 'पीछे जाएं',
   },
 }
 
+// ─── 3. MARATHI (मराठी) ───
 const mr: Translations = {
   ...hi,
   nav: {
@@ -448,29 +563,41 @@ const mr: Translations = {
     about: 'मंचाबद्दल',
     features: 'वैशिष्ट्ये',
     technology: 'आर्किटेक्चर',
-    research: 'संशोधन',
-    roadmap: 'रोडमॅप',
     adaptive: 'ॲडॉप्टिव्ह इंजिन',
     mentor: 'एआय मेंटर',
     dashboard: 'डॅशबोर्ड',
-    support: 'मदत',
     settings: 'सेटिंग्ज',
     profile: 'प्रोफाइल',
     contact: 'संपर्क करा',
   },
   hero: {
     ...hi.hero,
-    eyebrow: 'सर्वसमावेशक एआय शिक्षण साथी',
-    title: 'एआय कॅरेक्टर मेंटरसह स्मार्टपणे शिका',
-    titleLine1: 'स्मार्टपणे शिका',
-    titleLine2: 'एआय कॅरेक्टर मेंटरसह',
-    subtitle: 'एक व्यावसायिक ॲडॉप्टिव्ह शिक्षण मंच जो तुमच्या गरजेनुसार वैयक्तिक मार्गदर्शन देतो.',
-    startFree: 'मोफत शिकणे सुरू करा',
-    exploreFeatures: 'वैशिष्ट्ये पहा',
+    eyebrow: 'एआय-आधारित ॲडॉप्टिव्ह लर्निंग आणि स्किल गॅप विश्लेषण मंच',
+    title: 'ऑरा फक्त उत्तरे देत नाही. ती तुमचा संपूर्ण शिकण्याचा प्रवास सांभाळते.',
+    titleLine1: 'ऑरा फक्त उत्तरे देत नाही.',
+    titleLine2: 'ती शिकण्याचा प्रवास सांभाळते.',
+    subtitle: 'तुम्हाला काय माहिती आहे ते समजून, ज्ञान-त्रुटी ओळखून तुमच्या गतीने शिकवणारा एआय मार्गदर्शक.',
+    startFree: '3D एआय मेंटर सुरू करा',
+    exploreFeatures: 'शिकण्याची प्रोफाइल पहा',
     languagesLabel: '११ प्रादेशिक भाषा समर्थित',
+  },
+  dashboard: {
+    ...hi.dashboard,
+    title: 'प्रगती डॅशबोर्ड',
+    subtitle: 'तुमची बौद्धिक प्रगती, XP आणि कमकुवत विषयांचे विश्लेषण पहा.',
+    studentTab: 'विद्यार्थी प्रोफाइल',
+    teacherTab: 'शिक्षक / कॉलेज विश्लेषण',
+    professionalTab: 'प्रोफेशनल अपस्किलिंग',
+    companyTab: 'कंपनी प्रशिक्षण',
+    learningRoadmap: 'तुमचा AURA लर्निंग रोडमॅप',
+  },
+  mentor: {
+    ...hi.mentor,
+    welcomeMessage: 'नमस्कार! मी AURA आहे, तुमची वैयक्तिक 3D एआय मेंटर. आज आपण काय शिकायचे?',
   },
 }
 
+// ─── 4. GUJARATI (ગુજરાતી) ───
 const gu: Translations = {
   ...hi,
   nav: {
@@ -480,23 +607,35 @@ const gu: Translations = {
     technology: 'આર્કિટેક્ચર',
     dashboard: 'ડેશબોર્ડ',
     mentor: 'AI મેન્ટર',
-    support: 'સહાય',
     settings: 'સેટિંગ્સ',
     profile: 'પ્રોફાઇલ',
   },
   hero: {
     ...hi.hero,
-    eyebrow: 'સાર્વત્રિક AI શિક્ષણ સાથી',
-    title: 'AI કેરેક્ટર મેન્ટર સાથે સ્માર્ટ રીતે શીખો',
-    titleLine1: 'સ્માર્ટ રીતે શીખો',
-    titleLine2: 'AI કેરેક્ટર મેન્ટર સાથે',
-    subtitle: 'એક પ્રોફેશનલ અનુકૂળ શિક્ષણ મંચ જે વ્યક્તિગત માર્ગદર્શન આપે છે.',
-    startFree: 'મફત શરૂ કરો',
-    exploreFeatures: 'વિશેષતાઓ જુઓ',
+    eyebrow: 'AI-સંચાલિત અનુકૂલનશીલ શિક્ષણ અને કૌશલ્ય અંતર વિશ્લેષણ',
+    title: 'ઓરા ફક્ત જવાબ નથી આપતી. તે તમારી સંપૂર્ણ શીખવાની યાત્રાનું સંચાલન કરે છે.',
+    titleLine1: 'ઓરા ફક્ત જવાબ નથી આપતી.',
+    titleLine2: 'તે શીખવાની યાત્રાનું સંચાલન કરે છે.',
+    subtitle: 'ઓરા સમજે છે કે તમે શું જાણો છો, શું ખૂટે છે અને તે મુજબ તમને શીખવે છે.',
+    startFree: '3D AI મેન્ટર શરૂ કરો',
+    exploreFeatures: 'લર્નિંગ પ્રોફાઇલ જુઓ',
     languagesLabel: '૧૧ પ્રાદેશિક ભાષાઓ સમર્થિત',
+  },
+  dashboard: {
+    ...hi.dashboard,
+    title: 'પ્રગતિ ડેશબોર્ડ',
+    studentTab: 'વિદ્યાર્થી પ્રોફાઇલ',
+    teacherTab: 'કોલેજ / શિક્ષક એનાલિટિક્સ',
+    professionalTab: 'પ્રોફેશનલ અપસ્કિલિંગ',
+    companyTab: 'કંપની તાલીમ',
+  },
+  mentor: {
+    ...hi.mentor,
+    welcomeMessage: 'નમસ્તે! હું AURA છું, તમારી 3D AI માર્ગદર્શક. આજે આપણે શું શીખીશું?',
   },
 }
 
+// ─── 5. TAMIL (தமிழ்) ───
 const ta: Translations = {
   ...en,
   nav: {
@@ -504,16 +643,9 @@ const ta: Translations = {
     about: 'பற்றி',
     features: 'அம்சங்கள்',
     technology: 'கட்டமைப்பு',
-    research: 'ஆராய்ச்சி',
-    roadmap: 'வரைபடம்',
     adaptive: 'கற்றல் என்ஜின்',
     mentor: 'AI ஆசிரியர்',
     dashboard: 'டாஷ்போர்டு',
-    gallery: 'காட்சியகம்',
-    testimonials: 'மதிப்புரைகள்',
-    faq: 'கேள்விகள்',
-    support: 'உதவி',
-    docs: 'ஆவணங்கள்',
     settings: 'அமைப்புகள்',
     profile: 'சுயவிவரம்',
     contact: 'தொடர்பு கொள்ள',
@@ -522,21 +654,52 @@ const ta: Translations = {
   },
   hero: {
     ...en.hero,
-    eyebrow: 'அனைவருக்குமான AI கற்றல் துணைவன்',
-    title: 'AI ஆசிரியருடன் புத்திசாலித்தனமாக கற்கவும்',
-    titleLine1: 'புத்திசாலித்தனமாக',
-    titleLine2: 'AI ஆசிரியருடன் கற்கவும்',
-    subtitle: 'உங்களுக்கு ஏற்றவாறு கற்பிக்கும் நவீன AI கற்றல் தளம்.',
-    startFree: 'இலவசமாக தொடங்கவும்',
-    exploreFeatures: 'அம்சங்களை பார்க்க',
-    statLanguages: 'ஆதரிக்கப்படும் மொழிகள்',
-    statTutor: 'AI ஆசிரியர்',
-    statCost: 'செயல்பாட்டு செலவு',
+    eyebrow: 'AI-இயங்கும் தகவமைப்பு கற்றல் மற்றும் திறன் இடைவெளி பகுப்பாய்வு',
+    title: 'ஆரா வெறும் பதில்களை மட்டும் தருவதில்லை. அது உங்கள் முழு கற்றல் பயணத்தையும் நிர்வகிக்கிறது.',
+    titleLine1: 'ஆரா வெறும் பதில்களை மட்டும் தருவதில்லை.',
+    titleLine2: 'முழு கற்றல் பயணத்தையும் நிர்வகிக்கிறது.',
+    subtitle: 'நீங்கள் அறிந்ததை புரிந்து, அறியாததை கண்டறிந்து, அதற்கேற்ப தனிப்பயனாக்கி கற்பிக்கும் நுண்ணறிவு தளம்.',
+    startFree: '3D AI ஆசிரியரைத் தொடங்குங்கள்',
+    exploreFeatures: 'கற்றல் சுயவிவரத்தைப் பார்க்கவும்',
     languagesLabel: '11 பிராந்திய மொழிகள் ஆதரிக்கப்படுகின்றன',
-    aiStatus: 'AI ஆசிரியர் தயார் • குரல் ஆன்லைன்',
+  },
+  dashboard: {
+    ...en.dashboard,
+    title: 'ஒருங்கிணைந்த முன்னேற்ற டாஷ்போர்டு',
+    subtitle: 'உங்கள் முன்னேற்றம், XP புள்ளிகள் மற்றும் பலவீனமான தலைப்புகளைக் கண்காணிக்கவும்.',
+    studentTab: 'மாணவர் சுயவிவரம்',
+    teacherTab: 'கல்லூரி / ஆசிரியர் பகுப்பாய்வு',
+    professionalTab: 'தொழில்முறை திறன் மேம்பாடு',
+    companyTab: 'நிறுவன பயிற்சி',
+    learningRoadmap: 'உங்கள் AURA கற்றல் வரைபடம்',
+  },
+  mentor: {
+    ...en.mentor,
+    title: '3D AI கதாபாத்திர ஆசிரியர்',
+    welcomeMessage: 'வணக்கம்! நான் AURA, உங்கள் தனிப்பட்ட 3D AI ஆசிரியர். இன்று நாம் என்ன கற்கலாம்?',
+    listening: 'உங்கள் குரல் கேட்கப்படுகிறது...',
+    thinking: 'பகுப்பாய்வு செய்து பதில் தயாராகிறது...',
+    speaking: 'பதில் உரைக்கப்படுகிறது...',
+  },
+  quiz: {
+    ...en.quiz,
+    title: 'கற்றல் இடைவெளி மதிப்பீடு',
+    question: 'கேள்வி',
+    correct: 'சரியான பதில்',
+    incorrect: 'தவறான பதில்',
+    explanation: 'விளக்கம்',
+    nextQuestion: 'அடுத்த கேள்வி',
+    viewResults: 'முடிவுகளைக் காண்க',
+  },
+  settings: {
+    ...en.settings,
+    title: 'அமைப்புகள்',
+    languageLabel: 'தள மொழி (11 மொழிகள்)',
+    saveBtn: 'அமைப்புகளைச் சேமிக்கவும்',
   },
 }
 
+// ─── 6. TELUGU (తెలుగు) ───
 const te: Translations = {
   ...ta,
   nav: {
@@ -544,26 +707,39 @@ const te: Translations = {
     about: 'గురించి',
     features: 'ఫీచర్లు',
     technology: 'ఆర్కిటెక్చర్',
-    dashboard: 'డాష్‌బోర్డ్',
+    adaptive: 'అడాప్టివ్ ఇంజిన్',
     mentor: 'AI మెంటార్',
-    support: 'మద్దతు',
+    dashboard: 'డాష్‌బోర్డ్',
     settings: 'సెట్టింగ్‌లు',
     profile: 'ప్రొఫైల్',
     contact: 'సంప్రదించండి',
   },
   hero: {
     ...ta.hero,
-    eyebrow: 'సార్వత్రిక AI అభ్యాస సహాయకుడు',
-    title: 'AI క్యారెక్టర్ మెంటార్‌తో తెలివిగా నేర్చుకోండి',
-    titleLine1: 'తెలివిగా నేర్చుకోండి',
-    titleLine2: 'AI క్యారెక్టర్ మెంటార్‌తో',
-    subtitle: 'మీకు అనుగుణంగా బోధించే AI అభ్యాస ప్లాట్‌ఫారమ్.',
-    startFree: 'ఉచితంగా ప్రారంభించండి',
-    exploreFeatures: 'ఫీచర్లు చూడండి',
+    eyebrow: 'AI-ఆధారిత అడాప్టివ్ లెర్నింగ్ మరియు స్కిల్ గ్యాప్ విశ్లేషణ',
+    title: 'Aura కేవలం సమాధానాలు ఇవ్వదు. ఇది మీ పూర్తి అభ్యాస ప్రయాణాన్ని నిర్వహిస్తుంది.',
+    titleLine1: 'Aura కేవలం సమాధానాలు ఇవ్వదు.',
+    titleLine2: 'ఇది అభ్యాస ప్రయాణాన్ని నిర్వహిస్తుంది.',
+    subtitle: 'మీకు ఏమి తెలుసో అర్థం చేసుకుని, లోపాలను గుర్తించి, మీ వేగానికి అనుగుణంగా బోధించే AI వేదిక.',
+    startFree: '3D AI మెంటార్‌ను ప్రారంభించండి',
+    exploreFeatures: 'లెర్నింగ్ ప్రొఫైల్ చూడండి',
     languagesLabel: '11 ప్రాంతీయ భాషల మద్దతు',
+  },
+  dashboard: {
+    ...ta.dashboard,
+    title: 'పురోగతి డాష్‌బోర్డ్',
+    studentTab: 'విద్యార్థి ప్రొఫైల్',
+    teacherTab: 'కాలేజీ / ఫ్యాకల్టీ విశ్లేషణ',
+    professionalTab: 'ప్రొఫెషనల్ అప్‌స్కిల్లింగ్',
+    companyTab: 'కంపెనీ శిక్షణ',
+  },
+  mentor: {
+    ...ta.mentor,
+    welcomeMessage: 'నమస్కారం! నేను AURA, మీ వ్యక్తిగత 3D AI మెంటార్. ఈ రోజు ఏమి నేర్చుకుందాం?',
   },
 }
 
+// ─── 7. BENGALI (বাংলা) ───
 const bn: Translations = {
   ...en,
   nav: {
@@ -571,39 +747,40 @@ const bn: Translations = {
     about: 'সম্পর্কে',
     features: 'বৈশিষ্ট্য',
     technology: 'আর্কিটেকচার',
-    research: 'গবেষণা',
-    roadmap: 'রোডম্যাপ',
     adaptive: 'এডাপ্টিভ ইঞ্জিন',
-    mentor: 'AI টিউটর',
+    mentor: 'AI মেন্টর',
     dashboard: 'ড্যাশবোর্ড',
-    gallery: 'গ্যালারি',
-    testimonials: 'মতামত',
-    faq: 'প্রশ্নোত্তর',
-    support: 'সহায়তা',
-    docs: 'নথি',
     settings: 'সেটিংস',
     profile: 'প্রোফাইল',
     contact: 'যোগাযোগ',
-    login: 'লগ ইন',
-    signup: 'শুরু করুন',
   },
   hero: {
     ...en.hero,
-    eyebrow: 'সার্বজনীন AI শিক্ষা সঙ্গী',
-    title: 'AI ক্যারেক্টার টিউটরের সাথে স্মার্টভাবে শিখুন',
-    titleLine1: 'স্মার্টভাবে শিখুন',
-    titleLine2: 'AI ক্যারেক্টার টিউটরের সাথে',
-    subtitle: 'একটি অভিযোজিত শিক্ষা প্ল্যাটফর্ম যা ব্যক্তিগত শিক্ষক প্রদান করে।',
-    startFree: 'বিনামূল্যে শুরু করুন',
-    exploreFeatures: 'বৈশিষ্ট্য দেখুন',
-    statLanguages: 'সমর্থিত ভাষা',
-    statTutor: 'AI টিউটর',
-    statCost: 'ব্যয়',
+    eyebrow: 'AI-চালিত অভিযোজিত শিক্ষা এবং দক্ষতা ফাঁক বিশ্লেষণ প্ল্যাটফর্ম',
+    title: 'Aura কেবল উত্তর দেয় না। এটি আপনার সম্পূর্ণ শেখার যাত্রা পরিচালনা করে।',
+    titleLine1: 'Aura কেবল উত্তর দেয় না।',
+    titleLine2: 'এটি শেখার যাত্রা পরিচালনা করে।',
+    subtitle: 'আপনি কী জানেন তা বুঝে, দুর্বলতা শনাক্ত করে এবং আপনার প্রয়োজন অনুযায়ী ব্যক্তিগতভাবে শেখায়।',
+    startFree: '3D AI মেন্টর চালু করুন',
+    exploreFeatures: 'লার্নিং প্রোফাইল দেখুন',
     languagesLabel: '১১টি আঞ্চলিক ভাষার সমর্থন',
-    aiStatus: 'AI টিউটর সক্রিয় • ভয়েস অনলাইন',
+  },
+  dashboard: {
+    ...en.dashboard,
+    title: 'অগ্রগতি ড্যাশবোর্ড',
+    studentTab: 'ছাত্র প্রোফাইল',
+    teacherTab: 'শিক্ষক বিশ্লেষণ',
+    professionalTab: 'পেশাদার দক্ষতা বৃদ্ধি',
+    companyTab: 'কর্পোরেট প্রশিক্ষণ',
+    learningRoadmap: 'আপনার AURA লার্নিং রোডম্যাপ',
+  },
+  mentor: {
+    ...en.mentor,
+    welcomeMessage: 'নমস্কার! আমি AURA, আপনার ব্যক্তিগত 3D AI মেন্টর। আজ আপনি কী শিখতে চান?',
   },
 }
 
+// ─── 8. KANNADA (ಕನ್ನಡ) ───
 const kn: Translations = {
   ...en,
   nav: {
@@ -611,31 +788,39 @@ const kn: Translations = {
     about: 'ಕುರಿತು',
     features: 'ವೈಶಿಷ್ಟ್ಯಗಳು',
     technology: 'ಆರ್ಕಿಟೆಕ್ಚರ್',
-    research: 'ಸಂಶೋಧನೆ',
-    roadmap: 'ರೋಡ್‌ಮ್ಯಾಪ್',
     adaptive: 'ಅಡಾಪ್ಟಿವ್ ಇಂಜಿನ್',
     mentor: 'AI ಮಾರ್ಗದರ್ಶಿ',
     dashboard: 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
-    support: 'ಸಹಾಯ',
     settings: 'ಸೆಟ್ಟಿಂಗ್‌ಗಳು',
     profile: 'ಪ್ರೊಫೈಲ್',
     contact: 'ಸಂಪರ್ಕಿಸಿ',
-    login: 'ಲಾಗಿನ್',
-    signup: 'ಪ್ರಾರಂಭಿಸಿ',
   },
   hero: {
     ...en.hero,
-    eyebrow: 'ಸಾರ್ವತ್ರಿಕ AI ಕಲಿಕಾ ಸಂಗಾತಿ',
-    title: 'AI ಕ್ಯಾರಕ್ಟರ್ ಮಾರ್ಗದರ್ಶಿಯೊಂದಿಗೆ ಸ್ಮಾರ್ಟ್ ಆಗಿ ಕಲಿಯಿರಿ',
-    titleLine1: 'ಸ್ಮಾರ್ಟ್ ಆಗಿ ಕಲಿಯಿರಿ',
-    titleLine2: 'AI ಕ್ಯಾರಕ್ಟರ್ ಮಾರ್ಗದರ್ಶಿಯೊಂದಿಗೆ',
-    subtitle: 'ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಕಲಿಕಾ ಶೈಲಿಗೆ ತಕ್ಕಂತೆ ಕಲಿಸುವ ಸುಧಾರಿತ AI ವೇದಿಕೆ.',
-    startFree: 'ಉಚಿತವಾಗಿ ಪ್ರಾರಂಭಿಸಿ',
-    exploreFeatures: 'ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ವೀಕ್ಷಿಸಿ',
+    eyebrow: 'AI-ಚಾಲಿತ ಹೊಂದಾಣಿಕೆಯ ಕಲಿಕೆ ಮತ್ತು ಕೌಶಲ್ಯ ಅಂತರ ವಿಶ್ಲೇಷಣೆ',
+    title: 'ಆರಾ ಕೇವಲ ಉತ್ತರಿಸುವುದಿಲ್ಲ. ಇದು ನಿಮ್ಮ ಸಂಪೂರ್ಣ ಕಲಿಕೆಯ ಪ್ರಯಾಣವನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ.',
+    titleLine1: 'ಆರಾ ಕೇವಲ ಉತ್ತರಿಸುವುದಿಲ್ಲ.',
+    titleLine2: 'ಇದು ಕಲಿಕೆಯ ಪ್ರಯಾಣವನ್ನು ನಿರ್ವಹಿಸುತ್ತದೆ.',
+    subtitle: 'ನಿಮಗೆ ಏನು ತಿಳಿದಿದೆ ಎಂಬುದನ್ನು ಅರ್ಥಮಾಡಿಕೊಂಡು, ನಿಮ್ಮ ಕೌಶಲ್ಯ ಅಂತರವನ್ನು ಸರಿಪಡಿಸುವ AI ಪ್ಲಾಟ್‌ಫಾರ್ಮ್.',
+    startFree: '3D AI ಮಾರ್ಗದರ್ಶಿ ಪ್ರಾರಂಭಿಸಿ',
+    exploreFeatures: 'ಕಲಿಕೆಯ ಪ್ರೊಫೈಲ್ ವೀಕ್ಷಿಸಿ',
     languagesLabel: '೧೧ ಪ್ರಾದೇಶಿಕ ಭಾಷೆಗಳ ಬೆಂಬಲ',
+  },
+  dashboard: {
+    ...en.dashboard,
+    title: 'ಪ್ರಗತಿ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+    studentTab: 'ವಿದ್ಯಾರ್ಥಿ ಪ್ರೊಫೈಲ್',
+    teacherTab: 'ಶಿಕ್ಷಕರ ವಿಶ್ಲೇಷಣೆ',
+    professionalTab: 'ವೃತ್ತಿಪರ ಕೌಶಲ್ಯ ವೃದ್ಧಿ',
+    companyTab: 'ಸಂಸ್ಥೆಯ ತರಬೇತಿ',
+  },
+  mentor: {
+    ...en.mentor,
+    welcomeMessage: 'ನಮಸ್ಕಾರ! ನಾನು AURA, ನಿಮ್ಮ ವೈಯಕ್ತಿಕ 3D AI ಮಾರ್ಗದರ್ಶಿ. ಇಂದು ನಾವು ಏನು ಕಲಿಯೋಣ?',
   },
 }
 
+// ─── 9. MALAYALAM (മലയാളം) ───
 const ml: Translations = {
   ...en,
   nav: {
@@ -643,31 +828,38 @@ const ml: Translations = {
     about: 'കുറിച്ച്',
     features: 'സവിശേഷതകൾ',
     technology: 'ആർക്കിടെക്ചർ',
-    research: 'ഗവേഷണം',
-    roadmap: 'റോഡ്‌മാപ്പ്',
     adaptive: 'അഡാപ്റ്റീവ് എഞ്ചിൻ',
     mentor: 'AI ട്യൂട്ടർ',
     dashboard: 'ഡാഷ്‌ബോർഡ്',
-    support: 'സഹായം',
     settings: 'സെറ്റിംഗ്സ്',
     profile: 'പ്രൊഫൈൽ',
-    contact: 'ബന്ധപ്പെടുക',
-    login: 'ലോഗിൻ',
-    signup: 'തുടങ്ങൂ',
   },
   hero: {
     ...en.hero,
-    eyebrow: 'സാർവത്രിക AI പഠന സഹായി',
-    title: 'AI ക്യാരക്ടർ ട്യൂട്ടറുമൊത്ത് സ്മാർട്ടായി പഠിക്കൂ',
-    titleLine1: 'സ്മാർട്ടായി പഠിക്കൂ',
-    titleLine2: 'AI ക്യാരക്ടർ ട്യൂട്ടറുമൊത്ത്',
-    subtitle: 'നിങ്ങളുടെ വ്യക്തിഗത പഠനരീതിക്ക് അനുയോജ്യമായ AI പ്ലാറ്റ്‌ഫോം.',
-    startFree: 'സൗജന്യമായി തുടങ്ങൂ',
-    exploreFeatures: 'സവിശേഷതകൾ കാണുക',
+    eyebrow: 'AI-അധിഷ്ഠിത അഡാപ്റ്റീവ് ലേണിംഗ് & സ്കിൽ ഗ്യാപ്പ് പ്ലാറ്റ്‌ഫോം',
+    title: 'ഓറ വെറുമൊരു ഉത്തരം നൽകലല്ല. ഇത് നിങ്ങളുടെ മുഴുവൻ പഠന യാത്രയെയും നയിക്കുന്നു.',
+    titleLine1: 'ഓറ വെറുമൊരു ഉത്തരം നൽകലല്ല.',
+    titleLine2: 'പഠന യാത്രയെ നയിക്കുന്നു.',
+    subtitle: 'നിങ്ങൾക്ക് എന്തറിയാം എന്ന് മനസ്സിലാക്കി, വിടവുകൾ കണ്ടെത്തി പഠിപ്പിക്കുന്ന നൂതന AI പ്ലാറ്റ്‌ഫോം.',
+    startFree: '3D AI ട്യൂട്ടർ ആരംഭിക്കൂ',
+    exploreFeatures: 'ലേണിംഗ് പ്രൊഫൈൽ കാണുക',
     languagesLabel: '11 പ്രാദേശിക ഭാഷകളുടെ പിന്തുണ',
+  },
+  dashboard: {
+    ...en.dashboard,
+    title: 'പുരോഗതി ഡാഷ്‌ബോർഡ്',
+    studentTab: 'വിദ്യാർത്ഥി പ്രൊഫൈൽ',
+    teacherTab: 'അധ്യാപക വിശകലനം',
+    professionalTab: 'തൊഴിൽ നൈപുണ്യ വികസനം',
+    companyTab: 'സ്ഥാപന പരിശീലനം',
+  },
+  mentor: {
+    ...en.mentor,
+    welcomeMessage: 'നമസ്കാരം! ഞാൻ AURA, നിങ്ങളുടെ സ്വകാര്യ 3D AI ട്യൂട്ടർ. ഇന്ന് നമുക്ക് എന്ത് പഠിക്കാം?',
   },
 }
 
+// ─── 10. PUNJABI (ਪੰਜਾਬੀ) ───
 const pa: Translations = {
   ...hi,
   nav: {
@@ -677,23 +869,35 @@ const pa: Translations = {
     technology: 'ਆਰਕੀਟੈਕਚਰ',
     dashboard: 'ਡੈਸ਼ਬੋਰਡ',
     mentor: 'AI ਮੈਂਟਰ',
-    support: 'ਮਦਦ',
     settings: 'ਸੈਟਿੰਗਾਂ',
     profile: 'ਪ੍ਰੋਫਾਈਲ',
   },
   hero: {
     ...hi.hero,
-    eyebrow: 'ਸਾਰਵਜਨਿਕ AI ਸਿੱਖਿਆ ਸਾਥੀ',
-    title: 'AI ਕੈਰੇਕਟਰ ਮੈਂਟਰ ਨਾਲ ਸਮਾਰਟ ਤਰੀਕੇ ਨਾਲ ਸਿੱਖੋ',
-    titleLine1: 'ਸਮਾਰਟ ਤਰੀਕੇ ਨਾਲ ਸਿੱਖੋ',
-    titleLine2: 'AI ਕੈਰੇਕਟਰ ਮੈਂਟਰ ਨਾਲ',
-    subtitle: 'ਤੁਹਾਡੀ ਭਾਸ਼ਾ ਅਤੇ ਲੋੜਾਂ ਅਨੁਸਾਰ ਸਿਖਾਉਣ ਵਾਲਾ ਐਡਵਾਂਸਡ AI ਪਲੇਟਫਾਰਮ।',
-    startFree: 'ਮੁਫ਼ਤ ਸ਼ੁਰੂ ਕਰੋ',
-    exploreFeatures: 'ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਵੇਖੋ',
+    eyebrow: 'AI-ਸੰਚਾਲਿਤ ਅਨੁਕੂਲ ਸਿੱਖਿਆ ਅਤੇ ਹੁਨਰ ਵਿਸ਼ਲੇਸ਼ਣ',
+    title: 'ਔਰਾ ਸਿਰਫ਼ ਜਵਾਬ ਨਹੀਂ ਦਿੰਦੀ। ਇਹ ਤੁਹਾਡੀ ਪੂਰੀ ਸਿੱਖਣ ਯਾਤਰਾ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰਦੀ ਹੈ।',
+    titleLine1: 'ਔਰਾ ਸਿਰਫ਼ ਜਵਾਬ ਨਹੀਂ ਦਿੰਦੀ।',
+    titleLine2: 'ਇਹ ਸਿੱਖਣ ਯਾਤਰਾ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰਦੀ ਹੈ।',
+    subtitle: 'ਤੁਹਾਡੀ ਸਮਝ ਅਤੇ ਗਿਆਨ-ਅੰਤਰ ਨੂੰ ਪਛਾਣ ਕੇ ਨਿੱਜੀ ਤੌਰ ਤੇ ਸਿਖਾਉਣ ਵਾਲਾ AI ਪਲੇਟਫਾਰਮ।',
+    startFree: '3D AI ਮੈਂਟਰ ਸ਼ੁਰੂ ਕਰੋ',
+    exploreFeatures: 'ਸਿੱਖਣ ਪ੍ਰੋਫਾਈਲ ਵੇਖੋ',
     languagesLabel: '11 ਖੇਤਰੀ ਭਾਸ਼ਾਵਾਂ ਦਾ ਸਮਰਥਨ',
+  },
+  dashboard: {
+    ...hi.dashboard,
+    title: 'ਪ੍ਰਗਤੀ ਡੈਸ਼ਬੋਰਡ',
+    studentTab: 'ਵਿਦਿਆਰਥੀ ਪ੍ਰੋਫਾਈਲ',
+    teacherTab: 'ਅਧਿਆਪਕ ਵਿਸ਼ਲੇਸ਼ਣ',
+    professionalTab: 'ਪੇਸ਼ੇਵਰ ਹੁਨਰ ਵਾਧਾ',
+    companyTab: 'ਕੰਪਨੀ ਸਿਖਲਾਈ',
+  },
+  mentor: {
+    ...hi.mentor,
+    welcomeMessage: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ AURA ਹਾਂ, ਤੁਹਾਡਾ ਨਿੱਜੀ 3D AI ਮੈਂਟਰ। ਅੱਜ ਕੀ ਸਿੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?',
   },
 }
 
+// ─── 11. URDU (اردو - RTL SUPPORTED) ───
 const ur: Translations = {
   ...hi,
   nav: {
@@ -701,28 +905,36 @@ const ur: Translations = {
     about: 'متعلق',
     features: 'خصوصیات',
     technology: 'آرکیٹیکچر',
-    research: 'تحقیق',
-    roadmap: 'روڈ میپ',
     adaptive: 'ایڈاپٹیو انجن',
     mentor: 'AI مینٹور',
     dashboard: 'ڈیش بورڈ',
-    support: 'مدد',
     settings: 'سیٹنگز',
     profile: 'پروفائل',
     contact: 'رابطہ کریں',
-    login: 'لاگ ان',
-    signup: 'شروع کریں',
   },
   hero: {
     ...hi.hero,
-    eyebrow: 'عالمگیر AI تعلیمی ساتھی',
-    title: 'AI کیریکٹر مینٹور کے ساتھ ہوشیاری سے سیکھیں',
-    titleLine1: 'ہوشیاری سے سیکھیں',
-    titleLine2: 'AI کیریکٹر مینٹور کے ساتھ',
-    subtitle: 'ایک پیشہ ورانہ AI تعلیمی پلیٹ فارم جو آپ کے انداز اور زبان کے مطابق رہنمائی کرتا ہے۔',
-    startFree: 'مفت شروع کریں',
-    exploreFeatures: 'خصوصیات دیکھیں',
+    eyebrow: 'AI سے چلنے والا تعلیمی اور مہارت کے فرق کا تجزیاتی پلیٹ فارم',
+    title: 'Aura صرف جواب نہیں دیتا۔ یہ آپ کے سیکھنے کے پورے سفر کا انتظام کرتا ہے۔',
+    titleLine1: 'Aura صرف جواب نہیں دیتا۔',
+    titleLine2: 'یہ سیکھنے کے سفر کا انتظام کرتا ہے۔',
+    subtitle: 'Aura سمجھتا ہے کہ آپ کیا جانتے ہیں، کیا کمی ہے اور اس کے مطابق آپ کو سکھاتا ہے۔',
+    startFree: '3D AI مینٹور شروع کریں',
+    exploreFeatures: 'لرننگ پروفائل دیکھیں',
     languagesLabel: '11 علاقائی زبانوں کی سپورٹ',
+  },
+  dashboard: {
+    ...hi.dashboard,
+    title: 'پیش رفت کا ڈیش بورڈ',
+    studentTab: 'طالب علم کا پروفائل',
+    teacherTab: 'کالج / اساتذہ کا تجزیہ',
+    professionalTab: 'پیشہ ورانہ مہارت کی ترقی',
+    companyTab: 'ادارے کی تربیت',
+    learningRoadmap: 'آپ کا AURA لرننگ روڈ میپ',
+  },
+  mentor: {
+    ...hi.mentor,
+    welcomeMessage: 'السلام علیکم! میں AURA ہوں، آپ کا ذاتی 3D AI مینٹور۔ آج ہم کیا سیکھیں گے؟',
   },
 }
 

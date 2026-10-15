@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Bot, FileText, Zap, Layers, Sparkles, TrendingUp, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
+import { SpatialCard } from '@/components/ui/SpatialCard'
 
 export default function FeaturesCatalogPage() {
   const { t } = useLanguage()
@@ -47,10 +48,10 @@ export default function FeaturesCatalogPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[var(--aura-bg)] text-[var(--aura-text)] py-12 px-6">
+    <div className="min-h-screen bg-[var(--aura-bg)] text-[var(--aura-text)] py-12 px-6 spatial-perspective">
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#257874]/10 text-[#257874] text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#257874]/10 text-[#257874] text-xs font-bold uppercase tracking-wider mb-2 border border-[#257874]/20">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Platform Modules</span>
           </div>
@@ -64,12 +65,15 @@ export default function FeaturesCatalogPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item) => (
-            <div
+            <SpatialCard
               key={item.slug}
-              className="p-8 rounded-3xl bg-[var(--aura-surface)] border border-[var(--aura-border)] shadow-sm hover:border-[#257874] transition-all flex flex-col justify-between"
+              maxRotation={4}
+              depthElevation={18}
+              glowIntensity="subtle"
+              className="p-8 flex flex-col justify-between"
             >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#257874]/10 text-[#257874] flex items-center justify-center mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-[#257874]/10 text-[#257874] flex items-center justify-center mb-6 border border-[#257874]/20 shadow-sm">
                   <item.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold text-[var(--aura-text)] mb-3">{item.title}</h3>
@@ -78,12 +82,12 @@ export default function FeaturesCatalogPage() {
 
               <Link
                 href={`/features/${item.slug}`}
-                className="inline-flex items-center gap-2 text-xs font-bold text-[#257874] hover:underline"
+                className="inline-flex items-center gap-2 text-xs font-bold text-[#257874] hover:underline pt-4 border-t border-[var(--aura-border)]/50"
               >
                 <span>View Full Module Specifications</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-            </div>
+            </SpatialCard>
           ))}
         </div>
       </div>

@@ -22,11 +22,11 @@ export default function Card({
 }: CardProps) {
   const baseClassName = [
     'relative w-full text-left rounded-3xl p-5',
-    'border transition-all duration-300',
+    'border transition-all duration-300 spatial-surface-3d',
     'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#257874]',
     selected
-      ? 'bg-[var(--aura-card-bg)] border-[#257874] shadow-[0_0_24px_rgba(37,120,116,0.12)]'
-      : 'bg-[var(--aura-surface)] border-[var(--aura-border)] hover:border-[#4FA6A0]/40',
+      ? 'bg-[var(--aura-card-bg)] border-[#257874] shadow-[0_0_28px_rgba(37,120,116,0.18)]'
+      : 'bg-[var(--aura-surface)] border-[var(--aura-border)] hover:border-[#4FA6A0]/50 shadow-sm',
     selectable ? 'cursor-pointer' : '',
     className,
   ]

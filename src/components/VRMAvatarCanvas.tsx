@@ -1,12 +1,18 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { VRMLoaderPlugin, VRM } from '@pixiv/three-vrm'
-import { Cpu } from 'lucide-react'
+import { VRMLoaderPlugin, VRM, VRMUtils } from '@pixiv/three-vrm'
+import { Cpu, Volume2, Sparkles, Mic, Brain, Heart, Eye } from 'lucide-react'
+import {
+  VRMCharacterController,
+  type AICharacterState,
+  CHARACTER_STATES,
+} from '@/lib/vrm-animator'
+import { EMOTION_PROFILES, type EmotionType } from '@/lib/emotion-engine'
 
 export type VRMState =
   | 'idle'
@@ -14,32 +20,115 @@ export type VRMState =
   | 'thinking'
   | 'speaking'
   | 'happy'
+  | 'serious'
+  | 'confused'
+  | 'surprised'
   | 'confident'
   | 'explaining'
-  | 'surprised'
   | 'concerned'
   | 'celebrating'
 
-interface VRMAvatarCanvasProps {
-  mentorState: VRMState
+export interface VRMAvatarCanvasProps {
+  mentorState?: VRMState
+  emotion?: EmotionType | AICharacterState
+  isSpeaking?: boolean
+  isListening?: boolean
+  currentPitch?: number
+  onCharacterClick?: () => void
 }
 
 // Default front-facing camera position & orbit target (framed centered on face & upper body)
 const DEFAULT_CAMERA_POS = new THREE.Vector3(0, 0.38, 1.35)
 const DEFAULT_CAMERA_TARGET = new THREE.Vector3(0, 0.32, 0)
 
+/**
+ * Concentric Holographic Pedestal beneath the 3D model
+ * creates a physical grounding in a futuristic spatial studio.
+ */
+function SpatialHologramPedestal() {
+  const ringRef = useRef<THREE.Group>(null)
+
+  useFrame((_, delta) => {
+    if (ringRef.current) {
+      ringRef.current.rotation.y += delta * 0.12
+    }
+  })
+
+  return (
+    <group ref={ringRef} position={[0, -1.048, 0]}>
+      {/* Inner glowing core ring */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.32, 0.35, 48]} />
+        <meshBasicMaterial color="#35C88A" transparent opacity={0.35} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Outer spatial orbital ring */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.62, 0.64, 64]} />
+        <meshBasicMaterial color="#257874" transparent opacity={0.25} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Third outermost dashed ambient ring */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.88, 0.89, 48]} />
+        <meshBasicMaterial color="#4FA6A0" transparent opacity={0.15} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Soft floor glow disc */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.005, 0]}>
+        <circleGeometry args={[0.95, 32]} />
+        <meshBasicMaterial color="#0F766E" transparent opacity={0.1} side={THREE.DoubleSide} />
+      </mesh>
+    </group>
+  )
+}
+
+/**
+ * Subtle floating ambient learning particles drifting in 3D space
+ */
+function SpatialFloatingParticles() {
+  const pointsRef = useRef<THREE.Points>(null)
+  const count = 35
+
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3)
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 2.2
+      pos[i * 3 + 1] = (Math.random() - 0.4) * 2.0
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 1.6
+    }
+    return pos
+  }, [count])
+
+  useFrame((state) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.03
+    }
+  })
+
+  return (
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+      </bufferGeometry>
+      <pointsMaterial size={0.018} color="#4FA6A0" transparent opacity={0.4} />
+    </points>
+  )
+}
+
 function VRMModel({
   url,
-  mentorState,
+  activeState,
+  isSpeaking,
+  isListening,
+  onCharacterClick,
 }: {
   url: string
-  mentorState: VRMState
+  activeState: AICharacterState
+  isSpeaking: boolean
+  isListening: boolean
+  onCharacterClick?: () => void
 }) {
   const [vrm, setVrm] = useState<VRM | null>(null)
   const [loadingProgress, setLoadingProgress] = useState(0)
-  const blinkTimerRef = useRef(0)
-  const isBlinkingRef = useRef(false)
-  const lookAtTargetRef = useRef(new THREE.Object3D())
+  const controllerRef = useRef<VRMCharacterController | null>(null)
   const { camera } = useThree()
 
   useEffect(() => {
@@ -53,10 +142,9 @@ function VRMModel({
         if (!isMounted) return
         const vrmInstance: VRM = gltf.userData.vrm
         if (vrmInstance) {
-          // Set model rotation Y to Math.PI (180 deg) so full front face faces camera directly
-          vrmInstance.scene.rotation.y = Math.PI
-          vrmInstance.scene.rotation.x = 0
-          vrmInstance.scene.rotation.z = 0
+          // Initialize VRM 0.x orientation and controller
+          const controller = new VRMCharacterController(vrmInstance)
+          controllerRef.current = controller
           setVrm(vrmInstance)
         }
       },
@@ -72,141 +160,25 @@ function VRMModel({
 
     return () => {
       isMounted = false
+      if (controllerRef.current) {
+        controllerRef.current.dispose()
+        controllerRef.current = null
+      }
     }
   }, [url])
 
-  // Setup lookAt target object attached to camera
-  useEffect(() => {
-    if (!vrm) return
-    camera.add(lookAtTargetRef.current)
-    if (vrm.lookAt) {
-      vrm.lookAt.target = lookAtTargetRef.current
-    }
-    return () => {
-      camera.remove(lookAtTargetRef.current)
-    }
-  }, [vrm, camera])
-
+  // Per-frame animated update loop
   useFrame((state, delta) => {
-    if (!vrm) return
+    if (!controllerRef.current || !vrm) return
 
-    // Update VRM spring bone physics & secondary animations
-    vrm.update(delta)
-
-    const t = state.clock.elapsedTime
-
-    // Lock body base orientation strictly facing front (Math.PI / 180 degrees Y)
-    vrm.scene.rotation.y = Math.PI
-    vrm.scene.rotation.x = 0
-    vrm.scene.rotation.z = 0
-
-    // Harmonic subtle idle breathing (body remains centered and grounded)
-    vrm.scene.position.y = -1.05 + Math.sin(t * 1.5) * 0.008
-    vrm.scene.position.x = 0
-    vrm.scene.position.z = 0
-
-    // Smooth natural eye blinking logic (blink every 4 seconds for 0.14s)
-    blinkTimerRef.current += delta
-    if (blinkTimerRef.current > 4.0) {
-      isBlinkingRef.current = true
-      if (blinkTimerRef.current > 4.14) {
-        blinkTimerRef.current = 0
-        isBlinkingRef.current = false
-      }
-    }
-
-    // Professional Calm AI Mentor Expression Management (Zero Grin/Smile, Neutral Straight Lips)
-    if (vrm.expressionManager) {
-      // Natural blink
-      vrm.expressionManager.setValue('blink', isBlinkingRef.current ? 1 : 0)
-
-      // Mouth Morph Targets for Speech vs Closed Neutral Baseline
-      let targetAA = 0
-      let targetIH = 0
-      let targetOH = 0
-
-      if (mentorState === 'speaking' || mentorState === 'explaining') {
-        targetAA = (Math.sin(t * 12) + 1) * 0.22
-        targetIH = (Math.cos(t * 10) + 1) * 0.12
-        targetOH = (Math.sin(t * 8) + 1) * 0.08
-      }
-
-      // Enforce zero smile (happy = 0.0) for a serious, calm, intelligent appearance
-      const targetHappy = 0.0
-      const targetSurprised = mentorState === 'surprised' ? 0.3 : 0.0
-      const targetSad = 0.0
-
-      // Apply morph values smoothly
-      vrm.expressionManager.setValue('aa', THREE.MathUtils.lerp(vrm.expressionManager.getValue('aa') || 0, targetAA, 0.25))
-      vrm.expressionManager.setValue('ih', THREE.MathUtils.lerp(vrm.expressionManager.getValue('ih') || 0, targetIH, 0.25))
-      vrm.expressionManager.setValue('oh', THREE.MathUtils.lerp(vrm.expressionManager.getValue('oh') || 0, targetOH, 0.25))
-      vrm.expressionManager.setValue('happy', THREE.MathUtils.lerp(vrm.expressionManager.getValue('happy') || 0, targetHappy, 0.1))
-      vrm.expressionManager.setValue('surprised', THREE.MathUtils.lerp(vrm.expressionManager.getValue('surprised') || 0, targetSurprised, 0.1))
-      vrm.expressionManager.setValue('sad', THREE.MathUtils.lerp(vrm.expressionManager.getValue('sad') || 0, targetSad, 0.1))
-    }
-
-    // Head & Eye Posture: 2-3° Downward Tilt (-0.045 rad) looking directly at Camera
-    if (vrm.humanoid) {
-      const head = vrm.humanoid.getNormalizedBoneNode('head')
-      const neck = vrm.humanoid.getNormalizedBoneNode('neck')
-      const chest = vrm.humanoid.getNormalizedBoneNode('chest')
-      const rightUpperArm = vrm.humanoid.getNormalizedBoneNode('rightUpperArm')
-      const leftUpperArm = vrm.humanoid.getNormalizedBoneNode('leftUpperArm')
-
-      if (head) {
-        // Base 2-3° downward tilt looking straight into user's eyes
-        const camX = camera.position.x * 0.12
-        const camY = (camera.position.y - 0.38) * 0.12
-
-        let targetRotX = -0.045 - camY
-        let targetRotY = -camX
-        let targetRotZ = 0
-
-        if (mentorState === 'thinking') {
-          targetRotZ = -0.06
-          targetRotX = -0.07
-        } else if (mentorState === 'listening') {
-          targetRotZ = 0.03
-          targetRotX = -0.03
-        } else if (mentorState === 'speaking' || mentorState === 'explaining') {
-          targetRotX += Math.sin(t * 3) * 0.02
-          targetRotY += Math.cos(t * 2) * 0.02
-        }
-
-        head.rotation.x = THREE.MathUtils.lerp(head.rotation.x, targetRotX, 0.1)
-        head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, targetRotY, 0.1)
-        head.rotation.z = THREE.MathUtils.lerp(head.rotation.z, targetRotZ, 0.1)
-      }
-
-      if (neck) {
-        neck.rotation.y = THREE.MathUtils.lerp(neck.rotation.y, -camera.position.x * 0.06, 0.05)
-      }
-
-      if (chest) {
-        chest.rotation.z = THREE.MathUtils.lerp(chest.rotation.z, 0, 0.05)
-      }
-
-      // Rested Professional Arm Posture
-      if (rightUpperArm && leftUpperArm) {
-        let rArmZ = -1.15
-        let lArmZ = 1.15
-        let rArmX = 0
-        let lArmX = 0
-
-        if (mentorState === 'celebrating') {
-          rArmZ = -1.8 + Math.sin(t * 6) * 0.08
-          lArmZ = 1.8 + Math.cos(t * 6) * 0.08
-        } else if (mentorState === 'explaining') {
-          rArmZ = -1.3 + Math.sin(t * 2.5) * 0.08
-          rArmX = 0.25 + Math.cos(t * 2) * 0.05
-        }
-
-        rightUpperArm.rotation.z = THREE.MathUtils.lerp(rightUpperArm.rotation.z, rArmZ, 0.08)
-        leftUpperArm.rotation.z = THREE.MathUtils.lerp(leftUpperArm.rotation.z, lArmZ, 0.08)
-        rightUpperArm.rotation.x = THREE.MathUtils.lerp(rightUpperArm.rotation.x, rArmX, 0.08)
-        leftUpperArm.rotation.x = THREE.MathUtils.lerp(leftUpperArm.rotation.x, lArmX, 0.08)
-      }
-    }
+    controllerRef.current.update(
+      delta,
+      state.clock.elapsedTime,
+      activeState,
+      camera.position,
+      isSpeaking,
+      isListening
+    )
   })
 
   if (!vrm) {
@@ -228,9 +200,8 @@ function VRMModel({
   return (
     <primitive
       object={vrm.scene}
-      position={[0, -1.05, 0]}
-      rotation={[0, Math.PI, 0]}
       scale={[1.35, 1.35, 1.35]}
+      onClick={onCharacterClick}
     />
   )
 }
@@ -252,7 +223,6 @@ function SceneControls() {
     if (!controlsRef.current) return
     const now = Date.now()
 
-    // After 2.0 seconds of inactivity, smoothly reset camera back to front view
     if (now - lastInteractionTimeRef.current > 2000) {
       camera.position.lerp(DEFAULT_CAMERA_POS, 0.05)
       controlsRef.current.target.lerp(DEFAULT_CAMERA_TARGET, 0.05)
@@ -275,19 +245,114 @@ function SceneControls() {
   )
 }
 
-export default function VRMAvatarCanvas({ mentorState }: VRMAvatarCanvasProps) {
+export default function VRMAvatarCanvas({
+  mentorState = 'idle',
+  emotion,
+  isSpeaking: explicitSpeaking,
+  isListening: explicitListening,
+  currentPitch,
+  onCharacterClick,
+}: VRMAvatarCanvasProps) {
+  const isSpeaking = explicitSpeaking ?? mentorState === 'speaking'
+  const isListening = explicitListening ?? mentorState === 'listening'
+
+  // Map mentorState & emotion to canonical AICharacterState
+  const activeState: AICharacterState = useMemo(() => {
+    if (isSpeaking) return 'speaking'
+    if (isListening) return 'listening'
+
+    if (emotion) {
+      const eStr = emotion as string
+      if (eStr in CHARACTER_STATES) {
+        return eStr as AICharacterState
+      }
+    }
+
+    if (mentorState) {
+      const mStr = mentorState as string
+      if (mStr in CHARACTER_STATES) {
+        return mStr as AICharacterState
+      }
+      if (mStr === 'confident') return 'happy'
+    }
+
+    return 'idle'
+  }, [mentorState, emotion, isSpeaking, isListening])
+
+  const stateConfig = CHARACTER_STATES[activeState] || CHARACTER_STATES.idle
+  const profile = EMOTION_PROFILES[activeState as EmotionType] || EMOTION_PROFILES.idle
+  const effectivePitch = currentPitch || profile.pitch || 1.16
+
   return (
-    <div className="relative w-full h-[450px] sm:h-[500px] md:h-[550px] rounded-3xl overflow-hidden bg-gradient-to-b from-[#002830] via-[#001D26] to-[#00171F] border border-[#257874]/30 shadow-[0_20px_60px_rgba(0,23,31,0.4)]">
+    <div className="relative w-full h-[450px] sm:h-[500px] md:h-[560px] rounded-3xl overflow-hidden bg-gradient-to-b from-[#002228] via-[#001820] to-[#001217] border border-[#257874]/40 shadow-[0_25px_70px_rgba(0,18,23,0.6)] spatial-surface-3d">
+      {/* Hologram Grid Floor Background in Canvas wrapper */}
+      <div className="absolute inset-0 spatial-grid opacity-30 pointer-events-none" />
+
       {/* HUD Header Badge */}
       <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00171F]/80 backdrop-blur-md border border-[#257874]/30 text-xs font-bold uppercase tracking-wider text-[#35C88A]">
         <Cpu className="w-3.5 h-3.5 text-[#257874]" />
-        <span>Aura.vrm • AI Mentor Stage</span>
+        <span>Aura.vrm • 3D Female AI Mentor</span>
       </div>
 
-      {/* State Active HUD Badge */}
-      <div className="absolute top-4 right-4 z-10 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#257874]/20 backdrop-blur-md border border-[#257874]/40 text-xs font-extrabold uppercase tracking-wider text-white">
-        <span className="w-2 h-2 rounded-full bg-[#35C88A] animate-pulse" />
-        <span>{mentorState}</span>
+      {/* Emotion & Voice Pitch HUD Badge */}
+      <div className="absolute top-4 right-4 z-10 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00171F]/80 backdrop-blur-md border border-[#257874]/40 text-xs font-extrabold tracking-wider text-white shadow-lg">
+        {isSpeaking ? (
+          <>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="text-emerald-400 font-bold flex items-center gap-1.5">
+              <Volume2 className="w-3.5 h-3.5" />
+              <span>Speaking ({effectivePitch.toFixed(2)}x pitch)</span>
+            </span>
+          </>
+        ) : isListening ? (
+          <>
+            <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+            <span className="text-rose-400 font-bold flex items-center gap-1.5">
+              <Mic className="w-3.5 h-3.5" />
+              <span>Listening Attentively...</span>
+            </span>
+          </>
+        ) : activeState === 'thinking' ? (
+          <>
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span className="text-amber-400 font-bold flex items-center gap-1.5">
+              <Brain className="w-3.5 h-3.5" />
+              <span>Analyzing Context...</span>
+            </span>
+          </>
+        ) : activeState === 'happy' ? (
+          <>
+            <span className="text-yellow-400">😊</span>
+            <span className="text-yellow-300 font-bold">Encouraging</span>
+          </>
+        ) : activeState === 'surprised' ? (
+          <>
+            <span className="text-cyan-400">😮</span>
+            <span className="text-cyan-300 font-bold">Curious</span>
+          </>
+        ) : activeState === 'confused' ? (
+          <>
+            <span className="text-violet-400">🤔</span>
+            <span className="text-violet-300 font-bold">Clarifying</span>
+          </>
+        ) : activeState === 'serious' ? (
+          <>
+            <span className="text-blue-400">🧐</span>
+            <span className="text-blue-300 font-bold">Focused</span>
+          </>
+        ) : (
+          <>
+            <span className="w-2 h-2 rounded-full bg-[#35C88A]" />
+            <span className="text-emerald-300 capitalize">{stateConfig.label}</span>
+            <span className="text-[10px] text-gray-400 font-mono">({effectivePitch.toFixed(2)}x)</span>
+          </>
+        )}
+      </div>
+
+      {/* Spatial Studio Bottom Watermark */}
+      <div className="absolute bottom-3 left-4 z-10 hidden sm:flex items-center gap-1.5 text-[10px] font-mono text-gray-400/70">
+        <Sparkles className="w-3 h-3 text-[#35C88A]" />
+        <span>SPATIAL PEDESTAL • REAL-TIME 60 FPS • VRM 0.x LOADED</span>
       </div>
 
       <Canvas
@@ -295,14 +360,28 @@ export default function VRMAvatarCanvas({ mentorState }: VRMAvatarCanvasProps) {
         style={{ width: '100%', height: '100%' }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       >
-        <ambientLight intensity={1.4} />
-        <directionalLight position={[2, 3, 2]} intensity={2.0} castShadow />
+        <ambientLight intensity={1.2} />
+        {/* Main Key Light */}
+        <directionalLight position={[2, 3, 2]} intensity={1.8} />
+        {/* Fill Cool Teal Light */}
         <directionalLight position={[-2, 1, -1]} intensity={0.7} color="#35C88A" />
-        <pointLight position={[0, 1, 1]} intensity={0.9} color="#ffffff" />
+        {/* Atmospheric Back Rim Light for Spatial Separation */}
+        <directionalLight position={[0, -0.5, -2]} intensity={1.1} color="#0F766E" />
+        <directionalLight position={[2, 1, -1.5]} intensity={0.5} color="#4FA6A0" />
+        <pointLight position={[0, 1, 1]} intensity={0.8} color="#ffffff" />
+
+        {/* Spatial Concentric Hologram Pedestal */}
+        <SpatialHologramPedestal />
+
+        {/* Subtle Ambient Learning Particle Dust */}
+        <SpatialFloatingParticles />
 
         <VRMModel
           url="/vrm/Aura.vrm"
-          mentorState={mentorState}
+          activeState={activeState}
+          isSpeaking={isSpeaking}
+          isListening={isListening}
+          onCharacterClick={onCharacterClick}
         />
 
         <SceneControls />

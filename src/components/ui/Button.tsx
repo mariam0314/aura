@@ -17,15 +17,18 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
 const variantStyles: Record<ButtonVariant, string> = {
   primary: [
     'bg-[#257874] text-white',
-    'shadow-[0_4px_24px_rgba(37,120,116,0.25)]',
-    'hover:shadow-[0_8px_32px_rgba(37,120,116,0.4)]',
+    'btn-3d-tactile',
+    'shadow-[0_6px_24px_rgba(15,118,110,0.32)]',
+    'hover:shadow-[0_10px_32px_rgba(15,118,110,0.48)]',
   ].join(' '),
   secondary: [
     'bg-[var(--aura-surface)] text-[var(--aura-text)]',
     'border border-[var(--aura-border)]',
-    'hover:bg-[var(--aura-card-bg)]',
+    'btn-3d-tactile',
+    'hover:bg-[var(--aura-card-bg)] hover:border-[#4FA6A0]/50',
+    'shadow-sm',
   ].join(' '),
-  ghost: 'bg-transparent text-[var(--aura-text-muted)] hover:text-[var(--aura-text)]',
+  ghost: 'bg-transparent text-[var(--aura-text-muted)] hover:text-[var(--aura-text)] hover:bg-[#257874]/5 transition-colors',
 }
 
 const sizeStyles: Record<ButtonSize, string> = {

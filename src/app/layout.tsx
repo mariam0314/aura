@@ -1,13 +1,15 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { LearningProvider } from '@/context/LearningContext'
 import CustomCursor from '@/components/ui/CustomCursor'
+import SpatialEnvironment from '@/components/ui/SpatialEnvironment'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'AURA — Universal AI Learning Companion & Adaptive Education Platform',
-  description: 'AI-driven personalized learning with character-driven persona mentor, multi-language speech, and cognitive progress tracking.',
+  title: 'AURA — AI-Powered Adaptive Learning & Skill Gap Analysis Platform',
+  description: 'Aura understands what you know, identifies what you are missing, adapts how it teaches you, measures your improvement, and decides what you should learn next.',
   icons: {
     icon: '/aura-logo.png',
     apple: '/aura-logo.png',
@@ -30,13 +32,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className="min-h-dvh bg-[var(--aura-bg)] text-[var(--aura-text)] antialiased font-sans flex flex-col">
         <LanguageProvider>
-          <CustomCursor />
-          <Navbar />
-          <main className="flex-1 pt-20">{children}</main>
-          <Footer />
+          <LearningProvider>
+            <SpatialEnvironment />
+            <CustomCursor />
+            <Navbar />
+            <main className="flex-1 pt-20">{children}</main>
+            <Footer />
+          </LearningProvider>
         </LanguageProvider>
       </body>
     </html>

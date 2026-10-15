@@ -1,6 +1,7 @@
 'use client'
 
 import { Cpu, Database, Layers, Globe, Code, Shield } from 'lucide-react'
+import { SpatialCard } from '@/components/ui/SpatialCard'
 
 export default function TechnologyPage() {
   const stack = [
@@ -17,10 +18,10 @@ export default function TechnologyPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[var(--aura-bg)] text-[var(--aura-text)] py-12 px-6">
+    <div className="min-h-screen bg-[var(--aura-bg)] text-[var(--aura-text)] py-12 px-6 spatial-perspective">
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#257874]/10 text-[#257874] text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#257874]/10 text-[#257874] text-xs font-bold uppercase tracking-wider mb-2 border border-[#257874]/20">
             <Cpu className="w-3.5 h-3.5" />
             <span>Technical Infrastructure</span>
           </div>
@@ -34,13 +35,19 @@ export default function TechnologyPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {stack.map((item, i) => (
-            <div key={i} className="p-6 rounded-3xl bg-[var(--aura-surface)] border border-[var(--aura-border)] shadow-sm">
-              <span className="inline-block px-2.5 py-1 rounded-full bg-[#257874]/10 text-[#257874] font-bold text-[10px] uppercase mb-3">
+            <SpatialCard
+              key={i}
+              maxRotation={3.5}
+              depthElevation={14}
+              glowIntensity="subtle"
+              className="p-6"
+            >
+              <span className="inline-block px-2.5 py-1 rounded-full bg-[#257874]/10 text-[#257874] font-bold text-[10px] uppercase mb-3 border border-[#257874]/20">
                 {item.category}
               </span>
               <h3 className="text-lg font-bold text-[var(--aura-text)] mb-2">{item.name}</h3>
               <p className="text-xs text-[var(--aura-text-muted)] leading-relaxed">{item.desc}</p>
-            </div>
+            </SpatialCard>
           ))}
         </div>
       </div>
