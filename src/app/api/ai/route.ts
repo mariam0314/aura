@@ -15,11 +15,14 @@ export async function POST(request: Request) {
   try {
     const body: AIMessageRequest = await request.json()
 
+    const isExplicitLocal = (body as any).customProvider === 'aura-adaptive'
+
     // Key can come from environment variable OR client customApiKey
-    const geminiKey =
-      (body.customProvider === 'gemini' ? body.customApiKey : undefined) ||
-      body.customApiKey ||
-      process.env.GEMINI_API_KEY
+    const geminiKey = !isExplicitLocal
+      ? ((body.customProvider === 'gemini' && body.customApiKey)
+          ? body.customApiKey
+          : (body.customApiKey || process.env.GEMINI_API_KEY))
+      : undefined
 
     const openAIKey =
       (body.customProvider === 'openai' ? body.customApiKey : undefined) ||
@@ -29,21 +32,41 @@ export async function POST(request: Request) {
     if (geminiKey) {
       try {
         const sysPrompt = buildSystemPrompt(body)
+        const langMap: Record<string, string> = {
+          hi: 'Hindi (हिन्दी)',
+          mr: 'Marathi (मराठी)',
+          gu: 'Gujarati (ગુજરાતી)',
+          ta: 'Tamil (தமிழ்)',
+          te: 'Telugu (తెలుగు)',
+          bn: 'Bengali (বাংলা)',
+          kn: 'Kannada (ಕನ್ನಡ)',
+          ml: 'Malayalam (മലയാളം)',
+          pa: 'Punjabi (ਪੰਜਾਬੀ)',
+          ur: 'Urdu (اردو)',
+          en: 'English',
+        }
+        const activeLangName = langMap[body.language] || 'English'
+
         const emotionPrompt = `
 ${sysPrompt}
+
+MANDATORY LANGUAGE DIRECTIVE:
+You MUST deliver your entire pedagogical response fluently and completely in ${activeLangName}.
+Do NOT reply in English unless ${activeLangName} is English.
 
 EMOTION & VOICE ACOUSTICS INSTRUCTION:
 Analyze the emotional context of your response and learner's question.
 You are AURA, an empathetic and intelligent female AI mentor.
 At the very end of your response, add a hidden metadata JSON block on its own line:
-<!--AURA_META:{"emotion":"happy"|"celebrating"|"concerned"|"surprised"|"confident"|"explaining","pitch":1.14,"rate":1.02}-->
-Pitch range: 1.04 (comforting/gentle female voice) to 1.38 (celebratory/enthusiastic female voice). Baseline explaining pitch: 1.14. Rate range: 0.96 to 1.12.
+<!--AURA_META:{"emotion":"happy"|"smile"|"encouraging"|"celebrating"|"concerned"|"thinking"|"confused"|"excited"|"confident"|"explaining"|"neutral","pitch":1.16,"rate":1.02}-->
+Pitch range: 1.05 (comforting/gentle female voice) to 1.35 (celebratory/enthusiastic female voice). Baseline explaining pitch: 1.16. Rate range: 0.96 to 1.12.
 `
 
         const geminiModels = [
           'gemini-3.5-flash-lite',
-          'gemini-3.8-flash',
+          'gemini-3.5-flash',
           'gemini-flash-latest',
+          'gemini-3.8-flash',
         ]
 
         let rawText = ''
@@ -54,6 +77,7 @@ Pitch range: 1.04 (comforting/gentle female voice) to 1.38 (celebratory/enthusia
               {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                signal: AbortSignal.timeout(12000),
                 body: JSON.stringify({
                   contents: [
                     {
@@ -63,7 +87,7 @@ Pitch range: 1.04 (comforting/gentle female voice) to 1.38 (celebratory/enthusia
                   ],
                   generationConfig: {
                     temperature: 0.7,
-                    maxOutputTokens: 650,
+                    maxOutputTokens: 800,
                   },
                 }),
               }
@@ -76,9 +100,11 @@ Pitch range: 1.04 (comforting/gentle female voice) to 1.38 (celebratory/enthusia
                 rawText = candidateText
                 break
               }
+            } else {
+              console.warn(`Gemini model ${model} returned HTTP ${geminiRes.status}`)
             }
-          } catch {
-            // continue to fallback model
+          } catch (modelErr: any) {
+            console.warn(`Gemini model ${model} fetch failed:`, modelErr?.message)
           }
         }
 

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Sparkles, ArrowRight, Play, Cpu, Bot, CheckCircle2, Volume2, Shield } from 'lucide-react'
 import VRMAvatarCanvas, { type VRMState } from '@/components/VRMAvatarCanvas'
 import { useLanguage } from '@/context/LanguageContext'
-import { speakAuraMentor, stopAuraMentor } from '@/lib/voice-config'
+import { speakAuraMentor, stopAuraMentor, unlockAudioEngine } from '@/lib/voice-config'
 
 export default function HeroSection() {
   const { t, lang } = useLanguage()
@@ -14,25 +14,39 @@ export default function HeroSection() {
   const [mentorState, setMentorState] = useState<VRMState>('idle')
 
   const handleGreet = () => {
+    unlockAudioEngine()
     if (isSpeaking) {
       stopAuraMentor()
       setIsSpeaking(false)
       setMentorState('idle')
       return
     }
-    const phrase =
-      lang === 'hi'
-        ? 'नमस्ते! मैं ऑरा हूँ, आपकी 3D AI मेंटर।'
-        : "Hello! I am AURA, your 3D female AI mentor. Let's master something new today!"
-    speakAuraMentor(phrase, {
-      lang: lang === 'hi' ? 'hi-IN' : 'en-US',
+
+    const greetings: Record<string, { text: string; locale: string }> = {
+      en: { text: "Hello! I am AURA, your 3D female AI mentor. Let's master something new today!", locale: 'en-US' },
+      hi: { text: 'नमस्ते! मैं ऑरा हूँ, आपकी 3D AI मेंटर। आज आप क्या सीखना चाहते हैं?', locale: 'hi-IN' },
+      mr: { text: 'नमस्कार! मी ऑरा आहे, तुमची 3D AI मार्गदर्शक. आज आपण काय शिकणार आहोत?', locale: 'mr-IN' },
+      gu: { text: 'નમસ્તે! હું ઔરા છું, તમારી 3D AI મેન્ટર. આજે તમે શું શીખવા માંગો છો?', locale: 'gu-IN' },
+      ta: { text: 'வணக்கம்! நான் ஆரா, உங்கள் 3D AI வழிகாட்டி. இன்று நாம் என்ன கற்கலாம்?', locale: 'ta-IN' },
+      te: { text: 'నమస్కారం! నేను ఔరా, మీ 3D AI మెంటర్. ఈరోజు మీరు ఏమి నేర్చుకోవాలనుకుంటున్నారు?', locale: 'te-IN' },
+      bn: { text: 'নমস্কার! আমি অरा, আপনার 3D AI মেন্টর। আজ আপনি কি শিখতে চান?', locale: 'bn-IN' },
+      kn: { text: 'ನಮಸ್ಕಾರ! ನಾನು ಔರಾ, ನಿಮ್ಮ 3D AI ಮಾರ್ಗದರ್ಶಿ. ಇಂದು ನೀವು ಏನು ಕಲಿಯಲು ಬಯಸುತ್ತೀರಿ?', locale: 'kn-IN' },
+      ml: { text: 'നമസ്കാരം! ഞാൻ ഓറ, നിങ്ങളുടെ 3D AI മെന്റർ. ഇന്ന് നമ്മൾ എന്താണ് പഠിക്കാൻ പോകുന്നത്?', locale: 'ml-IN' },
+      pa: { text: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਔਰਾ ਹਾਂ, ਤੁਹਾਡੀ 3D AI ਮੈਂਟਰ। ਅੱਜ ਤੁਸੀਂ ਕੀ ਸਿੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?', locale: 'pa-IN' },
+      ur: { text: 'السلام علیکم! میں اورا ہوں، آپ کی تھری ڈی اے آئی مینٹر۔ آج آپ کیا سیکھنا چاہتے ہیں؟', locale: 'ur-PK' },
+    }
+
+    const currentGreeting = greetings[lang] || greetings.en
+
+    speakAuraMentor(currentGreeting.text, {
+      lang: currentGreeting.locale,
       onStart: () => {
         setIsSpeaking(true)
         setMentorState('speaking')
       },
       onEnd: () => {
         setIsSpeaking(false)
-        setMentorState('happy')
+        setMentorState('encouraging')
       },
       onError: () => {
         setIsSpeaking(false)
@@ -150,7 +164,7 @@ export default function HeroSection() {
             </div>
 
             {/* 3D VRM Canvas Container */}
-            <div className="relative w-full h-[420px] sm:h-[480px]">
+            <div className="relative w-full h-[460px] sm:h-[520px]">
               <VRMAvatarCanvas
                 mentorState={mentorState}
                 isSpeaking={isSpeaking}

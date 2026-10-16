@@ -29,6 +29,7 @@ import {
   stopAuraMentor,
   VOICE_GENDER,
   initVoiceEngine,
+  unlockAudioEngine,
 } from '@/lib/voice-config'
 import dynamic from 'next/dynamic'
 import type { VRMState } from '@/components/VRMAvatarCanvas'
@@ -70,7 +71,7 @@ export default function AIMentorWorkspace() {
   // API Key & Provider configuration state
   const [showApiModal, setShowApiModal] = useState<boolean>(false)
   const [customApiKey, setCustomApiKey] = useState<string>('')
-  const [selectedProvider, setSelectedProvider] = useState<'aura-adaptive' | 'gemini' | 'openai'>('aura-adaptive')
+  const [selectedProvider, setSelectedProvider] = useState<'aura-adaptive' | 'gemini' | 'openai'>('gemini')
   const [tempApiKey, setTempApiKey] = useState<string>('')
   const [keySavedToast, setKeySavedToast] = useState<boolean>(false)
 
@@ -80,9 +81,19 @@ export default function AIMentorWorkspace() {
   useEffect(() => {
     initVoiceEngine()
 
+    const handleFirstTouch = () => {
+      unlockAudioEngine()
+      window.removeEventListener('click', handleFirstTouch)
+      window.removeEventListener('touchstart', handleFirstTouch)
+      window.removeEventListener('keydown', handleFirstTouch)
+    }
+    window.addEventListener('click', handleFirstTouch, { passive: true })
+    window.addEventListener('touchstart', handleFirstTouch, { passive: true })
+    window.addEventListener('keydown', handleFirstTouch, { passive: true })
+
     if (typeof window !== 'undefined') {
       const savedKey = localStorage.getItem('aura_api_key') || ''
-      const savedProvider = (localStorage.getItem('aura_ai_provider') as any) || 'aura-adaptive'
+      const savedProvider = (localStorage.getItem('aura_ai_provider') as any) || 'gemini'
       setCustomApiKey(savedKey)
       setTempApiKey(savedKey)
       setSelectedProvider(savedProvider)
@@ -90,6 +101,9 @@ export default function AIMentorWorkspace() {
 
     return () => {
       stopAuraMentor()
+      window.removeEventListener('click', handleFirstTouch)
+      window.removeEventListener('touchstart', handleFirstTouch)
+      window.removeEventListener('keydown', handleFirstTouch)
       if (recognitionRef.current) {
         recognitionRef.current.stop()
       }
@@ -98,16 +112,23 @@ export default function AIMentorWorkspace() {
 
   // Initialize welcome message with persona-adapted tone
   useEffect(() => {
-    let welcome = ''
-    if (englishMode === 'genz' && lang === 'en') {
-      welcome = "Yo! I'm AURA, your 3D AI mentor 🔥 I track what you know, find what's missing, and adapt how I teach you. What are we tackling today?"
-    } else if (lang === 'hi') {
-      welcome = 'नमस्ते! मैं ऑरा (AURA) हूँ, आपका 3D एआई मेंटर। आइए आज कुछ नया सीखें और अपनी कमियों को दूर करें!'
-    } else if (lang === 'mr') {
-      welcome = 'नमस्कार! मी ऑरा, तुमचा 3D एआय मार्गदर्शक. आज आपण कोणत्या विषयाचा सराव करणार आहोत?'
-    } else {
-      welcome = t.mentor.welcomeMessage || 'Hello! I am AURA, your adaptive 3D AI mentor. Ask a question or run a diagnostic test to begin.'
+    const greetings: Record<string, string> = {
+      en:
+        englishMode === 'genz'
+          ? "Yo! I'm AURA, your 3D AI mentor 🔥 I track what you know, find what's missing, and adapt how I teach you. What are we tackling today?"
+          : 'Hello! I am AURA, your adaptive 3D female AI mentor. Ask a question or run a diagnostic test to begin.',
+      hi: 'नमस्ते! मैं ऑरा (AURA) हूँ, आपकी 3D एआई मेंटर। आइए आज कुछ नया सीखें और अपनी कमियों को दूर करें!',
+      mr: 'नमस्कार! मी ऑरा, तुमची 3D एआय मार्गदर्शक. आज आपण कोणत्या विषयाचा सराव करणार आहोत?',
+      gu: 'નમસ્તે! હું ઔરા છું, તમારી 3D AI મેન્ટર. આજે આપણે કયો વિષય શીખીશું?',
+      ta: 'வணக்கம்! நான் ஆரா, உங்கள் 3D AI வழிகாட்டி. இன்று நாம் எந்த தலைப்பை கற்கலாம்?',
+      te: 'నమస్కారం! నేను ఔరా, మీ 3D AI మెంటర్. ఈరోజు మనం ఏ అంశాన్ని నేర్చుకుందాం?',
+      bn: 'নমস্কার! আমি অরা, আপনার 3D AI মেন্টর। আজ আমরা কোন বিষয়টি নিয়ে আলোচনা করব?',
+      kn: 'ನಮಸ್ಕಾರ! ನಾನು ಔರಾ, ನಿಮ್ಮ 3D AI ಮಾರ್ಗದರ್ಶಿ. ಇಂದು ನಾವು ಯಾವ ವಿಷಯವನ್ನು ಕಲಿಯೋಣ?',
+      ml: 'നമസ്കാരം! ഞാൻ ഓറ, നിങ്ങളുടെ 3D AI മെന്റർ. ഇന്ന് നമ്മൾ ഏത് വിഷയമാണ് പഠിക്കാൻ പോകുന്നത്?',
+      pa: 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਔਰਾ ਹਾਂ, ਤੁਹਾਡੀ 3D AI ਮੈਂਟਰ। ਅੱਜ ਅਸੀਂ ਕਿਹੜਾ ਵਿਸ਼ਾ ਸਿੱਖਾਂਗੇ?',
+      ur: 'السلام علیکم! میں اورا ہوں، آپ کی تھری ڈی اے آئی مینٹر۔ آج ہم کون سا موضوع سیکھیں گے؟',
     }
+    const welcome = greetings[lang] || t.mentor.welcomeMessage || greetings.en
     setCurrentResponse(welcome)
     setDisplayedText(welcome)
     setCurrentEmotion('happy')
@@ -153,6 +174,7 @@ export default function AIMentorWorkspace() {
   }
 
   const handleSend = async (overrideText?: string) => {
+    unlockAudioEngine()
     const textToSend = overrideText || inputText
     if (!textToSend.trim() || isLoading) return
 
@@ -245,6 +267,7 @@ export default function AIMentorWorkspace() {
 
   // Live Speech Recognition (STT)
   const toggleListening = () => {
+    unlockAudioEngine()
     if (typeof window === 'undefined') return
     const SpeechRecognition =
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
@@ -314,6 +337,7 @@ export default function AIMentorWorkspace() {
   }
 
   const replayVoice = () => {
+    unlockAudioEngine()
     if (!currentResponse) return
     speakAuraMentor(currentResponse, {
       lang: getSpeechLang(),
@@ -336,6 +360,7 @@ export default function AIMentorWorkspace() {
 
   // Interactive Click on Avatar
   const handleCharacterClick = () => {
+    unlockAudioEngine()
     if (isSpeaking) {
       stopVoice()
       return

@@ -7,14 +7,19 @@
 
 export type EmotionType =
   | 'idle'
+  | 'neutral'
+  | 'smile'
   | 'happy'
   | 'celebrating'
   | 'thinking'
   | 'concerned'
+  | 'encouraging'
   | 'surprised'
   | 'confident'
   | 'explaining'
   | 'listening'
+  | 'speaking'
+  | 'excited'
   | 'serious'
   | 'confused'
 
@@ -195,6 +200,71 @@ export const EMOTION_PROFILES: Record<EmotionType, EmotionProfile> = {
     },
     headTilt: [-0.04, 0.04, 0.08],
     description: 'Inquisitive head tilt seeking to understand and clarify user questions.',
+  },
+  neutral: {
+    id: 'neutral',
+    label: 'Poised & Attentive',
+    emoji: '✨',
+    pitch: 1.14,
+    rate: 1.0,
+    blendshapes: {
+      relaxed: 0.2,
+      happy: 0.1,
+    },
+    headTilt: [-0.02, 0, 0],
+    description: 'Composed, attentive neutral posture with natural breathing.',
+  },
+  smile: {
+    id: 'smile',
+    label: 'Friendly Smile',
+    emoji: '😊',
+    pitch: 1.18,
+    rate: 1.02,
+    blendshapes: {
+      happy: 0.55,
+      relaxed: 0.3,
+    },
+    headTilt: [-0.02, 0, 0.01],
+    description: 'Warm, pleasant smile welcoming learner input.',
+  },
+  encouraging: {
+    id: 'encouraging',
+    label: 'Encouraging & Inspiring',
+    emoji: '🌟',
+    pitch: 1.22,
+    rate: 1.04,
+    blendshapes: {
+      happy: 0.7,
+      relaxed: 0.35,
+    },
+    headTilt: [-0.02, 0, 0.02],
+    description: 'Affirmative, supportive encouragement to build learner confidence.',
+  },
+  speaking: {
+    id: 'speaking',
+    label: 'Teaching & Speaking',
+    emoji: '🗣️',
+    pitch: 1.16,
+    rate: 1.02,
+    blendshapes: {
+      happy: 0.3,
+      relaxed: 0.25,
+    },
+    headTilt: [-0.03, 0, 0],
+    description: 'Active speaking state with speech-synchronized viseme articulation.',
+  },
+  excited: {
+    id: 'excited',
+    label: 'Enthusiastic & Excited',
+    emoji: '🎉',
+    pitch: 1.32,
+    rate: 1.1,
+    blendshapes: {
+      happy: 0.85,
+      surprised: 0.25,
+    },
+    headTilt: [0.02, 0, -0.01],
+    description: 'High energy enthusiastic reaction to major breakthroughs.',
   },
 }
 

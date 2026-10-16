@@ -16,16 +16,20 @@ import { VRM, VRMUtils } from '@pixiv/three-vrm'
 
 export type AICharacterState =
   | 'idle'
+  | 'neutral'
+  | 'smile'
   | 'listening'
   | 'thinking'
   | 'speaking'
   | 'happy'
   | 'serious'
   | 'confused'
+  | 'encouraging'
   | 'surprised'
+  | 'concerned'
+  | 'excited'
   | 'celebrating'
   | 'explaining'
-  | 'concerned'
 
 export interface CharacterStateConfig {
   label: string
@@ -223,6 +227,70 @@ export const CHARACTER_STATES: Record<AICharacterState, CharacterStateConfig> = 
       leftArmX: 0.15,
       elbowFlex: 0.25,
     },
+  },
+  neutral: {
+    label: 'Calm & Poised',
+    blendshapes: {
+      neutral: 0.6,
+      relaxed: 0.2,
+    },
+    headRotation: [-0.02, 0, 0],
+    armPosture: {
+      rightArmZ: -1.22,
+      leftArmZ: 1.22,
+      rightArmX: 0.12,
+      leftArmX: 0.12,
+      elbowFlex: 0.22,
+    },
+  },
+  smile: {
+    label: 'Gentle Smile',
+    blendshapes: {
+      happy: 0.55,
+      relaxed: 0.35,
+    },
+    headRotation: [-0.02, 0, 0.01],
+    armPosture: {
+      rightArmZ: -1.2,
+      leftArmZ: 1.2,
+      rightArmX: 0.14,
+      leftArmX: 0.14,
+      elbowFlex: 0.25,
+    },
+  },
+  encouraging: {
+    label: 'Warm & Encouraging',
+    blendshapes: {
+      happy: 0.7,
+      relaxed: 0.35,
+    },
+    headRotation: [-0.02, 0, 0.02],
+    armPosture: {
+      rightArmZ: -1.2,
+      leftArmZ: 1.2,
+      rightArmX: 0.18,
+      leftArmX: 0.18,
+      elbowFlex: 0.3,
+    },
+    noddingSpeed: 2.6,
+    noddingAmp: 0.02,
+  },
+  excited: {
+    label: 'Enthusiastic & Excited',
+    blendshapes: {
+      happy: 0.88,
+      surprised: 0.28,
+    },
+    headRotation: [0.02, 0, -0.01],
+    armPosture: {
+      rightArmZ: -1.35,
+      leftArmZ: 1.35,
+      rightArmX: 0.28,
+      leftArmX: 0.28,
+      elbowFlex: 0.42,
+    },
+    noddingSpeed: 3.6,
+    noddingAmp: 0.025,
   },
 }
 
@@ -449,7 +517,7 @@ export class VRMCharacterController {
 
         // Camera tracking subtle parallax
         const camYaw = THREE.MathUtils.clamp(-cameraPos.x * 0.1, -0.15, 0.15)
-        const camPitch = THREE.MathUtils.clamp((cameraPos.y - 0.38) * 0.08, -0.1, 0.1)
+        const camPitch = THREE.MathUtils.clamp((cameraPos.y - 0.78) * 0.08, -0.1, 0.1)
 
         // Subtle lifelike idle drift
         const idleDriftX = Math.sin(t * 0.7) * 0.01
@@ -650,6 +718,18 @@ export class VRMCharacterController {
     // 7. Update VRM Runtime (Humanoid + Physics + Expressions + LookAt)
     // ──────────────────────────────────────────────
     this.vrm.update(dt)
+  }
+
+  public getHeadWorldPosition(out: THREE.Vector3): THREE.Vector3 {
+    if (this.vrm.humanoid) {
+      const head = this.vrm.humanoid.getNormalizedBoneNode('head') || this.vrm.humanoid.getRawBoneNode('head')
+      if (head) {
+        head.getWorldPosition(out)
+        return out
+      }
+    }
+    out.set(0, 0.82, 0)
+    return out
   }
 
   public dispose(): void {

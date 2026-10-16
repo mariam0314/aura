@@ -21,7 +21,7 @@ import VRMAvatarCanvas, { type VRMState } from './VRMAvatarCanvas'
 import { useLanguage } from '@/context/LanguageContext'
 import { useLearning } from '@/context/LearningContext'
 import type { EmotionType } from '@/lib/emotion-engine'
-import { speakAuraMentor, stopAuraMentor } from '@/lib/voice-config'
+import { speakAuraMentor, stopAuraMentor, unlockAudioEngine } from '@/lib/voice-config'
 
 interface FloatingVRMAssistantProps {
   forceVisible?: boolean
@@ -63,6 +63,7 @@ export default function FloatingVRMAssistant({ forceVisible = false }: FloatingV
   // Web Speech Synthesis (TTS) - Guaranteed Female Voice
   const speakText = (text: string) => {
     if (!soundEnabled) return
+    unlockAudioEngine()
 
     speakAuraMentor(text, {
       lang: getSpeechLang(),
@@ -135,6 +136,7 @@ export default function FloatingVRMAssistant({ forceVisible = false }: FloatingV
   }
 
   const handleAsk = async (queryText?: string) => {
+    unlockAudioEngine()
     const query = (queryText || inputText).trim()
     if (!query || isLoading) return
 
@@ -236,7 +238,7 @@ export default function FloatingVRMAssistant({ forceVisible = false }: FloatingV
           {!isMinimized && (
             <div className="p-3 space-y-3">
               {/* 3D VRM Canvas Window */}
-              <div className="relative w-full h-[220px] rounded-2xl overflow-hidden bg-gradient-to-b from-[#001f26] to-[#001015] border border-[#10b981]/20 shadow-inner">
+              <div className="relative w-full h-[300px] sm:h-[320px] rounded-2xl overflow-hidden bg-gradient-to-b from-[#001f26] to-[#001015] border border-[#10b981]/20 shadow-inner">
                 <VRMAvatarCanvas
                   mentorState={isSpeaking ? 'speaking' : isListening ? 'listening' : 'idle'}
                   emotion={mentorEmotion}

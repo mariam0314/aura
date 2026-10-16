@@ -1,29 +1,31 @@
 'use client'
 
-import { useState } from 'react'
-import HeroSection from '@/components/HeroSection'
-import DocumentProcessorSection from '@/components/DocumentProcessorSection'
-import SmartQuizFlashcardMatrix from '@/components/SmartQuizFlashcardMatrix'
-import ProgressGamificationSection from '@/components/ProgressGamificationSection'
-import FloatingVRMAssistant from '@/components/FloatingVRMAssistant'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/context/AuthContext'
 
-export default function HomePage() {
+export default function RootPage() {
+  const { isAuthenticated, isLoading } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (isAuthenticated) {
+        router.replace('/home')
+      } else {
+        router.replace('/login')
+      }
+    }
+  }, [isLoading, isAuthenticated, router])
+
   return (
-    <div className="min-h-screen bg-[#020b10] text-[#F6F8F9] selection:bg-emerald-500 selection:text-black">
-      {/* 1. Hero Section with Personalized Pedagogy & 3D Hologram VRM Studio */}
-      <HeroSection />
-
-      {/* 2. Document Processor Section for PDF, PPTX, DOCX */}
-      <DocumentProcessorSection />
-
-      {/* 3. Smart Quiz & Flashcard Matrix Section */}
-      <SmartQuizFlashcardMatrix />
-
-      {/* 4. Real-Time Gamification, XP, Streaks & Leaderboard */}
-      <ProgressGamificationSection />
-
-      {/* 5. Floating VRM Assistant (becomes active on scroll) */}
-      <FloatingVRMAssistant />
+    <div className="min-h-screen bg-[#020b10] flex items-center justify-center text-white">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-9 h-9 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+        <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
+          Entering AURA AI Platform...
+        </span>
+      </div>
     </div>
   )
 }

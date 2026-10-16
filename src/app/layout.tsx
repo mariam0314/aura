@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { AuthProvider } from '@/context/AuthContext'
 import { LearningProvider } from '@/context/LearningContext'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SpatialEnvironment from '@/components/ui/SpatialEnvironment'
@@ -35,13 +36,15 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className="min-h-dvh bg-[var(--aura-bg)] text-[var(--aura-text)] antialiased font-sans flex flex-col">
         <LanguageProvider>
-          <LearningProvider>
-            <SpatialEnvironment />
-            <CustomCursor />
-            <Navbar />
-            <main className="flex-1 pt-20">{children}</main>
-            <Footer />
-          </LearningProvider>
+          <AuthProvider>
+            <LearningProvider>
+              <SpatialEnvironment />
+              <CustomCursor />
+              <Navbar />
+              <main className="flex-1 pt-20">{children}</main>
+              <Footer />
+            </LearningProvider>
+          </AuthProvider>
         </LanguageProvider>
       </body>
     </html>

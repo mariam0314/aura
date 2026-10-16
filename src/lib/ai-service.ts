@@ -189,21 +189,47 @@ export function generateLocalAdaptiveResponse(req: AIMessageRequest): AIMessageR
       replyText = `Cloud & DevOps Architectural Patterns:\n\n• **Git Rebase**: Linearizes branch commit history by replaying topic commits on the upstream baseline.\n• **Docker Containers**: Standardized runtime artifacts isolating process namespaces and filesystem layers.\n• **AWS IAM Least Privilege**: Enforces granular resource-level policies and role assumption.`
     }
   }
-  // 5. General / Adaptive Query
-  else {
-    state = 'happy'
+  // 5. Recursion & Functions
+  else if (query.includes('recursion') || query.includes('recursive')) {
+    state = 'explaining'
     if (lang === 'hi') {
-      replyText = `"${req.prompt}" के बारे में:\n\nआपका लर्निंग प्रोफाइल सक्रिय रूप से ट्रैक किया जा रहा है। मैं आपकी सीखने की गति और ज्ञान के अनुसार व्यक्तिगत रूप से सिखाने के लिए तैयार हूँ।\n\nक्या आप एक सरल उदाहरण देखना चाहेंगे या 2-मिनट का त्वरित अभ्यास करना चाहेंगे?`
+      replyText = `रिकर्शन (Recursion) को आसानी से समझें:\n\nजब कोई फ़ंक्शन स्वयं को ही बार-बार कॉल करता है, तो उसे रिकर्शन कहते हैं।\n\nइसके दो मुख्य अंग होते हैं:\n1. **Base Case**: वह शर्त जहाँ रुकना होता है, वर्ना प्रोग्राम इनफिनिट लूप में फँस जाएगा।\n2. **Recursive Step**: जहाँ समस्या को छोटे टुकड़ों में बाँटकर फ़ंक्शन खुद को दोबारा कॉल करता है।\n\nउदाहरण: \`factorial(n) = n * factorial(n - 1)\` जहाँ Base Case है \`n <= 1\`।`
     } else if (lang === 'mr') {
-      replyText = `"${req.prompt}" बद्दल:\n\nतुमची शिकण्याची प्रोफाइल सक्रिय आहे. आपण सोप्या उदाहरणासह किंवा थेट सराव प्रश्नासह सुरुवात करू शकतो. तुम्हाला काय आवडेल?`
-    } else if (lang === 'ta') {
-      replyText = `"${req.prompt}" பற்றிய வழிகாட்டல்:\n\nஉங்கள் கற்றல் சுயவிவரம் கண்காணிக்கப்படுகிறது. எளிய கதைகள் அல்லது நேரடி குறியீடு பயிற்சிகள் மூலம் இதை எளிதாக கற்கலாம்.`
-    } else if (lang === 'ur') {
-      replyText = `"${req.prompt}" کے بارے میں:\n\nآپ کا لرننگ پروفائل فعال ہے۔ کیا آپ ایک سادہ مثال دیکھنا چاہیں گے یا فوری پریکٹس شروع کرنا چاہیں گے؟`
+      replyText = `रिकर्शन (Recursion) सोप्या भाषेत समजून घेऊया:\n\nजेव्हा एखादा फंक्शन स्वतःलाच पुन्हा पुन्हा कॉल करतो, तेव्हा त्याला रिकर्शन म्हणतात.\n\nयाचे दोन महत्त्वाचे भाग आहेत:\n१. **Base Case**: फंक्शन थांबण्याची मुख्य अट (ज्यामुळे इनफिनिट लूप टाळता येतो).\n२. **Recursive Step**: मूळ समस्या छोट्या भागात रूपांतरित करून पुन्हा कॉल करणे.\n\nउदा: फॅक्टोरियल \`factorial(n) = n * factorial(n - 1)\`.`
     } else if (isGenZ && lang === 'en') {
-      replyText = `I got you! For "${req.prompt}" — let's break this down step-by-step.\n\nInstead of just dumping a huge paragraph, I'm tracking your learning profile so we target your exact weak spots and make sure you retain it.\n\nWould you like to:\n1. 📖 Break it down with a simple visual story?\n2. ⚡ Take a fast 2-minute diagnostic quiz to check your baseline?\n3. 🛠️ Jump into clean code examples?`
+      replyText = `Recursion is basically Russian nesting dolls in code 🪆\n\nA function keeps calling itself until it hits the **Base Case** (the exit door). If you forget the base case, congrats, you just caused a Stack Overflow 💀\n\n\`\`\`javascript\nfunction countdown(n) {\n  if (n <= 0) return console.log("Blast off! 🔥"); // Base Case\n  console.log(n);\n  countdown(n - 1); // Recursive call\n}\n\`\`\`\nAlways remember: Base Case first, or your call stack is cooked fr!`
     } else {
-      replyText = `Analysis of "${req.prompt}" within AURA Adaptive Pedagogy Framework:\n\nYour learning profile is actively tracked. This module dynamically shifts explanations between First-Principles derivation, visual diagrams, and targeted practice.\n\nDiagnostic assessment available to benchmark current conceptual understanding.`
+      replyText = `Recursion in Computer Science:\n\nA computational technique where a function solves a problem by invoking smaller instances of itself on the call stack.\n\nCritical components:\n1. **Base Case**: Terminal condition that halts recursion and prevents stack overflow.\n2. **Recursive Case**: Sub-problem reduction that progresses monotonically toward the base case.\n\nComplexity: Often O(N) auxiliary space on the call stack unless optimized via Tail-Call Optimization (TCO).`
+    }
+  }
+  // 6. Algorithms & Time Complexity
+  else if (query.includes('algorithm') || query.includes('complexity') || query.includes('big o') || query.includes('sorting')) {
+    state = 'explaining'
+    if (lang === 'hi') {
+      replyText = `एल्गोरिदम (Algorithm) और टाइम कॉम्प्लेक्सिटी:\n\nएल्गोरिदम किसी समस्या को हल करने के लिए चरण-दर-चरण (step-by-step) निर्देशों का समूह है।\n\n**Big-O Notation** बताता है कि इनपुट बढ़ने पर एल्गोरिदम का समय कैसे बढ़ता है:\n• **O(1)**: सबसे तेज़ (Constant Time)\n• **O(log N)**: बहुत तेज़, जैसे बाइनरी सर्च (Binary Search)\n• **O(N)**: लीनियर टाइम (Linear Time)\n• **O(N log N)**: सर्वश्रेष्ठ सॉर्टिंग जैसे Merge Sort / Quick Sort\n• **O(N^2)**: धीमा, जैसे Bubble Sort`
+    } else if (lang === 'mr') {
+      replyText = `अल्गोरिदम आणि वेळ जटिलता (Time Complexity):\n\nअल्गोरिदम म्हणजे कोणतीही संगणकीय समस्या टप्प्याटप्प्याने सोडवण्याची पद्धत.\n\n**Big-O Notation** द्वारे आपण गती मोजतो:\n• **O(1)**: स्थिर वेळ (सर्वात जलद)\n• **O(log N)**: बायनरी सर्चसारखा अत्यंत कार्यक्षम मार्ग\n• **O(N)**: रेषीय वेळ\n• **O(N log N)**: मर्च सॉर्ट आणि क्विक सॉर्ट\n• **O(N^2)**: बबल सॉर्ट (हळूवार)`
+    } else if (isGenZ && lang === 'en') {
+      replyText = `Algorithms are literally just the recipe steps your code follows 📜\n\nAnd **Big-O** tells you if your code runs like a supercar or crashes your CPU:\n\n• **O(1)**: Instant (accessing array by index \`arr[0]\`). Absolute W.\n• **O(log N)**: S-tier scaling (Binary Search cutting the list in half each time).\n• **O(N)**: Standard loop over N items. Solid.\n• **O(N log N)**: The gold standard for sorting (Merge Sort).\n• **O(N²)**: Nested loops inside nested loops. Avoid this on big data or your server will be crying 😭`
+    } else {
+      replyText = `Algorithm Design & Asymptotic Complexity Analysis:\n\nAn algorithm is an unambiguous sequence of computational specifications that transforms inputs into outputs in finite time.\n\nAsymptotic bounds (Big-O, Omega, Theta) characterize computational growth rates:\n• O(1): Constant time operations.\n• O(log N): Divide-and-conquer search algorithms.\n• O(N log N): Information-theoretic optimal comparison sorts (Merge/Heap Sort).\n• O(N²): Quadratic nested iterations requiring optimization.`
+    }
+  }
+  // 7. General / Adaptive Query
+  else {
+    state = 'explaining'
+    if (lang === 'hi') {
+      replyText = `"${req.prompt}" के बारे में:\n\nयह एक अत्यंत महत्वपूर्ण विषय है। आइए इसे व्यावहारिक दृष्टिकोण से समझें:\n\n1. **मूल अवधारणा**: इस विषय का मुख्य उद्देश्य वास्तविक जीवन की समस्याओं को तार्किक और व्यवस्थित ढंग से हल करना है।\n2. **मुख्य लाभ**: यह प्रदर्शन में सुधार करता है, त्रुटियों को कम करता है और कोड या सिस्टम को अधिक मजबूत बनाता है।\n3. **सीखने का अगला कदम**: आइए इसके व्यावहारिक उपयोग और वास्तविक उदाहरणों पर चर्चा करें।\n\nआप इस विषय में क्या अधिक विस्तार से जानना चाहते हैं?`
+    } else if (lang === 'mr') {
+      replyText = `"${req.prompt}" बद्दल सविस्तर माहिती:\n\nहा विषय समजून घेण्यासाठी खालील महत्त्वाचे मुद्दे लक्षात ठेवा:\n\n१. **मूळ संकल्पना**: कार्यक्षम आणि विश्वासार्ह निकाल मिळवणे हे याचे मुख्य ध्येय आहे.\n२. **व्यावहारिक उपयोग**: वास्तविक प्रकल्पांमध्ये त्रुटी कमी करणे आणि गती वाढवणे.\n३. **सराव**: या संकल्पनेवर आधारित प्रत्यक्ष उदाहरणे समजून घेतल्यास हा विषय सहज आत्मसात होतो.\n\nयातील कोणत्या भागावर अधिक भर द्यायचा आहे?`
+    } else if (lang === 'ta') {
+      replyText = `"${req.prompt}" பற்றிய தெளிவான விளக்கம்:\n\n1. **முக்கிய கருத்து**: சிக்கல்களை எளிமையாகவும் முறையாகவும் தீர்க்க இது பயன்படுகிறது.\n2. **பயன்பாடு**: கணினி செயல்திறனை அதிகரிக்கவும் பிழைகளைக் குறைக்கவும் உதவுகிறது.\n3. **அடுத்த படி**: நடைமுறை உதாரணங்கள் மூலம் இதை மேலும் ஆழமாக பயிலலாம்.`
+    } else if (lang === 'ur') {
+      replyText = `"${req.prompt}" کے بارے میں تفصیلی وضاحت:\n\n1. **بنیادی تصور**: یہ کسی بھی پیچیدہ مسئلے کو باقاعدہ اور منطقی طریقے سے حل کرنے میں مدد کرتا ہے۔\n2. **اہم فوائد**: یہ نظام کی کارکردگی کو بہتر بناتا ہے اور غلطیوں کو کم کرتا ہے۔\n3. **اگلا مرحلہ**: آئیے اس کی عملی مثالوں کے ذریعے مشق شروع کرتے ہیں۔`
+    } else if (isGenZ && lang === 'en') {
+      replyText = `Okayyy, let's break down "${req.prompt}" real quick so it actually makes sense 🔥\n\n1. **The Core Concept**: At its core, this is all about solving a specific bottleneck in the cleanest, most scalable way possible.\n2. **Why It Matters**: Without this, systems break down under real-world load, and debugging becomes a total headache.\n3. **How To Master It**: Connect the theory to actual code patterns, test the edge cases, and lock in the fundamentals.\n\nWhat specific part of this do you want to dive into first? I'm ready when you are!`
+    } else {
+      replyText = `Pedagogical Analysis of "${req.prompt}":\n\n1. **Fundamental Principle**: This domain establishes architectural foundations and operational methodologies designed to maintain system reliability, determinism, and scalability.\n2. **Production Application**: Implements standard industry patterns to minimize latency, prevent state drift, and handle edge cases gracefully.\n3. **Next Steps**: Recommended progression involves verifying theoretical bounds followed by targeted hands-on implementation.\n\nWhich aspect would you like to explore first?`
     }
   }
 

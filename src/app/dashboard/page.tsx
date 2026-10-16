@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import {
@@ -39,6 +39,8 @@ import SmartQuizFlashcardMatrix from '@/components/SmartQuizFlashcardMatrix'
 import ProgressGamificationSection from '@/components/ProgressGamificationSection'
 import { useLanguage } from '@/context/LanguageContext'
 import { useLearning } from '@/context/LearningContext'
+import { useAuth } from '@/context/AuthContext'
+import { useRouter } from 'next/navigation'
 import type { EmotionType } from '@/lib/emotion-engine'
 import { speakAuraMentor } from '@/lib/voice-config'
 
@@ -63,6 +65,8 @@ interface DocumentRecord {
 }
 
 export default function StudentWorkspacePage() {
+  const router = useRouter()
+  const { user, isAuthenticated, isLoading } = useAuth()
   const { lang, setLang, t, getSpeechLang } = useLanguage()
   const { currentXP, streakDays, quizAccuracy, topics, roadmap } = useLearning()
 
@@ -75,6 +79,46 @@ export default function StudentWorkspacePage() {
   const [chatInput, setChatInput] = useState('')
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [isChatLoading, setIsChatLoading] = useState(false)
+
+  // Redirect if unauthenticated
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push('/login')
+    }
+  }, [isLoading, isAuthenticated, router])
+
+  // Multilingual dynamic greeting
+  useEffect(() => {
+    const greetings: Record<string, string> = {
+      en: 'Welcome to your AURA Student Workspace! You have a 7-day streak active. What concept should we tackle today?',
+      hi: 'ऑरा स्टूडेंट वर्कस्पेस में आपका स्वागत है! आपकी 7-दिवसीय स्ट्रीक सक्रिय है। आज हम क्या सीखेंगे?',
+      mr: 'ऑरा विद्यार्थी कार्यक्षेत्रात तुमचे स्वागत आहे! तुमची ७ दिवसांची स्ट्रीक सक्रिय आहे. आज आपण कोणता विषय शिकणार आहोत?',
+      gu: 'તમારા ઔરા સ્ટુડન્ટ વર્કસ્પેસમાં સ્વાગત છે! તમારી 7-દિવસની સ્ટ્રીક સક્રિય છે. આજે આપણે શું શીખીશું?',
+      ta: 'உங்கள் ஆரா மாணவர் பணியிடத்திற்கு வரவேற்கிறோம்! 7-நாள் ஸ்ட்ரீக் செயலில் உள்ளது. இன்று நாம் என்ன கற்கலாம்?',
+      te: 'మీ ఔరా స్టూడెంట్ వర్క్‌స్పేస్‌కి స్వాగతం! మీ 7-రోజుల స్ట్రీక్ యాక్టివ్‌గా ఉంది. ఈరోజు మనం ఏమి నేర్చుకుందాం?',
+      bn: 'আপনার অরা স্টুডেন্ট ওয়ার্কস্পেসে স্বাগতম! আপনার ৭ দিনের স্ট্রিক সক্রিয় আছে। আজ আমরা কী শিখব?',
+      kn: 'ನಿಮ್ಮ ಔರಾ ವಿದ್ಯಾರ್ಥಿ ಕಾರ್ಯಸ್ಥಳಕ್ಕೆ ಸುಸ್ವಾಗತ! ನಿಮ್ಮ 7-ದಿನಗಳ ಸ್ಟ್ರೀಕ್ ಸಕ್ರಿಯವಾಗಿದೆ. ಇಂದು ನಾವು ಏನು ಕಲಿಯೋಣ?',
+      ml: 'നിങ്ങളുടെ ഓറ സ്റ്റുഡന്റ് വർക്ക്‌സ്‌പേസിലേക്ക് സ്വാഗതം! 7 ദിവസത്തെ സ്ട്രീക്ക് സജീവമാണ്. ഇന്ന് നമ്മൾ എന്താണ് പഠിക്കാൻ പോകുന്നത്?',
+      pa: 'ਤੁਹਾਡੇ ਔਰਾ ਸਟੂਡੈਂਟ ਵਰਕਸਪੇਸ ਵਿੱਚ ਜੀ ਆਇਆਂ ਨੂੰ! ਤੁਹਾਡੀ 7-ਦਿਨਾਂ ਦੀ ਸਟ੍ਰੀਕ ਸਰਗਰਮ ਹੈ। ਅੱਜ ਅਸੀਂ ਕੀ ਸਿੱਖਾਂਗੇ?',
+      ur: 'آپ کے اورا اسٹوڈنٹ ورک اسپیس میں خوش آمدید! آپ کی 7 دن کی اسٹریک فعال ہے۔ آج ہم کیا سیکھیں گے؟',
+    }
+    setMentorSpeech(greetings[lang] || greetings.en)
+  }, [lang])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#020b10] flex items-center justify-center text-white">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
+            Loading Workspace...
+          </span>
+        </div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) return null
 
   // Document format data table (shown in Frame 10s)
   const [documentRecords, setDocumentRecords] = useState<DocumentRecord[]>([
@@ -461,7 +505,7 @@ export default function StudentWorkspacePage() {
                 </div>
 
                 {/* 3D Canvas Box */}
-                <div className="relative w-full h-[300px] rounded-2xl overflow-hidden bg-gradient-to-b from-[#001c24] to-[#000f14] border border-emerald-500/20">
+                <div className="relative w-full h-[360px] sm:h-[400px] rounded-2xl overflow-hidden bg-gradient-to-b from-[#001c24] to-[#000f14] border border-emerald-500/20">
                   <VRMAvatarCanvas
                     mentorState={isSpeaking ? 'speaking' : 'idle'}
                     emotion={mentorEmotion}
